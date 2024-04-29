@@ -1,0 +1,54 @@
+{
+  "id": "swyvers",
+  "title": "Swyvers",
+  "description": "The Swyvers system for FoundryVTT!",
+  "authors": [
+    {
+      "name": "Cussa Mitre",
+      "url": "https://github.com/Cussa",
+      "discord": "CussaMitre"
+    }
+  ],
+  "url": "https://github.com/Cussa/fvtt-swyvers",
+  "license": "LICENSE",
+  "readme": "README.md",
+  "bugs": "https://github.com/Cussa/fvtt-swyvers/issues",
+  "changelog": "https://github.com/Cussa/fvtt-swyvers/releases",
+  "media": [
+    {
+      "type": "setup",
+      "url": "systems/swyvers/assets/anvil-impact.png",
+      "thumbnail": "systems/swyvers/assets/anvil-impact.png"
+    }
+  ],
+  "version": "0.0.1",
+  "compatibility": {
+    "minimum": 11,
+    "verified": "11.315"
+  },
+  "esmodules": ["module/swyvers.mjs"],
+  "styles": ["css/swyvers.css"],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    }
+  ],
+  "packs": [],
+  "packFolders": [],
+  "socket": false,
+  "manifest": "https://github.com/cussa/fvtt-swyvers/releases/download/latest/module.json",
+  "download": "https://github.com/cussa/fvtt-swyvers/releases/download/latest/module.zip",
+  "background": "systems/swyvers/assets/anvil-impact.png",
+  "gridDistance": 5,
+  "gridUnits": "ft",
+  "primaryTokenAttribute": "health",
+  "secondaryTokenAttribute": "power",
+  "flags": {
+    "hotReload": {
+      "extensions": ["css", "hbs", "json"],
+      "paths": ["lang", "css", "templates"]
+    }
+  }
+}

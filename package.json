@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "@foundryvtt/foundryvtt-cli": "^1.0.2"
+  },
+  "devDependencies": {
+    "sass": "^1.74.1"
+  }
+}
