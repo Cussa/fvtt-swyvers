@@ -1,0 +1,103 @@
+<form class="{{cssClass}}" autocomplete="off">
+  <header class="sheet-header">
+    <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" />
+    <div class="header-fields">
+      <label class="resource-label">Weapon</label>
+      <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Name" /></h1>
+      <div class="grid grid-4col">
+        <div class="grid-span-1">
+          <div class="resource-label aside">{{localize "SWYVERS.Weapon.Quality.Label"}}</div>
+          <select name="system.quality">
+            {{selectOptions weaponQuality selected=system.quality localize=true}}</select>
+        </div>
+        <div class="grid-span-1">
+          <label class="resource-label">{{localize "SWYVERS.Damage"}}</label>
+          <input type="text" name="system.damage" value="{{system.damage}}" data-dtype="String" />
+        </div>
+        <div class="grid-span-1">
+          <label class="resource-label">{{localize "SWYVERS.Defense"}}</label>
+          <input type="text" name="system.defense" value="{{system.defense}}" data-dtype="Number" />
+        </div>
+        <div class="grid-span-1">
+          <label class="resource-label">{{localize "SWYVERS.Currency.Price"}}</label>
+          <input type="text" name="priceInfo" value="{{priceInfo}}" data-dtype="String" />
+        </div>
+      </div>
+    </div>
+  </header>
+
+  {{!-- Sheet Tab Navigation --}}
+  <nav class="sheet-tabs tabs" data-group="primary">
+    <a class="item" data-tab="attributes">Attributes</a>
+    <a class="item" data-tab="description">Description</a>
+  </nav>
+
+  {{!-- Sheet Body --}}
+  <section class="sheet-body">
+
+
+    {{!-- Attributes Tab --}}
+    <div class="tab attributes" data-group="primary" data-tab="attributes">
+      {{!-- As you add new fields, add them in here! --}}
+      <div class="resource">
+        <div class="grid grid-3col">
+          <div class="grid-span-1">
+            <label class="resource-label aside">{{localize "SWYVERS.Weapon.Length.Label"}} </label>
+            <select name="system.length">
+              {{selectOptions weaponLength selected=system.length localize=true}}</select>
+          </div>
+          <div class="grid-span-1">
+            {{radioBoxes hands.groupName hands.choices checked=hands.selected localize=true}}
+          </div>
+          <div class="grid-span-1">
+            <label class="resource-label">{{localize "SWYVERS.Weapon.AmmoType.Label"}}</label>
+            <select name="system.ammoType">
+              {{selectOptions weaponAmmoType selected=system.ammoType localize=true}}</select>
+          </div>
+          <div class="grid-span-1">
+            <input type="checkbox" name="system.belt" {{checked system.belt}}>
+            <label class="resource-label">{{localize "SWYVERS.Weapon.Belt"}}</label>
+          </div>
+          <div class="grid-span-1">
+            <input type="checkbox" name="system.canStack" {{checked system.canStack}}>
+            <label class="resource-label">{{localize "SWYVERS.Items.CanStack"}}</label>
+          </div>
+
+
+          <div class="grid-span-1">
+            <input type="checkbox" name="system.set" {{checked system.set}}>
+            <label class="resource-label">{{localize "SWYVERS.Weapon.Set"}}</label>
+          </div>
+          <div class="grid-span-1">
+            <input type="checkbox" name="system.reach" {{checked system.reach}}>
+            <label class="resource-label">{{localize "SWYVERS.Weapon.Reach"}}</label>
+          </div>
+          <div class="grid-span-1">
+            <input type="checkbox" name="system.halfswording" {{checked system.halfswording}}>
+            <label class="resource-label">{{localize "SWYVERS.Weapon.Halfswording"}}</label>
+          </div>
+          <div class="grid-span-1">
+            <input type="checkbox" name="system.armourPiercing" {{checked system.armourPiercing}}>
+            <label class="resource-label">{{localize "SWYVERS.Weapon.ArmourPiercing"}}</label>
+          </div>
+          <div class="grid-span-1">
+            <input type="checkbox" name="system.thrust" {{checked system.thrust}}>
+            <label class="resource-label">{{localize "SWYVERS.Weapon.Thrust"}}</label>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+    {{!-- Description Tab --}}
+    <div class="tab" data-group="primary" data-tab="description">
+      {{!-- To render inline rolls in a TinyMCE editor, you need to pass the parent actor's (if any) roll data to the
+      rollData prop. --}}
+      {{editor system.description target="system.description" rollData=rollData button=true owner=owner
+      editable=editable}}
+    </div>
+  </section>
+</form>
+
+{{log system}}

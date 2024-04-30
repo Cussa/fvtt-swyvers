@@ -6,9 +6,10 @@ import { SwyversActorSheet } from './sheets/actor-sheet.mjs';
 import { SwyversItemSheet } from './sheets/item-sheet.mjs';
 // Import helper/utility classes and constants.
 import { preloadHandlebarsTemplates } from './helpers/templates.mjs';
-import { SWYVERS } from './helpers/config.mjs';
+import { SWYVERS } from './config/swyvers.mjs';
 // Import DataModel classes
 import * as models from './data/_module.mjs';
+import { SwyversWeaponSheet } from './sheets/weapon-sheet.mjs';
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
@@ -49,7 +50,8 @@ Hooks.once('init', function () {
   CONFIG.Item.dataModels = {
     item: models.SwyversItem,
     feature: models.SwyversFeature,
-    spell: models.SwyversSpell
+    spell: models.SwyversSpell,
+    weapon: models.SwyversWeapon
   }
 
   // Active Effects are never copied to the Actor,
@@ -64,9 +66,16 @@ Hooks.once('init', function () {
     label: 'SWYVERS.SheetLabels.Actor',
   });
   Items.unregisterSheet('core', ItemSheet);
+
   Items.registerSheet('swyvers', SwyversItemSheet, {
+    type: ["item", "spell"],
     makeDefault: true,
     label: 'SWYVERS.SheetLabels.Item',
+  });
+  Items.registerSheet('swyvers', SwyversWeaponSheet, {
+    type: ["weapon"],
+    makeDefault: true,
+    label: 'SWYVERS.SheetLabels.Weapon',
   });
 
   // Preload Handlebars templates.

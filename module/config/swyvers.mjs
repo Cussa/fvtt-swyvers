@@ -1,4 +1,8 @@
-export const SWYVERS = {};
+import * as WEAPON from "./weapon.mjs";
+
+export const SWYVERS = {
+  WEAPON
+}
 
 /**
  * The set of Ability Scores used within the system.

@@ -18,7 +18,7 @@ export class SwyversItemSheet extends ItemSheet {
         {
           navSelector: '.sheet-tabs',
           contentSelector: '.sheet-body',
-          initial: 'description',
+          initial: 'attributes',
         },
       ],
     });
@@ -55,7 +55,23 @@ export class SwyversItemSheet extends ItemSheet {
     // Prepare active effects for easier access
     context.effects = prepareActiveEffectCategories(this.item.effects);
 
+    let priceInfo = [];
+    if (context.system.price.pound > 0)
+      priceInfo.push(`L${context.system.price.pound}`);
+    if (context.system.price.shilling > 0)
+      priceInfo.push(`${context.system.price.shilling}s`);
+    if (context.system.price.pence > 0)
+      priceInfo.push(`${context.system.price.pence}d`);
+
+    context.priceInfo = priceInfo.join(" ");
+
+    this._prepareData(context);
+
+    console.log(context);
     return context;
+  }
+
+  _prepareData(context) {
   }
 
   /* -------------------------------------------- */
@@ -73,5 +89,40 @@ export class SwyversItemSheet extends ItemSheet {
     html.on('click', '.effect-control', (ev) =>
       onManageActiveEffect(ev, this.item)
     );
+  }
+
+  // Convert CATEGORIES({id: "id", label: "label"}) to a selectOptions-compatible object
+  _labelOptions(categories) {
+    const returnObject = Object.keys(categories).reduce((result, key) => {
+      result[key] = categories[key].label;
+      return result;
+    }, {});
+    return returnObject;
+  }
+
+  _getSubmitData(updateData = {}) {
+    const data = super._getSubmitData(updateData);
+    // Prevent submitting overridden values
+    // const overrides = foundry.utils.flattenObject(this.actor.overrides);
+    // for ( let k of Object.keys(overrides) ) {
+    //   if ( k.startsWith("system.") ) delete data[`data.${k.slice(7)}`]; // Band-aid for < v10 data
+    //   delete data[k];
+    // }
+    const priceData = data.priceInfo.split(" ");
+    data["system.price.pound"] = 0;
+    data["system.price.shilling"] = 0;
+    data["system.price.pence"] = 0;
+    priceData.forEach(element => {
+      if (element.startsWith("L"))
+        data["system.price.pound"] = parseInt(element.replace("L", ""));
+      else if (element.endsWith("s"))
+        data["system.price.shilling"] = parseInt(element.replace("s", ""));
+      else if (element.endsWith("d"))
+        data["system.price.pence"] = parseInt(element.replace("d", ""));
+      else
+        console.warn("Wrong price info");
+    });
+    console.log(data);
+    return data;
   }
 }

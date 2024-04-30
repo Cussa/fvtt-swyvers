@@ -9,7 +9,8 @@
     "types": [
       "item",
       "feature",
-      "spell"
+      "spell",
+      "weapon"
     ]
   }
 }

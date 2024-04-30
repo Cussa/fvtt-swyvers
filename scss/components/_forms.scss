@@ -53,3 +53,13 @@
     padding: 0 8px;
   }
 }
+
+select{
+  width: calc(100% - 2px);
+}
+
+label.checkbox{
+  width: calc(100% - 2px);
+  display: block;
+  font: var(--font-size-14);
+}

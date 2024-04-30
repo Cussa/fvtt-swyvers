@@ -1,16 +1,35 @@
 {
   "SWYVERS": {
     "Ability": {
-      "Str": { "long": "Strength", "abbr": "str" },
-      "Con": { "long": "Constitution", "abbr": "con" },
-      "Dex": { "long": "Dexterity", "abbr": "dex" },
-      "Int": { "long": "Intelligence", "abbr": "int" },
-      "Wis": { "long": "Wisdom", "abbr": "wis" },
-      "Cha": { "long": "Charisma", "abbr": "cha" }
+      "Str": {
+        "long": "Strength",
+        "abbr": "str"
+      },
+      "Con": {
+        "long": "Constitution",
+        "abbr": "con"
+      },
+      "Dex": {
+        "long": "Dexterity",
+        "abbr": "dex"
+      },
+      "Int": {
+        "long": "Intelligence",
+        "abbr": "int"
+      },
+      "Wis": {
+        "long": "Wisdom",
+        "abbr": "wis"
+      },
+      "Cha": {
+        "long": "Charisma",
+        "abbr": "cha"
+      }
     },
     "SheetLabels": {
       "Actor": "Swyvers Actor Sheet",
-      "Item": "Swyvers Item Sheet"
+      "Item": "Swyvers Item Sheet",
+      "Weapon": "Swyvers Weapon Sheet"
     },
     "Item": {
       "Spell": {
@@ -24,9 +43,51 @@
       "Temporary": "Temporary Effects",
       "Passive": "Passive Effects",
       "Inactive": "Inactive Effects"
+    },
+    "Items": {
+      "CanStack": "Can Stack?",
+      "Quality": "Quality",
+      "Quantity": "Quantity",
+      "Slots": "Slots"
+    },
+    "Weapon": {
+      "Length": {
+        "Label": "Length",
+        "Short": "Short",
+        "Medium": "Medium",
+        "Long": "Long"
+      },
+      "Quality": {
+        "Label": "Quality",
+        "Ropey": "Ropey",
+        "Decent": "Decent",
+        "Mint": "Mint"
+      },
+      "AmmoType": {
+        "Label": "Ammo Type",
+        "None": "None",
+        "Arrow": "Arrow",
+        "Bullet": "Bullet"
+      },
+      "ArmourPiercing": "Armour Piercing",
+      "Belt": "Belt",
+      "Halfswording": "Halfswording",
+      "Reach": "Reach",
+      "Set": "Set",
+      "Thrust": "Thrust",
+      "OneHand": "One Hand",
+      "TwoHands": "Two Hands"
+    },
+    "Damage": "Damage",
+    "Defense": "Defense",
+    "Description": "Description",
+    "Currency": {
+      "Pound": "Pound",
+      "Shilling": "Shilling",
+      "Pence": "Pence",
+      "Price": "Price"
     }
   },
-
   "TYPES": {
     "Actor": {
       "character": "Character",
@@ -35,7 +96,8 @@
     "Item": {
       "item": "Item",
       "feature": "Feature",
-      "spell": "Spell"
+      "spell": "Spell",
+      "weapon": "Weapon"
     }
   }
 }
