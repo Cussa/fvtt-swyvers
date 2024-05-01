@@ -1,6 +1,8 @@
 import * as WEAPON from "./weapon.mjs";
+import * as ARMOUR from "./armour.mjs";
 
 export const SWYVERS = {
+  ARMOUR,
   WEAPON
 }
 

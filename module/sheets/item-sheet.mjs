@@ -108,11 +108,11 @@ export class SwyversItemSheet extends ItemSheet {
     //   if ( k.startsWith("system.") ) delete data[`data.${k.slice(7)}`]; // Band-aid for < v10 data
     //   delete data[k];
     // }
-    const priceData = data.priceInfo.split(" ");
+    const priceData = data.priceInfo?.split(" ").filter(i => i);
     data["system.price.pound"] = 0;
     data["system.price.shilling"] = 0;
     data["system.price.pence"] = 0;
-    priceData.forEach(element => {
+    priceData?.forEach(element => {
       if (element.startsWith("L"))
         data["system.price.pound"] = parseInt(element.replace("L", ""));
       else if (element.endsWith("s"))
@@ -120,7 +120,7 @@ export class SwyversItemSheet extends ItemSheet {
       else if (element.endsWith("d"))
         data["system.price.pence"] = parseInt(element.replace("d", ""));
       else
-        console.warn("Wrong price info");
+        console.warn("Wrong price info", priceData);
     });
     console.log(data);
     return data;

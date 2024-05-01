@@ -58,7 +58,6 @@
         "Long": "Long"
       },
       "Quality": {
-        "Label": "Quality",
         "Ropey": "Ropey",
         "Decent": "Decent",
         "Mint": "Mint"
@@ -79,7 +78,26 @@
       "TwoHands": "Two Hands",
       "Label": "Weapon"
     },
+    "Armour": {
+      "Label": "Armour",
+      "Broken": "Broken",
+      "Quality": {
+        "Patchwork": "Patchwork",
+        "Decent": "Decent",
+        "Swank": "Swank"
+      },
+      "Type":{
+        "Label": "Armour type",
+        "Light": "Light Armour",
+        "Medium": "Medium Armour",
+        "Heavy": "Heavy Armour",
+        "Shield": "Shield",
+        "Helmet": "Helmet"
+      }
+    },
+    "Quality": "Quality",
     "Damage": "Damage",
+    "DamageSoak": "Damage Soak",
     "Defense": "Defense",
     "Description": "Description",
     "Currency": {
@@ -98,7 +116,8 @@
       "item": "Item",
       "feature": "Feature",
       "spell": "Spell",
-      "weapon": "Weapon"
+      "weapon": "Weapon",
+      "armour": "Armour"
     }
   }
 }

@@ -10,6 +10,7 @@ import { SWYVERS } from './config/swyvers.mjs';
 // Import DataModel classes
 import * as models from './data/_module.mjs';
 import { SwyversWeaponSheet } from './sheets/weapon-sheet.mjs';
+import { SwyversArmourSheet } from './sheets/armour-sheet.mjs';
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
@@ -51,7 +52,8 @@ Hooks.once('init', function () {
     item: models.SwyversItem,
     feature: models.SwyversFeature,
     spell: models.SwyversSpell,
-    weapon: models.SwyversWeapon
+    weapon: models.SwyversWeapon,
+    armour: models.SwyversArmour
   }
 
   // Active Effects are never copied to the Actor,
@@ -68,12 +70,17 @@ Hooks.once('init', function () {
   Items.unregisterSheet('core', ItemSheet);
 
   Items.registerSheet('swyvers', SwyversItemSheet, {
-    type: ["item", "spell"],
+    types: ["item", "spell"],
     makeDefault: true,
     label: 'SWYVERS.SheetLabels.Item',
   });
+  Items.registerSheet('swyvers', SwyversArmourSheet, {
+    types: ["armour"],
+    makeDefault: true,
+    label: 'SWYVERS.SheetLabels.Armour',
+  });
   Items.registerSheet('swyvers', SwyversWeaponSheet, {
-    type: ["weapon"],
+    types: ["weapon"],
     makeDefault: true,
     label: 'SWYVERS.SheetLabels.Weapon',
   });

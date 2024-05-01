@@ -2,25 +2,32 @@
   <header class="sheet-header">
     <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" />
     <div class="header-fields">
-      <label class="resource-label">{{localize "SWYVERS.Weapon.Label"}}</label>
+      <label class="resource-label">{{localize "SWYVERS.Armour.Label"}}</label>
       <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Name" /></h1>
-      <div class="grid grid-4col">
+      <div class="grid grid-3col">
+        <div class="grid-span-2">
+          <div class="resource-label aside">{{localize "SWYVERS.Armour.Type.Label"}}</div>
+          <select name="system.type">
+            {{selectOptions armourType selected=system.type localize=true}}</select>
+        </div>
         <div class="grid-span-1">
           <div class="resource-label aside">{{localize "SWYVERS.Quality"}}</div>
           <select name="system.quality">
-            {{selectOptions weaponQuality selected=system.quality localize=true}}</select>
+            {{selectOptions armourQuality selected=system.quality localize=true}}</select>
         </div>
         <div class="grid-span-1">
-          <label class="resource-label">{{localize "SWYVERS.Damage"}}</label>
-          <input type="text" name="system.damage" value="{{system.damage}}" data-dtype="String" />
-        </div>
-        <div class="grid-span-1">
-          <label class="resource-label">{{localize "SWYVERS.Defense"}}</label>
-          <input type="text" name="system.defense" value="{{system.defense}}" data-dtype="Number" />
+          <label class="resource-label">{{localize "SWYVERS.DamageSoak"}}</label>
+          <input type="text" name="system.damageSoak" value="{{system.damageSoak}}" data-dtype="String" />
         </div>
         <div class="grid-span-1">
           <label class="resource-label">{{localize "SWYVERS.Currency.Price"}}</label>
           <input type="text" name="priceInfo" value="{{priceInfo}}" data-dtype="String" />
+        </div>
+        <div class="grid-span-1">
+          <input type="checkbox" name="system.broken" {{checked system.broken}}>
+          <label class="resource-label">{{localize "SWYVERS.Armour.Broken"}}</label>
+          {{!-- <label class="resource-label">{{localize "SWYVERS.Currency.Price"}}</label>
+          <input type="text" name="priceInfo" value="{{priceInfo}}" data-dtype="String" /> --}}
         </div>
       </div>
     </div>
@@ -39,7 +46,7 @@
     {{!-- Attributes Tab --}}
     <div class="tab attributes" data-group="primary" data-tab="attributes">
       {{!-- As you add new fields, add them in here! --}}
-      <div class="resource">
+      {{!-- <div class="resource">
         <div class="grid grid-3col">
           <div class="grid-span-1">
             <label class="resource-label aside">{{localize "SWYVERS.Weapon.Length.Label"}} </label>
@@ -86,7 +93,7 @@
           </div>
         </div>
 
-      </div>
+      </div> --}}
     </div>
 
 
