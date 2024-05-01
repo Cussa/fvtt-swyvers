@@ -76,7 +76,8 @@
       "Set": "Set",
       "Thrust": "Thrust",
       "OneHand": "One Hand",
-      "TwoHands": "Two Hands"
+      "TwoHands": "Two Hands",
+      "Label": "Weapon"
     },
     "Damage": "Damage",
     "Defense": "Defense",
