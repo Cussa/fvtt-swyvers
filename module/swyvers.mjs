@@ -9,8 +9,7 @@ import { preloadHandlebarsTemplates } from './helpers/templates.mjs';
 import { SWYVERS } from './config/swyvers.mjs';
 // Import DataModel classes
 import * as models from './data/_module.mjs';
-import { SwyversWeaponSheet } from './sheets/weapon-sheet.mjs';
-import { SwyversArmourSheet } from './sheets/armour-sheet.mjs';
+import * as items_sheets from './sheets/_items.mjs';
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
@@ -70,16 +69,21 @@ Hooks.once('init', function () {
   Items.unregisterSheet('core', ItemSheet);
 
   Items.registerSheet('swyvers', SwyversItemSheet, {
-    types: ["item", "spell"],
+    types: ["item"],
     makeDefault: true,
     label: 'SWYVERS.SheetLabels.Item',
   });
-  Items.registerSheet('swyvers', SwyversArmourSheet, {
+  Items.registerSheet('swyvers', items_sheets.SwyversSpellSheet, {
+    types: ["spell"],
+    makeDefault: true,
+    label: 'SWYVERS.SheetLabels.Spell',
+  });
+  Items.registerSheet('swyvers', items_sheets.SwyversArmourSheet, {
     types: ["armour"],
     makeDefault: true,
     label: 'SWYVERS.SheetLabels.Armour',
   });
-  Items.registerSheet('swyvers', SwyversWeaponSheet, {
+  Items.registerSheet('swyvers', items_sheets.SwyversWeaponSheet, {
     types: ["weapon"],
     makeDefault: true,
     label: 'SWYVERS.SheetLabels.Weapon',

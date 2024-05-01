@@ -1,8 +1,22 @@
 <form class="{{cssClass}}" autocomplete="off">
   <header class="sheet-header">
-    <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
+    <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" />
     <div class="header-fields">
-      <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Name"/></h1>
+      <label class="resource-label">{{localize "TYPES.Item.spell"}}</label>
+      <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Name" /></h1>
+      <div class="grid grid-2col">
+
+        <div class="grid-span-1">
+          <label class="resource-label">{{localize "SWYVERS.Spell.Suit.Label"}}</label>
+          <select name="system.suit">
+            {{selectOptions spellSuit selected=system.suit localize=true}}</select>
+        </div>
+
+        <div class="grid-span-1">
+          <input type="checkbox" name="system.set" {{checked system.available}}>
+          <label class="resource-label">{{localize "SWYVERS.Spell.Available"}}</label>
+        </div>
+      </div>
     </div>
   </header>
 
@@ -17,16 +31,35 @@
 
     {{!-- Description Tab --}}
     <div class="tab" data-group="primary" data-tab="description">
-      {{editor system.description target="system.description" rollData=rollData button=true owner=owner editable=editable}}
+      {{editor system.description target="system.description" rollData=rollData button=true owner=owner
+      editable=editable}}
     </div>
 
     {{!-- Attributes Tab --}}
     <div class="tab attributes" data-group="primary" data-tab="attributes">
       {{!-- As you add new fields, add them in here! --}}
-      <div class="resource">
+      {{!-- <div class="resource">
         <label class="resource-label">Spell Level</label>
-        <input type="text" name="system.spellLevel" value="{{system.spellLevel}}" data-dtype="Number"/>
+        <input type="text" name="system.spellLevel" value="{{system.spellLevel}}" data-dtype="Number" />
+      </div> --}}
+
+      <div class="grid grid-2col">
+        <div class="grid-span-2">
+          <label class="resource-label">{{localize "SWYVERS.Spell.Success"}}</label>
+          <input type="text" name="system.success" value="{{system.success}}" data-dtype="String" />
+        </div>
+        <div class="grid-span-2">
+          <label class="resource-label">{{localize "SWYVERS.Spell.EmpoweredSuccess"}}</label>
+          <input type="text" name="system.empoweredSuccess" value="{{system.empoweredSuccess}}" data-dtype="String" />
+        </div>
+        <div class="grid-span-2">
+          <label class="resource-label">{{selectedSuit}} {{localize "SWYVERS.Spell.SuitEffect"}}</label>
+          <input type="text" name="system.suitSuccess" value="{{system.suitSuccess}}" data-dtype="String" />
+        </div>
       </div>
+      {{editor system.description target="system.description" rollData=rollData button=true owner=owner
+      editable=editable}}
     </div>
   </section>
+  
 </form>

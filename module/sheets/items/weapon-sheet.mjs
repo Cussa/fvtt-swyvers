@@ -1,10 +1,10 @@
-import { SwyversItemSheet } from "./item-sheet.mjs";
+import { SwyversItemSheet } from "../item-sheet.mjs";
 
 /**
  * Extend the basic ItemSheet with some very simple modifications
  * @extends {SwyversItemSheet}
  */
-export class SwyversWeaponSheet extends SwyversItemSheet {
+export default class SwyversWeaponSheet extends SwyversItemSheet {
   /** @override **/
   _prepareData(context) {
     context.weaponLength = this._labelOptions(CONFIG.SWYVERS.WEAPON.LENGTH);

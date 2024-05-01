@@ -29,7 +29,9 @@
     "SheetLabels": {
       "Actor": "Swyvers Actor Sheet",
       "Item": "Swyvers Item Sheet",
-      "Weapon": "Swyvers Weapon Sheet"
+      "Weapon": "Swyvers Weapon Sheet",
+      "Armour": "Swyvers Armour Sheet",
+      "Spell": "Swyvers Spell Sheet"
     },
     "Item": {
       "Spell": {
@@ -105,6 +107,19 @@
       "Shilling": "Shilling",
       "Pence": "Pence",
       "Price": "Price"
+    },
+    "Spell":{
+      "Suit":{
+        "Label": "Suit",
+        "Hearts": "♥ BLOOD",
+        "Spades": "♠ BLACK BILE",
+        "Diamonds": "♦ YELLOW BILE",
+        "Clubs": "♣ PHLEGM"
+      },
+      "Success": "17-20 - Success",
+      "EmpoweredSuccess": "21 - Empowered Success",
+      "SuitEffect": " Effect",
+      "Available": "Available"
     }
   },
   "TYPES": {

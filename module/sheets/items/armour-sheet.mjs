@@ -1,10 +1,10 @@
-import { SwyversItemSheet } from "./item-sheet.mjs";
+import { SwyversItemSheet } from "../item-sheet.mjs";
 
 /**
  * Extend the basic ItemSheet with some very simple modifications
  * @extends {SwyversItemSheet}
  */
-export class SwyversArmourSheet extends SwyversItemSheet {
+export default class SwyversArmourSheet extends SwyversItemSheet {
   /** @override **/
   _prepareData(context) {
     context.armourType = this._labelOptions(CONFIG.SWYVERS.ARMOUR.TYPE);
