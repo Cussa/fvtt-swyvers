@@ -1,6 +1,8 @@
 body,
+button,
+#tooltip,
 .window-app {
-  font-family: $font-primary;
+  font-family: $font-primary !important;
 }
 
 .rollable {
