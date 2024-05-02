@@ -3,6 +3,10 @@ button,
 #tooltip,
 .window-app {
   font-family: $font-primary !important;
+
+  .window-content{
+    background: white;
+  }
 }
 
 .rollable {

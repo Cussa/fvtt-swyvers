@@ -55,6 +55,10 @@
               {{selectOptions weaponAmmoType selected=system.ammoType localize=true}}</select>
           </div>
           <div class="grid-span-1">
+            <input type="checkbox" name="system.equipped" {{checked system.equipped}}>
+            <label class="resource-label">{{localize "SWYVERS.Equipped"}}</label>
+          </div>
+          <div class="grid-span-1">
             <input type="checkbox" name="system.belt" {{checked system.belt}}>
             <label class="resource-label">{{localize "SWYVERS.Weapon.Belt"}}</label>
           </div>

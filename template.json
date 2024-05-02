@@ -11,7 +11,8 @@
       "feature",
       "spell",
       "weapon",
-      "armour"
+      "armour",
+      "skill"
     ]
   }
 }

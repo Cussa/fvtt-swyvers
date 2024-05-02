@@ -1,6 +1,7 @@
 {
   "SWYVERS": {
-    "Ability": {
+    "Character": {
+      "Attribute": "Attribute",
       "Str": {
         "long": "Strength",
         "abbr": "str"
@@ -13,17 +14,14 @@
         "long": "Dexterity",
         "abbr": "dex"
       },
-      "Int": {
-        "long": "Intelligence",
-        "abbr": "int"
+      "Hp": {
+        "long": "Hit Points",
+        "abbr": "hp"
       },
-      "Wis": {
-        "long": "Wisdom",
-        "abbr": "wis"
-      },
-      "Cha": {
-        "long": "Charisma",
-        "abbr": "cha"
+      "Literate": {
+        "true": "Literate",
+        "false": "Illiterate",
+        "how": "If literate, explain how:"
       }
     },
     "SheetLabels": {
@@ -31,7 +29,8 @@
       "Item": "Swyvers Item Sheet",
       "Weapon": "Swyvers Weapon Sheet",
       "Armour": "Swyvers Armour Sheet",
-      "Spell": "Swyvers Spell Sheet"
+      "Spell": "Swyvers Spell Sheet",
+      "Skill": "Swyvers Skill Sheet"
     },
     "Item": {
       "Spell": {
@@ -88,7 +87,7 @@
         "Decent": "Decent",
         "Swank": "Swank"
       },
-      "Type":{
+      "Type": {
         "Label": "Armour type",
         "Light": "Light Armour",
         "Medium": "Medium Armour",
@@ -102,14 +101,17 @@
     "DamageSoak": "Damage Soak",
     "Defense": "Defense",
     "Description": "Description",
+    "Equipped": "Equipped",
+    "Uncertain": "Uncertain Skill",
+    "Value": "Value",
     "Currency": {
       "Pound": "Pound",
       "Shilling": "Shilling",
       "Pence": "Pence",
       "Price": "Price"
     },
-    "Spell":{
-      "Suit":{
+    "Spell": {
+      "Suit": {
         "Label": "Suit",
         "Hearts": "♥ BLOOD",
         "Spades": "♠ BLACK BILE",
@@ -132,7 +134,8 @@
       "feature": "Feature",
       "spell": "Spell",
       "weapon": "Weapon",
-      "armour": "Armour"
+      "armour": "Armour",
+      "skill": "Skill"
     }
   }
 }

@@ -24,6 +24,8 @@ export default class SwyversWeapon extends SwyversItemBase {
 
     schema.belt = new fields.BooleanField({ initial: true });
 
+    schema.equipped = new fields.BooleanField({ initial: false });
+
     return schema;
   }
 }

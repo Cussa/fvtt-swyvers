@@ -52,7 +52,8 @@ Hooks.once('init', function () {
     feature: models.SwyversFeature,
     spell: models.SwyversSpell,
     weapon: models.SwyversWeapon,
-    armour: models.SwyversArmour
+    armour: models.SwyversArmour,
+    skill: models.SwyversSkill
   }
 
   // Active Effects are never copied to the Actor,
@@ -73,15 +74,20 @@ Hooks.once('init', function () {
     makeDefault: true,
     label: 'SWYVERS.SheetLabels.Item',
   });
-  Items.registerSheet('swyvers', items_sheets.SwyversSpellSheet, {
-    types: ["spell"],
-    makeDefault: true,
-    label: 'SWYVERS.SheetLabels.Spell',
-  });
   Items.registerSheet('swyvers', items_sheets.SwyversArmourSheet, {
     types: ["armour"],
     makeDefault: true,
     label: 'SWYVERS.SheetLabels.Armour',
+  });
+  Items.registerSheet('swyvers', items_sheets.SwyversSkillSheet, {
+    types: ["skill"],
+    makeDefault: true,
+    label: 'SWYVERS.SheetLabels.Skill',
+  });
+  Items.registerSheet('swyvers', items_sheets.SwyversSpellSheet, {
+    types: ["spell"],
+    makeDefault: true,
+    label: 'SWYVERS.SheetLabels.Spell',
   });
   Items.registerSheet('swyvers', items_sheets.SwyversWeaponSheet, {
     types: ["weapon"],
