@@ -15,7 +15,6 @@
     flex: 0 0 100px;
     height: 100px;
     margin-right: 10px;
-    background: lightgray;
   }
 
   .header-fields {
@@ -63,4 +62,15 @@ label.checkbox{
   width: calc(100% - 2px);
   display: block;
   font: var(--font-size-14);
+}
+
+img {
+  background: lightgray;
+}
+
+input[type="text"], input[type="number"], input[type="password"], input[type="date"], input[type="time"], input[type="search"] {
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid;
+  border-radius: 0;
 }

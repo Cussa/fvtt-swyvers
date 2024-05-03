@@ -67,6 +67,7 @@ export class SwyversActorSheet extends ActorSheet {
       this.actor.allApplicableEffects()
     );
 
+    console.log(context);
     return context;
   }
 
@@ -95,18 +96,8 @@ export class SwyversActorSheet extends ActorSheet {
     // Initialize containers.
     const gear = [];
     const features = [];
-    const spells = {
-      0: [],
-      1: [],
-      2: [],
-      3: [],
-      4: [],
-      5: [],
-      6: [],
-      7: [],
-      8: [],
-      9: [],
-    };
+    const spells = [];
+    const skills = [];
 
     // Iterate through items, allocating to containers
     for (let i of context.items) {
@@ -121,9 +112,11 @@ export class SwyversActorSheet extends ActorSheet {
       }
       // Append to spells.
       else if (i.type === 'spell') {
-        if (i.system.spellLevel != undefined) {
-          spells[i.system.spellLevel].push(i);
-        }
+        i.suitSymbol = game.i18n.localize(`SWYVERS.Spell.SuitSymbol.${i.system.suit}`)
+        spells.push(i);
+      }
+      else if (i.type == "skill"){
+        skills.push(i);
       }
     }
 
@@ -131,6 +124,7 @@ export class SwyversActorSheet extends ActorSheet {
     context.gear = gear;
     context.features = features;
     context.spells = spells;
+    context.skills = skills;
   }
 
   /* -------------------------------------------- */

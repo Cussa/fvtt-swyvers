@@ -4,25 +4,26 @@
       "Attribute": "Attribute",
       "Str": {
         "long": "Strength",
-        "abbr": "str"
+        "abbr": "Str"
       },
       "Con": {
         "long": "Constitution",
-        "abbr": "con"
+        "abbr": "Con"
       },
       "Dex": {
         "long": "Dexterity",
-        "abbr": "dex"
+        "abbr": "Dex"
       },
       "Hp": {
         "long": "Hit Points",
-        "abbr": "hp"
+        "abbr": "Hp"
       },
       "Literate": {
         "true": "Literate",
         "false": "Illiterate",
         "how": "If literate, explain how:"
-      }
+      },
+      "Special": "Special"
     },
     "SheetLabels": {
       "Actor": "Swyvers Actor Sheet",
@@ -34,8 +35,11 @@
     },
     "Item": {
       "Spell": {
-        "SpellLVL": "Level {level} Spells",
-        "AddLVL": "Add LVL {level}"
+        "KnownSpells": "Known Spells",
+        "AddSpell": "Add spell"
+      },
+      "Skill": {
+        "AddSkill": "Add skill"
       }
     },
     "Effect": {
@@ -118,11 +122,18 @@
         "Diamonds": "♦ YELLOW BILE",
         "Clubs": "♣ PHLEGM"
       },
+      "SuitSymbol": {
+        "hearts": "♥",
+        "spades": "♠",
+        "diamonds": "♦",
+        "clubs": "♣"
+      },
       "Success": "17-20 - Success",
       "EmpoweredSuccess": "21 - Empowered Success",
       "SuitEffect": " Effect",
       "Available": "Available"
-    }
+    },
+    "Skills": "Skills"
   },
   "TYPES": {
     "Actor": {
@@ -130,7 +141,7 @@
       "npc": "NPC"
     },
     "Item": {
-      "item": "Item",
+      "item": "Item 12",
       "feature": "Feature",
       "spell": "Spell",
       "weapon": "Weapon",

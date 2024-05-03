@@ -38,7 +38,7 @@ export class SwyversItemSheet extends ItemSheet {
   /* -------------------------------------------- */
 
   /** @override */
-  getData() {
+  async getData() {
     // Retrieve base data structure.
     const context = super.getData();
 
@@ -65,13 +65,16 @@ export class SwyversItemSheet extends ItemSheet {
 
     context.priceInfo = priceInfo.join(" ");
 
-    this._prepareData(context);
+
+    await this._prepareData(context);
 
     console.log(context);
     return context;
   }
 
-  _prepareData(context) {
+  async _prepareData(context) {
+    context.enriched = {};
+    context.enriched.description = await TextEditor.enrichHTML(context.system.description, { async: true });
   }
 
   /* -------------------------------------------- */

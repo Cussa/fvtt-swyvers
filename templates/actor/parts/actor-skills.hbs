@@ -2,16 +2,16 @@
 
   <li class='item flexrow items-header'>
     <div class='item-name'>
-      {{localize 'SWYVERS.Item.Spell.KnownSpells'}}
+      {{localize 'SWYVERS.Skills'}}
     </div>
     <div class='item-controls'>
-      <a class='item-control item-create' title='{{localize "DOCUMENT.Create" type=' Spell'}}' data-type='spell'>
+      <a class='item-control item-create' title='{{localize "DOCUMENT.Create" type=' Skill'}}' data-type='skill'>
         <i class='fas fa-plus'></i>
-        {{localize 'SWYVERS.Item.Spell.AddSpell'}}
+        {{localize 'SWYVERS.Item.Skill.AddSkill'}}
       </a>
     </div>
   </li>
-  {{#each spells as |item id|}}
+  {{#each skills as |item id|}}
   <li class='item flexrow' data-item-id='{{item._id}}'>
     <div class='item-name flexrow'>
       <div class='item-image'>

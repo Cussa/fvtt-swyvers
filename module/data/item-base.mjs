@@ -17,7 +17,7 @@ export default class SwyversItemBase extends foundry.abstract.TypeDataModel {
     schema.quantity = new fields.NumberField({ ...SwyversItemBase.requiredInteger, initial: 1, min: 1 });
     schema.slots = new fields.NumberField({ ...SwyversItemBase.requiredInteger, initial: 1, min: 1 });
 
-    schema.canStack = new fields.BooleanField({ initial: false });
+    schema.maxStack = new fields.NumberField({ ...SwyversItemBase.requiredInteger, initial: 1, min: 1 });
 
     return schema;
   }
