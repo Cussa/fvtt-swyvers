@@ -1,5 +1,6 @@
 import SwyversItemBase from "./item-base.mjs";
 import { SWYVERS } from "../config/swyvers.mjs";
+import { roll } from "../helpers/rolls.mjs";
 
 export default class SwyversSkill extends SwyversItemBase {
 
@@ -13,5 +14,13 @@ export default class SwyversSkill extends SwyversItemBase {
     delete schema.container;
 
     return schema;
+  }
+
+  async roll(under) {
+    await roll(this.parent, under);
+  }
+
+  async getCardData() {
+    return await TextEditor.enrichHTML(`<p class="item-name">${this.parent.name}</p>${this.description}`, { async: true });
   }
 }

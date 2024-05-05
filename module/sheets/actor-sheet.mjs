@@ -81,8 +81,7 @@ export class SwyversActorSheet extends ActorSheet {
    */
   async _prepareCharacterData(context) {
     const dexModifier = Math.max(context.items.filter(it => it.system.container == "backpack").length - 10, 0);
-    context.system.attributes.dex.max -= dexModifier;
-    context.system.attributes.dex.value = Math.min(context.system.attributes.dex.value, context.system.attributes.dex.max);
+    context.system.attributes.dex.mod = -dexModifier;
   }
 
   /**
@@ -244,7 +243,9 @@ export class SwyversActorSheet extends ActorSheet {
       if (dataset.rollType == 'item') {
         const itemId = element.closest('.item').dataset.itemId;
         const item = this.actor.items.get(itemId);
-        if (item) return item.roll();
+        const rollUnder = dataset.rollUnder;
+        console.log(item);
+        if (item) return item.system.roll(rollUnder);
       }
     }
 

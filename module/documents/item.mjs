@@ -68,4 +68,8 @@ export class SwyversItem extends Item {
       return roll;
     }
   }
+
+  async getCardData(){
+    return await TextEditor.enrichHTML(this.description, { async: true });
+  }
 }

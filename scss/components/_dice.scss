@@ -1,0 +1,27 @@
+%item-name{
+  font-size: 130%;
+  font-weight: bold;
+}
+
+.dice-roll {
+  .dice-flavor {
+    text-align: justify;
+
+    .item-name{
+      @extend %item-name;
+    }
+  }
+}
+
+.item-name {
+  @extend %item-name;
+}
+
+.item-target{
+  @extend %item-name;
+
+  input{
+    width: 50px;
+    text-align: center;
+  }
+}

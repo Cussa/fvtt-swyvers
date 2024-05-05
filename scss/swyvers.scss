@@ -12,6 +12,9 @@
 @import 'global/grid';
 @import 'global/flex';
 
+@import 'components/dice';
+@import 'components/chatMessage';
+
 /* Styles limited to swyvers sheets */
 .swyvers {
   @import 'components/collapsible';

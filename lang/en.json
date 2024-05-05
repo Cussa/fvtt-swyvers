@@ -142,7 +142,11 @@
       "backpackExternal": "Backpack (External)",
       "sack": "Sack (Hand)",
       "notCarried": "Not carried"
-    }
+    },
+    "TestTitle": "Test: {title}",
+    "Target": "Target",
+    "RollUnder": "Roll Under",
+    "RollAsHigh": "Roll as High"
   },
   "TYPES": {
     "Actor": {
