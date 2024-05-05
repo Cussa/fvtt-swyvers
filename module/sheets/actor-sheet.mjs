@@ -1,3 +1,4 @@
+import { SWYVERS } from '../config/swyvers.mjs';
 import {
   onManageActiveEffect,
   prepareActiveEffectCategories,
@@ -32,7 +33,7 @@ export class SwyversActorSheet extends ActorSheet {
   /* -------------------------------------------- */
 
   /** @override */
-  getData() {
+  async getData() {
     // Retrieve the data structure from the base sheet. You can inspect or log
     // the context variable to see the structure, but some key properties for
     // sheets are the actor object, the data object, whether or not it's
@@ -48,13 +49,13 @@ export class SwyversActorSheet extends ActorSheet {
 
     // Prepare character data and items.
     if (actorData.type == 'character') {
-      this._prepareItems(context);
-      this._prepareCharacterData(context);
+      await this._prepareItems(context);
+      await this._prepareCharacterData(context);
     }
 
     // Prepare NPC data and items.
     if (actorData.type == 'npc') {
-      this._prepareItems(context);
+      await this._prepareItems(context);
     }
 
     // Add roll data for TinyMCE editors.
@@ -78,11 +79,10 @@ export class SwyversActorSheet extends ActorSheet {
    *
    * @return {undefined}
    */
-  _prepareCharacterData(context) {
-    // Handle ability scores.
-    // for (let [k, v] of Object.entries(context.system.abilities)) {
-    //   v.label = game.i18n.localize(CONFIG.SWYVERS.abilities[k]) ?? k;
-    // }
+  async _prepareCharacterData(context) {
+    const dexModifier = Math.max(context.items.filter(it => it.system.container == "backpack").length - 10, 0);
+    context.system.attributes.dex.max -= dexModifier;
+    context.system.attributes.dex.value = Math.min(context.system.attributes.dex.value, context.system.attributes.dex.max);
   }
 
   /**
@@ -92,8 +92,25 @@ export class SwyversActorSheet extends ActorSheet {
    *
    * @return {undefined}
    */
-  _prepareItems(context) {
+  async _prepareItems(context) {
     // Initialize containers.
+
+    const inventory = {
+      belt: [],
+      backpack: [],
+      backpackExternal: [],
+      sack: [],
+      notCarried: []
+    };
+
+    if (context.items.filter(it => it.name == "Backpack").length == 0) {
+      delete inventory.backpack;
+      delete inventory.backpackExternal;
+    }
+
+    if (context.items.filter(it => it.name == "Sack").length == 0)
+      delete inventory.sack;
+
     const gear = [];
     const features = [];
     const spells = [];
@@ -103,20 +120,25 @@ export class SwyversActorSheet extends ActorSheet {
     for (let i of context.items) {
       i.img = i.img || Item.DEFAULT_ICON;
       // Append to gear.
-      if (i.type === 'item') {
-        gear.push(i);
-      }
-      // Append to features.
-      else if (i.type === 'feature') {
-        features.push(i);
-      }
+      // if (i.type === 'item') {
+      //   gear.push(i);
+      // }
+      // // Append to features.
+      // else if (i.type === 'feature') {
+      //   features.push(i);
+      // }
       // Append to spells.
-      else if (i.type === 'spell') {
+      if (i.type === 'spell') {
         i.suitSymbol = game.i18n.localize(`SWYVERS.Spell.SuitSymbol.${i.system.suit}`)
         spells.push(i);
       }
-      else if (i.type == "skill"){
+      else if (i.type == "skill") {
         skills.push(i);
+      }
+      else {
+        let currentContainer = i.system.container ?? "notCarried";
+        currentContainer = inventory[currentContainer] ? currentContainer : "notCarried";
+        inventory[currentContainer].push(i);
       }
     }
 
@@ -125,6 +147,7 @@ export class SwyversActorSheet extends ActorSheet {
     context.features = features;
     context.spells = spells;
     context.skills = skills;
+    context.inventory = inventory;
   }
 
   /* -------------------------------------------- */

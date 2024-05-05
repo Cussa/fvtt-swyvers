@@ -1,4 +1,5 @@
 import SwyversItemBase from "./item-base.mjs";
+import { SWYVERS } from "../config/swyvers.mjs";
 
 export default class SwyversItem extends SwyversItemBase {
 

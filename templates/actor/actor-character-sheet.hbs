@@ -84,6 +84,7 @@
     <a class="item" data-tab="features">Features</a>
     <a class="item" data-tab="description">Description</a>
     <a class="item" data-tab="items">Items</a>
+    <a class="item" data-tab="inventory">{{localize "SWYVERS.Inventory"}}</a>
     <a class="item" data-tab="skills">{{localize "SWYVERS.Skills"}}</a>
     <a class="item" data-tab="spells">Spells</a>
     <a class="item" data-tab="effects">Effects</a>
@@ -144,6 +145,12 @@
     {{!-- Owned Skills Tab --}}
     <div class="tab skills" data-group="primary" data-tab="skills">
       {{> "systems/swyvers/templates/actor/parts/actor-skills.hbs"}}
+    </div>
+
+
+    {{!-- Owned Inventory Tab --}}
+    <div class="tab inventory" data-group="primary" data-tab="inventory">
+      {{> "systems/swyvers/templates/actor/parts/actor-inventory.hbs"}}
     </div>
 
     {{!-- Active Effects Tab --}}

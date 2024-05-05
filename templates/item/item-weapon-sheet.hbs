@@ -88,6 +88,14 @@
             <input type="checkbox" name="system.thrust" {{checked system.thrust}}>
             <label class="resource-label">{{localize "SWYVERS.Weapon.Thrust"}}</label>
           </div>
+
+          {{#if containerChoices}}
+          <div class="grid-span-1">
+            <label class="resource-label">{{localize "SWYVERS.Container.Label"}}</label>
+            <select name="system.container">
+              {{selectOptions containerChoices selected=system.container localize=true}}</select>
+          </div>
+          {{/if}}
         </div>
 
       </div>

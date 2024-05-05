@@ -65,10 +65,29 @@ export class SwyversItemSheet extends ItemSheet {
 
     context.priceInfo = priceInfo.join(" ");
 
+    if (this.item.isEmbedded) {
+      let inventory = { ...CONFIG.SWYVERS.CONTAINER.CONFIGURATIONS };
+      if (this.item.actor.items.filter(it => it.name == "Backpack").length == 0) {
+        delete inventory.backpack;
+        delete inventory.backpackExternal;
+      }
+      else if (this._getUsedSlots("backpackExternal") + this.item.system.slots > 3) {
+        delete inventory.backpackExternal;
+      }
+
+      if (this._getUsedSlots("belt") + this.item.system.slots > 3) {
+        delete inventory.belt;
+      }
+
+      if (this.item.actor.items.filter(it => it.name == "Sack").length == 0 ||
+        this._getUsedSlots("sack") + this.item.system.slots > 4)
+        delete inventory.sack;
+      context.containerChoices = this._labelOptions(inventory);
+    }
 
     await this._prepareData(context);
 
-    console.log(context);
+    console.log(context, this.item);
     return context;
   }
 
@@ -127,5 +146,14 @@ export class SwyversItemSheet extends ItemSheet {
     });
     console.log(data);
     return data;
+  }
+
+  _getUsedSlots(itemType) {
+    return this.item.actor.items
+      .filter(it => it.system.container == itemType && it._id != this.item._id)
+      .map(it => it.system.slots)
+      .reduce((accumulator, currentValue) => {
+        return accumulator + currentValue
+      }, 0);
   }
 }

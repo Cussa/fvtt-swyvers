@@ -1,3 +1,5 @@
+import { SWYVERS } from "../config/swyvers.mjs";
+
 export default class SwyversItemBase extends foundry.abstract.TypeDataModel {
 
   static requiredInteger = { required: true, nullable: false, integer: true };
@@ -18,6 +20,8 @@ export default class SwyversItemBase extends foundry.abstract.TypeDataModel {
     schema.slots = new fields.NumberField({ ...SwyversItemBase.requiredInteger, initial: 1, min: 1 });
 
     schema.maxStack = new fields.NumberField({ ...SwyversItemBase.requiredInteger, initial: 1, min: 1 });
+
+    schema.container = new fields.StringField({ required: true, blank: false, choices: SWYVERS.CONTAINER.CONFIGURATIONS, initial: SWYVERS.CONTAINER.CONFIGURATIONS.notCarried.id });
 
     return schema;
   }

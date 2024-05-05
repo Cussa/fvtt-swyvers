@@ -7,10 +7,12 @@
   background: rgba(0, 0, 0, 0.05);
   border: $border-groove;
   font-weight: bold;
-  > * {
+
+  >* {
     font-size: 14px;
     text-align: center;
   }
+
   .item-name {
     font-weight: bold;
     padding-left: 5px;
@@ -41,14 +43,16 @@
 
   // Item Name
   .item-name {
-    flex: 2;
+    flex: auto;
     margin: 0;
     overflow: hidden;
     font-size: 13px;
     text-align: left;
     align-items: center;
     display: flex;
-    h3, h4 {
+
+    h3,
+    h4 {
       margin: 0;
       white-space: nowrap;
       overflow-x: hidden;
@@ -60,6 +64,7 @@
     display: flex;
     flex: 0 0 100px;
     justify-content: flex-end;
+
     a {
       font-size: 12px;
       text-align: center;
@@ -67,14 +72,28 @@
     }
   }
 
+  .item-summary {
+    flex: 0 0 100%;
+    font-size: var(--font-size-12);
+    line-height: 16px;
+    padding: 0.25em 0.5em;
+    color: var(--dnd5e-color-dark);
+    border-top: 1px dotted var(--dnd5e-color-faint);
+  }
+
   // Individual Item
   .item {
     align-items: center;
     padding: 0 2px; // to align with the header border
-    border-bottom: 1px solid $c-faint;
-    &:last-child { border-bottom: none; }
+    border-bottom: 1px dotted black;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
     .item-name {
       color: $c-dark;
+
       .item-image {
         flex: 0 0 30px;
         height: 30px;
@@ -101,10 +120,12 @@
     background: rgba(0, 0, 0, 0.05);
     border: $border-groove;
     font-weight: bold;
-    > * {
+
+    >* {
       font-size: 12px;
       text-align: center;
     }
+
     .item-name {
       padding-left: 5px;
       text-align: left;
@@ -115,7 +136,7 @@
 
 // Example style for Swyvers (can be removed if not needed).
 .item-formula {
-  
+
   flex: 0 0 200px;
   padding: 0 8px;
 }

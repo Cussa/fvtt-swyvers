@@ -13,6 +13,18 @@ export default class SwyversSpell extends SwyversItemBase {
     schema.suitSuccess = new fields.StringField({ required: true, blank: false, initial: "SUIT: " });
     schema.available = new fields.BooleanField({ initial: true });
 
+    delete schema.container;
+
     return schema;
+  }
+
+  async getCardData() {
+    let html = [];
+    html.push(this.description);
+    html.push(this.success.replace("<p>", "<p>17-20: "));
+    html.push(this.empoweredSuccess.replace("<p>", "<p>21: "));
+    html.push(this.suitSuccess.replace("<p>", `<p>${game.i18n.localize(`SWYVERS.Spell.SuitSymbol.${i.system.suit}`)}: `));
+
+    return await TextEditor.enrichHTML(html.join(""), { async: true });
   }
 }

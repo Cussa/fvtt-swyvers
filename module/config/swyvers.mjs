@@ -1,12 +1,14 @@
-import * as WEAPON from "./weapon.mjs";
 import * as ARMOUR from "./armour.mjs";
-import * as SPELL from "./spell.mjs";
 import * as CHARACTER from "./character.mjs";
 import * as SKILL from "./skill.mjs";
+import * as SPELL from "./spell.mjs";
+import * as WEAPON from "./weapon.mjs";
+import * as CONTAINER from "./container.mjs";
 
 export const SWYVERS = {
   ARMOUR,
   CHARACTER,
+  CONTAINER,
   SKILL,
   SPELL,
   WEAPON

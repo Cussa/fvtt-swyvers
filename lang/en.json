@@ -133,7 +133,16 @@
       "SuitEffect": " Effect",
       "Available": "Available"
     },
-    "Skills": "Skills"
+    "Skills": "Skills",
+    "Inventory": "Inventory",
+    "Container": {
+      "Label": "Container",
+      "belt":"Belt",
+      "backpack": "Backpack",
+      "backpackExternal": "Backpack (External)",
+      "sack": "Sack (Hand)",
+      "notCarried": "Not carried"
+    }
   },
   "TYPES": {
     "Actor": {
@@ -141,7 +150,7 @@
       "npc": "NPC"
     },
     "Item": {
-      "item": "Item 12",
+      "item": "Item",
       "feature": "Feature",
       "spell": "Spell",
       "weapon": "Weapon",
