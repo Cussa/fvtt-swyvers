@@ -119,7 +119,9 @@ async function _rollDiceAsHigh(item, dice, content, mod) {
 async function _getAttributeModifier(item) {
   let mod = await item.actor.system.getAttributeModifier(item.system.attribute);
   let additionalTargetInfo = "";
-  if (mod)
+  if (mod > 0)
+    additionalTargetInfo = ` + ${mod}`;
+  else if (mod < 0)
     additionalTargetInfo = ` ${mod}`;
 
   return [mod, additionalTargetInfo];

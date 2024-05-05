@@ -23,13 +23,26 @@ export default class SwyversActorBase extends foundry.abstract.TypeDataModel {
     switch (attribute) {
       case "dex":
         return this.getDexModifier();
+      case "con":
+        return this.getConModifier();
+      case "str":
+        return this.getStrModifier();
       default:
         return 0;
     }
   }
 
   async getDexModifier() {
-    const dexModifier = Math.max(this.parent.items.filter(it => it.system.container == "backpack").length - 10, 0);
-    return -dexModifier;
+    let dexModifier = this.attributes.dex.mod ?? 0;
+    dexModifier += -Math.max(this.parent.items.filter(it => it.system.container == "backpack").length - 10, 0);
+    return dexModifier;
+  }
+
+  async getConModifier() {
+    return this.attributes.con.mod ?? 0;
+  }
+
+  async getStrModifier() {
+    return this.attributes.str.mod ?? 0;
   }
 }
