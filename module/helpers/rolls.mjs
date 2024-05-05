@@ -17,9 +17,9 @@ export async function rollUnder(item) {
 async function _rollUnder(item, buttonsFunc) {
   const testName = game.i18n.localize("SWYVERS.TestTitle", { title: item.name });
   const originalContent = await item.system.getCardData();
-  const [buttons, targetInfo] = await buttonsFunc(item, originalContent);
+  const [buttons, targetInfo, additionalTargetInfo] = await buttonsFunc(item, originalContent);
 
-  const dialogContent = `${originalContent}<p class="item-target">${game.i18n.localize("SWYVERS.Target")}: ${targetInfo} + ${item.system.value}</p>`;
+  const dialogContent = `${originalContent}<p class="item-target">${game.i18n.localize("SWYVERS.Target")}: ${targetInfo} + ${item.system.value}${additionalTargetInfo}</p>`;
   new Dialog(
     {
       title: testName,
@@ -36,32 +36,34 @@ async function _rollUnderNumberButtons(item, content) {
       label: `Roll`,
       callback: (html) => {
         const targetInfo = parseInt(html.find("#target")[0].value);
-        _rollDiceUnder(item, 3, content, targetInfo, targetInfo);
+        _rollDiceUnder(item, 3, content, targetInfo, targetInfo, "");
       }
     }
-  }, additionalFlavor];
+  }, additionalFlavor, ""];
 }
 
 async function _rollUnderAttributeButtons(item, content) {
   const rollData = item.getRollData();
-  const target = rollData.actor.attributes[rollData.attribute].value;
-  const targetInfo = `${game.i18n.localize(SWYVERS.SKILL.ATTRIBUTES[item.system.attribute].label)} (${item.actor.system.attributes[item.system.attribute].value})`;
+  let target = rollData.actor.attributes[rollData.attribute].value;
+  let targetInfo = `${game.i18n.localize(SWYVERS.SKILL.ATTRIBUTES[item.system.attribute].label)} (${item.actor.system.attributes[item.system.attribute].value})`;
+  let [mod, additionalTargetInfo] = await _getAttributeModifier(item);
+  target += mod;
 
   let buttons = {};
   for (let index = 2; index < 6; index++) {
     buttons[`button${index}d6`] = {
       icon: '<i class="fas fa-dice"></i>',
       label: `${index}d6`,
-      callback: () => _rollDiceUnder(item, index, content, target, targetInfo)
+      callback: () => _rollDiceUnder(item, index, content, target, targetInfo, additionalTargetInfo)
     };
   }
-  return [buttons, targetInfo];
+  return [buttons, targetInfo, additionalTargetInfo];
 }
 
-async function _rollDiceUnder(item, dice, content, target, targetInfo) {
+async function _rollDiceUnder(item, dice, content, target, targetInfo, additionalTargetInfo) {
   let roll = await new Roll(`${dice}d6`).roll({ async: true });
 
-  const additionalFlavor = `<p class="item-target">${game.i18n.localize("SWYVERS.Target")}: ${targetInfo} + ${item.system.value}</p>`;
+  const additionalFlavor = `<p class="item-target">${game.i18n.localize("SWYVERS.Target")}: ${targetInfo} + ${item.system.value}${additionalTargetInfo}</p>`;
   const finalTarget = target + item.system.value;
   const chatContent = await renderTemplate(rollTemplate, {
     flavor: content,
@@ -79,7 +81,9 @@ async function _rollDiceUnder(item, dice, content, target, targetInfo) {
 
 export async function rollAsHigh(item) {
   const testName = game.i18n.localize("SWYVERS.TestTitle", { title: item.name });
-  const content = await item.system.getCardData() + `<p class="item-target">${game.i18n.localize("SWYVERS.RollAsHigh")}</p>`;
+  let [mod, additionalTargetInfo] = await _getAttributeModifier(item);
+  let content = await item.system.getCardData() + `<p class="item-target">${game.i18n.localize("SWYVERS.RollAsHigh")} + ${item.system.value}${additionalTargetInfo}</p>`;
+
   new Dialog(
     {
       title: testName,
@@ -88,14 +92,17 @@ export async function rollAsHigh(item) {
         roll: {
           icon: '<i class="fas fa-dice"></i>',
           label: `Roll`,
-          callback: () => _rollDiceAsHigh(item, 3, content)
+          callback: () => _rollDiceAsHigh(item, 3, content, mod, additionalTargetInfo)
         }
       }
     }).render(true);
 }
 
-async function _rollDiceAsHigh(item, dice, content) {
-  let roll = await new Roll(`${dice}d6 + @value`, item.getRollData()).roll({ async: true });
+async function _rollDiceAsHigh(item, dice, content, mod) {
+  let formula = `${dice}d6 + @value`;
+  if (mod)
+    formula += ` ${mod}`;
+  let roll = await new Roll(formula, item.getRollData()).roll({ async: true });
 
   const chatContent = await renderTemplate(rollTemplate, {
     flavor: content,
@@ -107,4 +114,13 @@ async function _rollDiceAsHigh(item, dice, content) {
     speaker: ChatMessage.getSpeaker({ actor: item.actor }),
     content: chatContent
   });
+}
+
+async function _getAttributeModifier(item) {
+  let mod = await item.actor.system.getAttributeModifier(item.system.attribute);
+  let additionalTargetInfo = "";
+  if (mod)
+    additionalTargetInfo = ` ${mod}`;
+
+  return [mod, additionalTargetInfo];
 }
