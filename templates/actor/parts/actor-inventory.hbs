@@ -1,9 +1,11 @@
 {{#each inventory as |container containerId|}}
 <ol class='items-list'>
-
   <li class='item flexrow items-header'>
     <div class='item-name'>
       {{{localize (concat 'SWYVERS.Container.' containerId)}}}
+      {{#if container.totalSlots}}
+      &nbsp;<em class="{{#if (gt container.usedSlots container.totalSlots)}}red{{/if}}">({{container.usedSlots}}/{{container.totalSlots}})</em>
+      {{/if}}
     </div>
     <div class='item-controls'>
       {{#if (eq containerId "notCarried")}}
@@ -14,7 +16,7 @@
       {{/if}}
     </div>
   </li>
-  {{#each container as |item id|}}
+  {{#each container.items as |item id|}}
   <li class='item flexrow' data-item-id='{{item._id}}'>
     <div class='item-name flexrow'>
       <div class='item-image'>

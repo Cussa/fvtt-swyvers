@@ -101,12 +101,32 @@ export class SwyversActorSheet extends ActorSheet {
 
     let defense = 6;
     const inventory = {
-      equipped: [],
-      belt: [],
-      backpack: [],
-      backpackExternal: [],
-      sack: [],
-      notCarried: []
+      equipped: {
+        items: []
+      },
+      belt: {
+        totalSlots: 3,
+        usedSlots: 0,
+        items: []
+      },
+      backpack: {
+        totalSlots: 10,
+        usedSlots: 0,
+        items: []
+      },
+      backpackExternal: {
+        totalSlots: 3,
+        usedSlots: 0,
+        items: []
+      },
+      sack: {
+        totalSlots: 4,
+        usedSlots: 0,
+        items: []
+      },
+      notCarried: {
+        items: []
+      }
     };
 
     if (context.items.filter(it => it.name == "Backpack").length == 0) {
@@ -146,13 +166,14 @@ export class SwyversActorSheet extends ActorSheet {
         i.rollable = ["weapon", "armour"].indexOf(i.type) > -1;
 
         if (i.system.equipped && i.system.containerOptions.equipped) {
-          inventory.equipped.push(i);
+          inventory.equipped.items.push(i);
           continue;
         }
 
         let currentContainer = i.system.container ?? "notCarried";
         currentContainer = inventory[currentContainer] && i.system.containerOptions[currentContainer] ? currentContainer : "notCarried";
-        inventory[currentContainer].push(i);
+        inventory[currentContainer].usedSlots += i.system.slots;
+        inventory[currentContainer].items.push(i);
       }
     }
 
