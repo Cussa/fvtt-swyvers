@@ -142,7 +142,9 @@
       "backpack": "Backpack",
       "backpackExternal": "Backpack (External)",
       "sack": "Sack (Hand)",
-      "notCarried": "Not carried"
+      "notCarried": "Not carried",
+      "Full": " (full)",
+      "Overflow": "Container {name}: {usedSlots}/{totalSlots}"
     },
     "TestTitle": "Test: {title}",
     "Target": "Target",

@@ -67,28 +67,34 @@ export class SwyversItemSheet extends ItemSheet {
 
     if (this.item.isEmbedded) {
       let inventory = { ...CONFIG.SWYVERS.CONTAINER.CONFIGURATIONS };
+      let disabled = {};
+      const full = "SWYVERS.Container.Full";
       if (this.item.actor.items.filter(it => it.name == "Backpack").length == 0) {
         delete inventory.backpack;
         delete inventory.backpackExternal;
       }
-      else if (!this.item.system.containerOptions.backpackExternal ||
-        this._getUsedSlots("backpackExternal") + this.item.system.slots > 3) {
+      else if (!this.item.system.containerOptions.backpackExternal) {
         delete inventory.backpackExternal;
       }
+      else if (this._getUsedSlots("backpackExternal") + this.item.system.slots > 3)
+        disabled["backpackExternal"] = full;
 
       if (!this.item.system.containerOptions.backpack)
         delete inventory.backpack;
 
-      if (!this.item.system.containerOptions.belt ||
-        this._getUsedSlots("belt") + this.item.system.slots > 3) {
+      if (!this.item.system.containerOptions.belt) {
         delete inventory.belt;
       }
+      else if (this._getUsedSlots("belt") + this.item.system.slots > 3)
+        disabled["belt"] = full;
 
       if (!this.item.system.containerOptions.sack ||
-        this.item.actor.items.filter(it => it.name == "Sack").length == 0 ||
-        this._getUsedSlots("sack") + this.item.system.slots > 4)
+        this.item.actor.items.filter(it => it.name == "Sack").length == 0)
         delete inventory.sack;
+      else if (this._getUsedSlots("sack") + this.item.system.slots > 4)
+        disabled["sack"] = full;
       context.containerChoices = this._labelOptions(inventory);
+      context.containerDisabled = disabled;
     }
 
     await this._prepareData(context);
@@ -150,13 +156,12 @@ export class SwyversItemSheet extends ItemSheet {
       else
         console.warn("Wrong price info", priceData);
     });
-    console.log(data);
     return data;
   }
 
   _getUsedSlots(itemType) {
     return this.item.actor.items
-      .filter(it => it.system.container == itemType && it._id != this.item._id)
+      .filter(it => it.system.container == itemType && !it.system.equipped && it._id != this.item._id)
       .map(it => it.system.slots)
       .reduce((accumulator, currentValue) => {
         return accumulator + currentValue

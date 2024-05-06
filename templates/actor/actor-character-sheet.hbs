@@ -34,10 +34,10 @@
         <div class="resource flex-group-center">
           <div>
             <label for="system.attributes.literated" class="resource-label"
-              style="text-decoration: {{#if system.attributes.literated}}underline{{else}}line-through{{/if}}">{{localize
+              style="text-decoration: {{ifThen system.attributes.literated "underline" "line-through"}}">{{localize
               "SWYVERS.Character.Literate.true"}}</label> /
             <label for="system.attributes.literated" class="resource-label"
-              style="text-decoration: {{#if system.attributes.literated}}line-through{{else}}underline{{/if}}">{{localize
+              style="text-decoration: {{ifThen system.attributes.literated "line-through" "underline"}}">{{localize
               "SWYVERS.Character.Literate.false"}}</label>
           </div>
           <div class="resource-content flexrow flex-center flex-between">

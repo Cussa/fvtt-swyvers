@@ -83,7 +83,7 @@
           <div class="grid-span-1">
             <label class="resource-label">{{localize "SWYVERS.Container.Label"}}</label>
             <select name="system.container">
-              {{selectOptions containerChoices selected=system.container localize=true}}</select>
+              {{selectOptionsWithDisabled containerChoices selected=system.container localize=true disabled=containerDisabled}}</select>
           </div>
           {{/if}}
         </div>

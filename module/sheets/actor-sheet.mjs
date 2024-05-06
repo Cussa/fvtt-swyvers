@@ -184,6 +184,29 @@ export class SwyversActorSheet extends ActorSheet {
     context.skills = skills;
     context.inventory = inventory;
 
+    let containerOverflow = [];
+    const containerToCheck = ["backpackExternal", "belt", "sack"];
+    containerToCheck.forEach(element => {
+      if (context.inventory[element].usedSlots > context.inventory[element].totalSlots) {
+        containerOverflow.push(game.i18n.format("SWYVERS.Container.Overflow", {
+          name: game.i18n.localize(SWYVERS.CONTAINER.CONFIGURATIONS[element].label),
+          usedSlots: context.inventory[element].usedSlots,
+          totalSlots: context.inventory[element].totalSlots,
+        }));
+      }
+    });
+    if (containerOverflow.length) {
+      containerOverflow.unshift(`${this.actor.name}<br>`);
+      const messageData = {
+        type: CONST.CHAT_MESSAGE_TYPES.WHISPER,
+        from: game.user._id,
+        content: containerOverflow.join("<br>"),
+        whisper: ChatMessage.getWhisperRecipients("GM"),
+        sound: CONFIG.sounds.notification
+      };
+      await ChatMessage.create(messageData);
+    }
+
     context.system.defense = defense;
   }
 
