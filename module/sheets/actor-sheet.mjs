@@ -3,6 +3,7 @@ import {
   onManageActiveEffect,
   prepareActiveEffectCategories,
 } from '../helpers/effects.mjs';
+import { getInlineDescriptor } from '../helpers/inlineDescription.mjs';
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
@@ -98,6 +99,7 @@ export class SwyversActorSheet extends ActorSheet {
     // Initialize containers.
 
     const inventory = {
+      equipped: [],
       belt: [],
       backpack: [],
       backpackExternal: [],
@@ -138,6 +140,14 @@ export class SwyversActorSheet extends ActorSheet {
         skills.push(i);
       }
       else {
+        console.log(i);
+        i.inlineDescriptor = getInlineDescriptor(i);
+
+        if (i.system.equipped) {
+          inventory.equipped.push(i);
+          continue;
+        }
+
         let currentContainer = i.system.container ?? "notCarried";
         currentContainer = inventory[currentContainer] ? currentContainer : "notCarried";
         inventory[currentContainer].push(i);

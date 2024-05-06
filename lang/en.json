@@ -73,7 +73,7 @@
         "Arrow": "Arrow",
         "Bullet": "Bullet"
       },
-      "ArmourPiercing": "Armour Piercing",
+      "ArmourPiercing": "Armour-piercing",
       "Belt": "Belt",
       "Halfswording": "Halfswording",
       "Reach": "Reach",
@@ -137,6 +137,7 @@
     "Inventory": "Inventory",
     "Container": {
       "Label": "Container",
+      "equipped": "Equipped / Worn",
       "belt":"Belt",
       "backpack": "Backpack",
       "backpackExternal": "Backpack (External)",
