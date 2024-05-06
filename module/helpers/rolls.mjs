@@ -116,8 +116,8 @@ async function _rollDiceAsHigh(item, dice, content, mod) {
   });
 }
 
-async function _getAttributeModifier(item) {
-  let mod = await item.actor.system.getAttributeModifier(item.system.attribute);
+async function _getAttributeModifierForActor(actor, attribute) {
+  let mod = await actor.system.getAttributeModifier(attribute);
   let additionalTargetInfo = "";
   if (mod > 0)
     additionalTargetInfo = ` + ${mod}`;
@@ -125,6 +125,10 @@ async function _getAttributeModifier(item) {
     additionalTargetInfo = ` ${mod}`;
 
   return [mod, additionalTargetInfo];
+}
+
+async function _getAttributeModifier(item) {
+  return _getAttributeModifierForActor(item.actor, item.system.attribute);
 }
 
 export async function rollDamage(item) {
@@ -174,4 +178,42 @@ export async function rollSoakDamage(item) {
     speaker: ChatMessage.getSpeaker({ actor: item.actor }),
     content: chatContent
   });
+}
+
+export async function rollUnderAttribute(actor, attribute) {
+  let target = actor.system.attributes[attribute].value;
+  let targetInfo = `${game.i18n.localize(SWYVERS.SKILL.ATTRIBUTES[attribute].label)} (${target})`;
+  let [mod, additionalTargetInfo] = await _getAttributeModifierForActor(actor, attribute);
+  target += mod;
+  const content = `<p class="item-target">${game.i18n.localize("SWYVERS.Target")}: ${targetInfo}${additionalTargetInfo}</p>`;
+
+  let buttons = {};
+  for (let index = 2; index < 6; index++) {
+    buttons[`button${index}d6`] = {
+      icon: '<i class="fas fa-dice"></i>',
+      label: `${index}d6`,
+      callback: async () => {
+        let roll = await new Roll(`${index}d6`).roll({ async: true });
+
+        const chatContent = await renderTemplate(rollTemplate, {
+          flavor: content,
+          formula: `${index}d6 < ${target}`,
+          tooltip: await roll.getTooltip(),
+          total: `${roll.total}`,
+          totalClass: roll.total < target ? "success" : "failure"
+        })
+        roll.toMessage({
+          speaker: ChatMessage.getSpeaker({ actor: actor }),
+          content: chatContent
+        });
+      }
+    };
+  }
+  const testName = game.i18n.localize("SWYVERS.TestTitle", { title: targetInfo });
+  new Dialog(
+    {
+      title: testName,
+      content: content,
+      buttons: buttons
+    }).render(true);
 }

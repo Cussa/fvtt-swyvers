@@ -31,7 +31,7 @@
         and it will add a small amount of padding, a border, and will
         center all of its child elements content and text. --}}
         <div class="resource flex-group-center">
-          <label for="system.attributes.con.value" class="resource-label small-caps">{{localize "SWYVERS.Character.Con.abbr"}}</label>
+          <label for="system.attributes.con.value" class="resource-label small-caps rollable" data-roll-type="attribute" data-attribute="con">{{localize "SWYVERS.Character.Con.abbr"}}</label>
           <div class="resource-content flexrow flex-center flex-between">
             <input type="text" name="system.attributes.con.value" value="{{system.attributes.con.value}}" data-dtype="Number" />
             <span> / </span>
@@ -40,7 +40,7 @@
         </div>
 
         <div class="resource flex-group-center">
-          <label for="system.attributes.dex.value" class="resource-label small-caps">{{localize "SWYVERS.Character.Dex.abbr"}}</label>
+          <label for="system.attributes.dex.value" class="resource-label small-caps rollable" data-roll-type="attribute" data-attribute="dex">{{localize "SWYVERS.Character.Dex.abbr"}}</label>
           <div class="resource-content flexrow flex-center flex-between">
             <input type="text" name="system.attributes.dex.value" value="{{system.attributes.dex.value}}" data-dtype="Number" />
             <span> / </span>
@@ -49,7 +49,7 @@
         </div>
 
         <div class="resource flex-group-center">
-          <label for="system.attributes.str.value" class="resource-label small-caps">{{localize "SWYVERS.Character.Str.abbr"}}</label>
+          <label for="system.attributes.str.value" class="resource-label small-caps rollable" data-roll-type="attribute" data-attribute="str">{{localize "SWYVERS.Character.Str.abbr"}}</label>
           <div class="resource-content flexrow flex-center flex-between">
             <input type="text" name="system.attributes.str.value" value="{{system.attributes.str.value}}" data-dtype="Number" />
             <span> / </span>

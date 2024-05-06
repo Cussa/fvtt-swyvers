@@ -4,6 +4,7 @@ import {
   prepareActiveEffectCategories,
 } from '../helpers/effects.mjs';
 import { getInlineDescriptor } from '../helpers/inlineDescription.mjs';
+import { rollUnderAttribute } from '../helpers/rolls.mjs';
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
@@ -257,8 +258,10 @@ export class SwyversActorSheet extends ActorSheet {
         const itemId = element.closest('.item').dataset.itemId;
         const item = this.actor.items.get(itemId);
         const rollUnder = dataset.rollUnder;
-        console.log(item);
         if (item) return item.system.roll(rollUnder);
+      }
+      if (dataset.rollType == "attribute") {
+        return rollUnderAttribute(this.actor, dataset.attribute);
       }
     }
 
