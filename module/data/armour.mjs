@@ -15,6 +15,7 @@ export default class SwyversArmour extends SwyversItemBase {
     });
 
     schema.broken = new fields.BooleanField({ initial: false });
+    schema.equipped = new fields.BooleanField({ initial: false });
     
     /**@override */
     schema.slots = new fields.NumberField({ ...SwyversItemBase.requiredInteger, initial: 2, min: 1 });

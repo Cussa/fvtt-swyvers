@@ -75,3 +75,10 @@ input[type="text"], input[type="number"], input[type="password"], input[type="da
   border-bottom: 1px solid;
   border-radius: 0;
 }
+
+fieldset {
+  border:  2px dotted black;
+  legend {
+    padding: 0 5px
+  }
+}

@@ -21,6 +21,14 @@ export default class SwyversItemBase extends foundry.abstract.TypeDataModel {
 
     schema.maxStack = new fields.NumberField({ ...SwyversItemBase.requiredInteger, initial: 1, min: 1 });
 
+    schema.containerOptions = new fields.SchemaField({
+      equipped: new fields.BooleanField({ initial: false }),
+      belt: new fields.BooleanField({ initial: false }),
+      backpack: new fields.BooleanField({ initial: true }),
+      backpackExternal: new fields.BooleanField({ initial: false }),
+      sack: new fields.BooleanField({ initial: false }),
+    });
+
     schema.container = new fields.StringField({ required: true, blank: false, choices: SWYVERS.CONTAINER.CONFIGURATIONS, initial: SWYVERS.CONTAINER.CONFIGURATIONS.notCarried.id });
 
     return schema;

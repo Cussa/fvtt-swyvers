@@ -71,15 +71,21 @@ export class SwyversItemSheet extends ItemSheet {
         delete inventory.backpack;
         delete inventory.backpackExternal;
       }
-      else if (this._getUsedSlots("backpackExternal") + this.item.system.slots > 3) {
+      else if (!this.item.system.containerOptions.backpackExternal ||
+        this._getUsedSlots("backpackExternal") + this.item.system.slots > 3) {
         delete inventory.backpackExternal;
       }
 
-      if (this._getUsedSlots("belt") + this.item.system.slots > 3) {
+      if (!this.item.system.containerOptions.backpack)
+        delete inventory.backpack;
+
+      if (!this.item.system.containerOptions.belt ||
+        this._getUsedSlots("belt") + this.item.system.slots > 3) {
         delete inventory.belt;
       }
 
-      if (this.item.actor.items.filter(it => it.name == "Sack").length == 0 ||
+      if (!this.item.system.containerOptions.sack ||
+        this.item.actor.items.filter(it => it.name == "Sack").length == 0 ||
         this._getUsedSlots("sack") + this.item.system.slots > 4)
         delete inventory.sack;
       context.containerChoices = this._labelOptions(inventory);

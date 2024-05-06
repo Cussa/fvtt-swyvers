@@ -55,10 +55,6 @@
               {{selectOptions weaponAmmoType selected=system.ammoType localize=true}}</select>
           </div>
           <div class="grid-span-1">
-            <input type="checkbox" name="system.belt" {{checked system.belt}}>
-            <label class="resource-label">{{localize "SWYVERS.Weapon.Belt"}}</label>
-          </div>
-          <div class="grid-span-1">
             <input type="checkbox" name="system.set" {{checked system.set}}>
             <label class="resource-label">{{localize "SWYVERS.Weapon.Set"}}</label>
           </div>
@@ -71,12 +67,12 @@
             <label class="resource-label">{{localize "SWYVERS.Weapon.Halfswording"}}</label>
           </div>
           <div class="grid-span-1">
-            <input type="checkbox" name="system.armourPiercing" {{checked system.armourPiercing}}>
-            <label class="resource-label">{{localize "SWYVERS.Weapon.ArmourPiercing"}}</label>
-          </div>
-          <div class="grid-span-1">
             <input type="checkbox" name="system.thrust" {{checked system.thrust}}>
             <label class="resource-label">{{localize "SWYVERS.Weapon.Thrust"}}</label>
+          </div>
+          <div class="grid-span-2">
+            <input type="checkbox" name="system.armourPiercing" {{checked system.armourPiercing}}>
+            <label class="resource-label">{{localize "SWYVERS.Weapon.ArmourPiercing"}}</label>
           </div>
 
           {{#if containerChoices}}
@@ -93,6 +89,7 @@
         </div>
 
       </div>
+      {{> "systems/swyvers/templates/item/parts/item-carry-options.hbs"}}
     </div>
 
 

@@ -34,7 +34,7 @@ export default class SwyversActorBase extends foundry.abstract.TypeDataModel {
 
   async getDexModifier() {
     let dexModifier = this.attributes.dex.mod ?? 0;
-    dexModifier += -Math.max(this.parent.items.filter(it => it.system.container == "backpack").length - 10, 0);
+    dexModifier += -Math.max(this.parent.items.filter(it => !it.system.equipped && it.system.container == "backpack").length - 10, 0);
     return dexModifier;
   }
 

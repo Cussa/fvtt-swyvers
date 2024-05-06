@@ -14,5 +14,6 @@ export const preloadHandlebarsTemplates = async function () {
     'systems/swyvers/templates/actor/parts/actor-effects.hbs',
     // Item partials
     'systems/swyvers/templates/item/parts/item-effects.hbs',
+    'systems/swyvers/templates/item/parts/item-carry-options.hbs',
   ]);
 };

@@ -143,13 +143,13 @@ export class SwyversActorSheet extends ActorSheet {
         console.log(i);
         i.inlineDescriptor = getInlineDescriptor(i);
 
-        if (i.system.equipped) {
+        if (i.system.equipped && i.system.containerOptions.equipped) {
           inventory.equipped.push(i);
           continue;
         }
 
         let currentContainer = i.system.container ?? "notCarried";
-        currentContainer = inventory[currentContainer] ? currentContainer : "notCarried";
+        currentContainer = inventory[currentContainer] && i.system.containerOptions[currentContainer] ? currentContainer : "notCarried";
         inventory[currentContainer].push(i);
       }
     }
