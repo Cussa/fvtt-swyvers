@@ -24,6 +24,7 @@ export default class SwyversCharacter extends SwyversActorBase {
       dex: new fields.SchemaField({ ...SwyversCharacter.attributeProperty(fields) }),
       str: new fields.SchemaField({ ...SwyversCharacter.attributeProperty(fields) }),
       hp: new fields.SchemaField({ ...SwyversCharacter.attributeProperty(fields) }),
+      fighting: new fields.NumberField({ ...SwyversCharacter.requiredInteger, initial: 0, min: 0, max: 6 }),
       literated: new fields.BooleanField({ initial: false }),
       literatedReason: new fields.StringField({ required: false, blank: true }),
     });

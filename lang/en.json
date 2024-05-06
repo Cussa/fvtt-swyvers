@@ -147,7 +147,11 @@
     "TestTitle": "Test: {title}",
     "Target": "Target",
     "RollUnder": "Roll Under",
-    "RollAsHigh": "Roll as High"
+    "RollAsHigh": "Roll as High",
+    "Attack": "Fight",
+    "Deffense": "Def",
+    "Fighting": "Fighting Skill",
+    "Bonus": "Bonus"
   },
   "TYPES": {
     "Actor": {

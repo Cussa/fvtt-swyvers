@@ -29,7 +29,7 @@ async function _rollUnder(item, buttonsFunc) {
 }
 
 async function _rollUnderNumberButtons(item, content) {
-  const additionalFlavor = `<input type="text" id="target" value="10" data-dtype="Number">`;
+  const additionalFlavor = `<input type="number" id="target" value="10" step="1" data-dtype="Number">`;
   return [{
     roll: {
       icon: '<i class="fas fa-dice"></i>',
@@ -68,10 +68,10 @@ async function _rollDiceUnder(item, dice, content, target, targetInfo, additiona
   const chatContent = await renderTemplate(rollTemplate, {
     flavor: content,
     additionalFlavor: additionalFlavor,
-    formula: `${dice}d6 < ${finalTarget}`,
+    formula: `${dice}d6 <= ${finalTarget}`,
     tooltip: await roll.getTooltip(),
     total: `${roll.total}`,
-    totalClass: roll.total < finalTarget ? "success" : "failure"
+    totalClass: roll.total <= finalTarget ? "success" : "failure"
   })
   roll.toMessage({
     speaker: ChatMessage.getSpeaker({ actor: item.actor }),
@@ -80,9 +80,20 @@ async function _rollDiceUnder(item, dice, content, target, targetInfo, additiona
 }
 
 export async function rollAsHigh(item) {
+  let targetInfo = "";
+  let attribute = 0;
+  if (item.system.attribute != SWYVERS.SKILL.ATTRIBUTES.uncertain.id) {
+    attribute = item.actor.system.attributes[item.system.attribute].value;
+    targetInfo = `${game.i18n.localize(SWYVERS.SKILL.ATTRIBUTES[item.system.attribute].label)} (${attribute})`;
+  }
+  else {
+    targetInfo = `${game.i18n.localize(SWYVERS.SKILL.ATTRIBUTES.uncertain.label)}`;
+  }
+
   const testName = game.i18n.localize("SWYVERS.TestTitle", { title: item.name });
-  let [mod, additionalTargetInfo] = await _getAttributeModifier(item);
-  let content = await item.system.getCardData() + `<p class="item-target">${game.i18n.localize("SWYVERS.RollAsHigh")} + ${item.system.value}${additionalTargetInfo}</p>`;
+
+  let [_, additionalTargetInfo] = await _getAttributeModifier(item);
+  let content = await item.system.getCardData() + `<p class="item-target">${game.i18n.localize("SWYVERS.RollAsHigh")}: ${targetInfo} + ${item.system.value}${additionalTargetInfo}</p>`;
 
   new Dialog(
     {
@@ -92,28 +103,24 @@ export async function rollAsHigh(item) {
         roll: {
           icon: '<i class="fas fa-dice"></i>',
           label: `Roll`,
-          callback: () => _rollDiceAsHigh(item, 3, content, mod, additionalTargetInfo)
+          callback: async () => {
+            let formula = `1d12 + ${attribute} + @value${additionalTargetInfo}`;
+            let roll = await new Roll(formula, item.getRollData()).roll({ async: true });
+
+            const chatContent = await renderTemplate(rollTemplate, {
+              flavor: content,
+              formula: roll.formula,
+              tooltip: await roll.getTooltip(),
+              total: `${roll.total}`
+            })
+            roll.toMessage({
+              speaker: ChatMessage.getSpeaker({ actor: item.actor }),
+              content: chatContent
+            });
+          }
         }
       }
     }).render(true);
-}
-
-async function _rollDiceAsHigh(item, dice, content, mod) {
-  let formula = `${dice}d6 + @value`;
-  if (mod)
-    formula += ` ${mod}`;
-  let roll = await new Roll(formula, item.getRollData()).roll({ async: true });
-
-  const chatContent = await renderTemplate(rollTemplate, {
-    flavor: content,
-    formula: roll.formula,
-    tooltip: await roll.getTooltip(),
-    total: `${roll.total}`
-  })
-  roll.toMessage({
-    speaker: ChatMessage.getSpeaker({ actor: item.actor }),
-    content: chatContent
-  });
 }
 
 async function _getAttributeModifierForActor(actor, attribute) {
@@ -122,7 +129,7 @@ async function _getAttributeModifierForActor(actor, attribute) {
   if (mod > 0)
     additionalTargetInfo = ` + ${mod}`;
   else if (mod < 0)
-    additionalTargetInfo = ` ${mod}`;
+    additionalTargetInfo = ` - ${-mod}`;
 
   return [mod, additionalTargetInfo];
 }
@@ -197,10 +204,10 @@ export async function rollUnderAttribute(actor, attribute) {
 
         const chatContent = await renderTemplate(rollTemplate, {
           flavor: content,
-          formula: `${index}d6 < ${target}`,
+          formula: `${index}d6 <= ${target}`,
           tooltip: await roll.getTooltip(),
           total: `${roll.total}`,
-          totalClass: roll.total < target ? "success" : "failure"
+          totalClass: roll.total <= target ? "success" : "failure"
         })
         roll.toMessage({
           speaker: ChatMessage.getSpeaker({ actor: actor }),
@@ -215,5 +222,54 @@ export async function rollUnderAttribute(actor, attribute) {
       title: testName,
       content: content,
       buttons: buttons
+    }).render(true);
+}
+
+export async function rollAttack(actor) {
+
+
+  let content = `<p class="item-name">${game.i18n.localize("SWYVERS.Fighting")} (${actor.system.attributes.fighting})</p>`;
+  content += `<p class="item-target">${game.i18n.localize("SWYVERS.Bonus")}: {{info}}</p>`;
+
+  const bonusInput = `<input type="number" id="target" value="0" step="1" data-dtype="Number">`;
+
+  const testName = game.i18n.localize("SWYVERS.TestTitle", { title: game.i18n.localize("SWYVERS.Fighting") });
+  new Dialog(
+    {
+      title: testName,
+      content: content.replace("{{info}}", bonusInput),
+      buttons: {
+        roll: {
+          icon: '<i class="fas fa-dice"></i>',
+          label: `Roll`,
+          callback: async (html) => {
+            let targetInfo = parseInt(html.find("#target")[0].value);
+            let mod = "";
+
+            if (targetInfo) {
+              if (targetInfo > 0)
+                targetInfo = ` + ${targetInfo}`;
+              else
+                targetInfo = ` - ${-targetInfo}`;
+              mod = targetInfo;
+            }
+
+            let roll = await new Roll(`2d10 + ${actor.system.attributes.fighting}${mod}`).roll({ async: true });
+
+            console.log(roll, mod, targetInfo);
+
+            const chatContent = await renderTemplate(rollTemplate, {
+              flavor: content.replace("{{info}}", targetInfo),
+              formula: roll.formula,
+              tooltip: await roll.getTooltip(),
+              total: `${roll.total}`
+            })
+            roll.toMessage({
+              speaker: ChatMessage.getSpeaker({ actor: actor }),
+              content: chatContent
+            });
+          }
+        }
+      }
     }).render(true);
 }

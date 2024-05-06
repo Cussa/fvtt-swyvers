@@ -2,9 +2,25 @@
 
   {{!-- Sheet Header --}}
   <header class="sheet-header">
-    <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100" />
+    <div class="left-side">
+      <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100" />
+      <div class="resource flex-group-center">
+        <label for="system.attributes.fighting" class="resource-label small-caps rollable"
+          data-roll-type="attack">{{localize "SWYVERS.Attack"}}</label> /
+        <label for="system.attributes.con.value" class="resource-label small-caps">{{localize
+          "SWYVERS.Deffense"}}</label>
+        <div class="resource-content flexrow flex-center flex-between">
+          <input type="text" name="system.attributes.fighting" value="{{system.attributes.fighting}}"
+            data-dtype="Number" />
+          <span> / </span>
+          <input type="text" name="system.attributes.defense" value="{{system.attributes.defense}}"
+            data-dtype="Number" disabled />
+        </div>
+      </div>
+    </div>
     <div class="header-fields">
-      <h1 class="charname" style="text-align: center;"><input name="name" type="text" value="{{actor.name}}" placeholder="Name" /></h1>
+      <h1 class="charname" style="text-align: center;"><input name="name" type="text" value="{{actor.name}}"
+          placeholder="Name" /></h1>
       {{!-- The grid classes are defined in scss/global/_grid.scss. To use,
       use both the "grid" and "grid-Ncol" class where "N" can be any number
       from 1 to 12 and will create that number of columns. --}}
@@ -17,11 +33,16 @@
         </div>
         <div class="resource flex-group-center">
           <div>
-            <label for="system.attributes.literated" class="resource-label" style="text-decoration: {{#if system.attributes.literated}}underline{{else}}line-through{{/if}}">{{localize "SWYVERS.Character.Literate.true"}}</label> / 
-            <label for="system.attributes.literated" class="resource-label" style="text-decoration: {{#if system.attributes.literated}}line-through{{else}}underline{{/if}}">{{localize "SWYVERS.Character.Literate.false"}}</label>
+            <label for="system.attributes.literated" class="resource-label"
+              style="text-decoration: {{#if system.attributes.literated}}underline{{else}}line-through{{/if}}">{{localize
+              "SWYVERS.Character.Literate.true"}}</label> /
+            <label for="system.attributes.literated" class="resource-label"
+              style="text-decoration: {{#if system.attributes.literated}}line-through{{else}}underline{{/if}}">{{localize
+              "SWYVERS.Character.Literate.false"}}</label>
           </div>
           <div class="resource-content flexrow flex-center flex-between">
-            <input type="text" name="system.attributes.literatedReason" value="{{system.attributes.literatedReason}}" data-dtype="String" />
+            <input type="text" name="system.attributes.literatedReason" value="{{system.attributes.literatedReason}}"
+              data-dtype="String" />
           </div>
         </div>
       </div>
@@ -31,38 +52,50 @@
         and it will add a small amount of padding, a border, and will
         center all of its child elements content and text. --}}
         <div class="resource flex-group-center">
-          <label for="system.attributes.con.value" class="resource-label small-caps rollable" data-roll-type="attribute" data-attribute="con">{{localize "SWYVERS.Character.Con.abbr"}}</label>
+          <label for="system.attributes.con.value" class="resource-label small-caps rollable" data-roll-type="attribute"
+            data-attribute="con">{{localize "SWYVERS.Character.Con.abbr"}}</label>
           <div class="resource-content flexrow flex-center flex-between">
-            <input type="text" name="system.attributes.con.value" value="{{system.attributes.con.value}}" data-dtype="Number" />
+            <input type="text" name="system.attributes.con.value" value="{{system.attributes.con.value}}"
+              data-dtype="Number" />
             <span> / </span>
-            <input type="text" name="system.attributes.con.max" value="{{system.attributes.con.max}}" data-dtype="Number" />
+            <input type="text" name="system.attributes.con.max" value="{{system.attributes.con.max}}"
+              data-dtype="Number" />
           </div>
         </div>
 
         <div class="resource flex-group-center">
-          <label for="system.attributes.dex.value" class="resource-label small-caps rollable" data-roll-type="attribute" data-attribute="dex">{{localize "SWYVERS.Character.Dex.abbr"}}</label>
+          <label for="system.attributes.dex.value" class="resource-label small-caps rollable" data-roll-type="attribute"
+            data-attribute="dex">{{localize "SWYVERS.Character.Dex.abbr"}}</label>
           <div class="resource-content flexrow flex-center flex-between">
-            <input type="text" name="system.attributes.dex.value" value="{{system.attributes.dex.value}}" data-dtype="Number" />
+            <input type="text" name="system.attributes.dex.value" value="{{system.attributes.dex.value}}"
+              data-dtype="Number" />
             <span> / </span>
-            <input type="text" name="system.attributes.dex.max" value="{{system.attributes.dex.max}}" data-dtype="Number" />
+            <input type="text" name="system.attributes.dex.max" value="{{system.attributes.dex.max}}"
+              data-dtype="Number" />
           </div>
         </div>
 
         <div class="resource flex-group-center">
-          <label for="system.attributes.str.value" class="resource-label small-caps rollable" data-roll-type="attribute" data-attribute="str">{{localize "SWYVERS.Character.Str.abbr"}}</label>
+          <label for="system.attributes.str.value" class="resource-label small-caps rollable" data-roll-type="attribute"
+            data-attribute="str">{{localize "SWYVERS.Character.Str.abbr"}}</label>
           <div class="resource-content flexrow flex-center flex-between">
-            <input type="text" name="system.attributes.str.value" value="{{system.attributes.str.value}}" data-dtype="Number" />
+            <input type="text" name="system.attributes.str.value" value="{{system.attributes.str.value}}"
+              data-dtype="Number" />
             <span> / </span>
-            <input type="text" name="system.attributes.str.max" value="{{system.attributes.str.max}}" data-dtype="Number" />
+            <input type="text" name="system.attributes.str.max" value="{{system.attributes.str.max}}"
+              data-dtype="Number" />
           </div>
         </div>
 
         <div class="resource flex-group-center">
-          <label for="system.attributes.hp.value" class="resource-label small-caps">{{localize "SWYVERS.Character.Hp.abbr"}}</label>
+          <label for="system.attributes.hp.value" class="resource-label small-caps">{{localize
+            "SWYVERS.Character.Hp.abbr"}}</label>
           <div class="resource-content flexrow flex-center flex-between">
-            <input type="text" name="system.attributes.hp.value" value="{{system.attributes.hp.value}}" data-dtype="Number" />
+            <input type="text" name="system.attributes.hp.value" value="{{system.attributes.hp.value}}"
+              data-dtype="Number" />
             <span> / </span>
-            <input type="text" name="system.attributes.hp.max" value="{{system.attributes.hp.max}}" data-dtype="Number" />
+            <input type="text" name="system.attributes.hp.max" value="{{system.attributes.hp.max}}"
+              data-dtype="Number" />
           </div>
         </div>
 
@@ -81,13 +114,13 @@
   {{!-- Sheet Tab Navigation --}}
   <nav class="sheet-tabs tabs" data-group="primary">
     {{!-- Default tab is specified in actor-sheet.mjs --}}
-    <a class="item" data-tab="features">Features</a>
+    {{!-- <a class="item" data-tab="features">Features</a>
     <a class="item" data-tab="description">Description</a>
-    <a class="item" data-tab="items">Items</a>
+    <a class="item" data-tab="items">Items</a> --}}
     <a class="item" data-tab="inventory">{{localize "SWYVERS.Inventory"}}</a>
     <a class="item" data-tab="skills">{{localize "SWYVERS.Skills"}}</a>
     <a class="item" data-tab="spells">Spells</a>
-    <a class="item" data-tab="effects">Effects</a>
+    {{!-- <a class="item" data-tab="effects">Effects</a> --}}
   </nav>
 
   {{!-- Sheet Body --}}

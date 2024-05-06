@@ -4,7 +4,7 @@ import {
   prepareActiveEffectCategories,
 } from '../helpers/effects.mjs';
 import { getInlineDescriptor } from '../helpers/inlineDescription.mjs';
-import { rollUnderAttribute } from '../helpers/rolls.mjs';
+import { rollAttack, rollUnderAttribute } from '../helpers/rolls.mjs';
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
@@ -99,6 +99,7 @@ export class SwyversActorSheet extends ActorSheet {
   async _prepareItems(context) {
     // Initialize containers.
 
+    let defense = 6;
     const inventory = {
       equipped: [],
       belt: [],
@@ -161,6 +162,8 @@ export class SwyversActorSheet extends ActorSheet {
     context.spells = spells;
     context.skills = skills;
     context.inventory = inventory;
+
+    context.system.defense = defense;
   }
 
   /* -------------------------------------------- */
@@ -262,6 +265,9 @@ export class SwyversActorSheet extends ActorSheet {
       }
       if (dataset.rollType == "attribute") {
         return rollUnderAttribute(this.actor, dataset.attribute);
+      }
+      if (dataset.rollType == "attack") {
+        return rollAttack(this.actor);
       }
     }
 

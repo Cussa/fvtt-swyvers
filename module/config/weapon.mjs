@@ -48,3 +48,12 @@ export const QUALITY = {
     formulaModifier: "max"
   },
 }
+
+export const DEFENSE = { 
+  casting: 6,
+  shooting: 6,
+  unarmed: 6,
+  short: 8,
+  medium: 10,
+  long: 10
+}
