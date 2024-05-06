@@ -33,4 +33,12 @@ export default class SwyversItemBase extends foundry.abstract.TypeDataModel {
 
     return schema;
   }
+
+  async roll() {
+    console.warn("Item-base should not use the roll. Check the implementation for the custom type");
+  }
+
+  async getCardData() {
+    return await TextEditor.enrichHTML(`<p class="item-name">${this.parent.name}</p>${this.description}`, { async: true });
+  }
 }

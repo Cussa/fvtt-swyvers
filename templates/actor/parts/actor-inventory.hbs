@@ -28,6 +28,13 @@
       </h4>
     </div>
     <div class='item-controls'>
+
+      {{log item}}
+      {{#if (and item.rollable item.system.equipped)}}
+      <a class='item-control item-roll rollable' data-roll-type='item' title='{{localize "DOCUMENT.Roll"}}'>
+        <i class='fas fa-dice'></i>
+      </a>
+      {{/if}}
       <a class='item-control item-edit' title='{{localize "DOCUMENT.Edit" type=' spell'}}'>
         <i class='fas fa-edit'></i>
       </a>

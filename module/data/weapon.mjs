@@ -1,5 +1,6 @@
 import SwyversItemBase from "./item-base.mjs";
 import { SWYVERS } from "../config/swyvers.mjs";
+import { rollDamage } from "../helpers/rolls.mjs";
 
 export default class SwyversWeapon extends SwyversItemBase {
 
@@ -27,5 +28,16 @@ export default class SwyversWeapon extends SwyversItemBase {
     schema.equipped = new fields.BooleanField({ initial: false });
 
     return schema;
+  }
+
+  async roll(_) {
+    await rollDamage(this.parent);
+  }
+
+  async getCardData() {
+    let cardData = `<p class="item-name">${this.parent.name}</p>${this.description}`;
+    cardData += `<p><strong>Quality: </strong>${game.i18n.localize(SWYVERS.WEAPON.QUALITY[this.quality].label)}</p>`;
+    cardData += `<p><strong>Damage: </strong>${this.damage}</p>`;
+    return await TextEditor.enrichHTML(cardData, { async: true });
   }
 }

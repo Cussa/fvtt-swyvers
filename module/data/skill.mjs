@@ -19,8 +19,4 @@ export default class SwyversSkill extends SwyversItemBase {
   async roll(under) {
     await roll(this.parent, under);
   }
-
-  async getCardData() {
-    return await TextEditor.enrichHTML(`<p class="item-name">${this.parent.name}</p>${this.description}`, { async: true });
-  }
 }

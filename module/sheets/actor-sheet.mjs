@@ -140,8 +140,8 @@ export class SwyversActorSheet extends ActorSheet {
         skills.push(i);
       }
       else {
-        console.log(i);
         i.inlineDescriptor = getInlineDescriptor(i);
+        i.rollable = ["weapon", "armour"].indexOf(i.type) > -1;
 
         if (i.system.equipped && i.system.containerOptions.equipped) {
           inventory.equipped.push(i);

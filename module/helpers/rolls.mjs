@@ -126,3 +126,52 @@ async function _getAttributeModifier(item) {
 
   return [mod, additionalTargetInfo];
 }
+
+export async function rollDamage(item) {
+
+  const content = await item.system.getCardData();
+
+  let formula = item.system.damage;
+  if (item.system.quality == SWYVERS.WEAPON.QUALITY.ropey.id)
+    formula = `{${formula}, ${formula}}kl`;
+  else if (item.system.quality == SWYVERS.WEAPON.QUALITY.mint.id)
+    formula = `{${formula}, ${formula}}kh`;
+
+  let roll = await new Roll(formula, item.getRollData()).roll({ async: true });
+
+  const chatContent = await renderTemplate(rollTemplate, {
+    flavor: content,
+    formula: roll.formula,
+    tooltip: await roll.getTooltip(),
+    total: `${roll.total}`
+  })
+  roll.toMessage({
+    speaker: ChatMessage.getSpeaker({ actor: item.actor }),
+    content: chatContent
+  });
+}
+
+
+export async function rollSoakDamage(item) {
+
+  const content = await item.system.getCardData();
+
+  let formula = item.system.damageSoak;
+  if (item.system.quality == SWYVERS.ARMOUR.QUALITY.patchwork.id)
+    formula = `{${formula}, ${formula}}kl`;
+  else if (item.system.quality == SWYVERS.ARMOUR.QUALITY.swank.id)
+    formula = `{${formula}, ${formula}}kh`;
+
+  let roll = await new Roll(formula, item.getRollData()).roll({ async: true });
+
+  const chatContent = await renderTemplate(rollTemplate, {
+    flavor: content,
+    formula: roll.formula,
+    tooltip: await roll.getTooltip(),
+    total: `${roll.total}`
+  })
+  roll.toMessage({
+    speaker: ChatMessage.getSpeaker({ actor: item.actor }),
+    content: chatContent
+  });
+}
