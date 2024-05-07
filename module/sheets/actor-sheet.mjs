@@ -163,7 +163,7 @@ export class SwyversActorSheet extends ActorSheet {
       }
       else {
         i.inlineDescriptor = getInlineDescriptor(i);
-        i.rollable = ["weapon", "armour"].indexOf(i.type) > -1;
+        i.rollable = ["weapon", "armour"].indexOf(i.type) > -1 && ["shield", "helmet"].indexOf(i.system.type) == -1;
 
         if (i.system.equipped && i.system.containerOptions.equipped) {
           inventory.equipped.items.push(i);

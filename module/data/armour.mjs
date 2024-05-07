@@ -7,7 +7,7 @@ export default class SwyversArmour extends SwyversItemBase {
     const fields = foundry.data.fields;
     const schema = super.defineSchema();
 
-    schema.damageSoak = new fields.StringField({ required: true, nullable: false, blank: false, initial: "1d4" });
+    schema.damageSoak = new fields.StringField({ required: true, nullable: true, blank: true, initial: "1d4" });
 
     schema.type = new fields.StringField({ required: true, blank: false, choices: SWYVERS.ARMOUR.TYPE, initial: SWYVERS.ARMOUR.TYPE.light.id });
     schema.quality = new fields.StringField({

@@ -34,7 +34,8 @@ function _getInlineDescriptorWeapon(weapon) {
 function _getInlineDescriptorArmour(armour) {
   let info = [];
   info.push(game.i18n.localize(SWYVERS.ARMOUR.QUALITY[armour.system.quality].label));
-  info.push(armour.system.damageSoak);
+  if (armour.system.damageSoak)
+    info.push(armour.system.damageSoak);
   info.push(`${game.i18n.localize("SWYVERS.Items.Slots")}: ${armour.system.slots}`);
   return `${info.join(", ")}`;
 }
