@@ -15,7 +15,7 @@ export async function rollUnder(item) {
 }
 
 async function _rollUnder(item, buttonsFunc) {
-  const testName = game.i18n.localize("SWYVERS.TestTitle", { title: item.name });
+  const testName = game.i18n.format("SWYVERS.TestTitle", { title: item.name });
   const originalContent = await item.system.getCardData();
   const [buttons, targetInfo, additionalTargetInfo] = await buttonsFunc(item, originalContent);
 
@@ -24,7 +24,8 @@ async function _rollUnder(item, buttonsFunc) {
     {
       title: testName,
       content: dialogContent,
-      buttons: buttons
+      buttons: buttons,
+      default: Object.entries(buttons)[0][0]
     }).render(true);
 }
 
@@ -90,7 +91,7 @@ export async function rollAsHigh(item) {
     targetInfo = `${game.i18n.localize(SWYVERS.SKILL.ATTRIBUTES.uncertain.label)}`;
   }
 
-  const testName = game.i18n.localize("SWYVERS.TestTitle", { title: item.name });
+  const testName = game.i18n.format("SWYVERS.TestTitle", { title: item.name });
 
   let [_, additionalTargetInfo] = await _getAttributeModifier(item);
   let content = await item.system.getCardData() + `<p class="item-target">${game.i18n.localize("SWYVERS.RollAsHigh")}: ${targetInfo} + ${item.system.value}${additionalTargetInfo}</p>`;
@@ -119,7 +120,8 @@ export async function rollAsHigh(item) {
             });
           }
         }
-      }
+      },
+      default: "roll"
     }).render(true);
 }
 
@@ -216,7 +218,7 @@ export async function rollUnderAttribute(actor, attribute) {
       }
     };
   }
-  const testName = game.i18n.localize("SWYVERS.TestTitle", { title: targetInfo });
+  const testName = game.i18n.format("SWYVERS.TestTitle", { title: targetInfo });
   new Dialog(
     {
       title: testName,
@@ -233,7 +235,7 @@ export async function rollAttack(actor) {
 
   const bonusInput = `<input type="number" id="target" value="0" step="1" data-dtype="Number">`;
 
-  const testName = game.i18n.localize("SWYVERS.TestTitle", { title: game.i18n.localize("SWYVERS.Fighting") });
+  const testName = game.i18n.format("SWYVERS.TestTitle", { title: game.i18n.localize("SWYVERS.Fighting") });
   new Dialog(
     {
       title: testName,
@@ -270,6 +272,7 @@ export async function rollAttack(actor) {
             });
           }
         }
-      }
+      },
+      default: "roll"
     }).render(true);
 }
