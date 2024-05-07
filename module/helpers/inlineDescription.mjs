@@ -27,6 +27,7 @@ function _getInlineDescriptorWeapon(weapon) {
     info.push(game.i18n.localize("SWYVERS.Weapon.ArmourPiercing"));
   if (weapon.system.thrust)
     info.push(game.i18n.localize("SWYVERS.Weapon.Thrust"));
+  info.push(`${game.i18n.localize("SWYVERS.Items.Slots")}: ${weapon.system.slots}`);
   return `${info.join(", ")}`;
 }
 
@@ -34,5 +35,6 @@ function _getInlineDescriptorArmour(armour) {
   let info = [];
   info.push(game.i18n.localize(SWYVERS.ARMOUR.QUALITY[armour.system.quality].label));
   info.push(armour.system.damageSoak);
+  info.push(`${game.i18n.localize("SWYVERS.Items.Slots")}: ${armour.system.slots}`);
   return `${info.join(", ")}`;
 }
