@@ -166,6 +166,11 @@ export class SwyversActorSheet extends ActorSheet {
         i.rollable = ["weapon", "armour"].indexOf(i.type) > -1 && ["shield", "helmet"].indexOf(i.system.type) == -1;
 
         if (i.system.equipped && i.system.containerOptions.equipped) {
+          if (i.type == "weapon")
+            defense = i.system.defense;
+          else if (i.type == "armour" && i.system.type == "shield" && i.system.equipped && !i.system.broken)
+            defense += 2;
+
           inventory.equipped.items.push(i);
           continue;
         }
@@ -207,7 +212,7 @@ export class SwyversActorSheet extends ActorSheet {
       await ChatMessage.create(messageData);
     }
 
-    context.system.defense = defense;
+    context.system.attributes.defense = defense;
   }
 
   /* -------------------------------------------- */
