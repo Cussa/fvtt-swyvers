@@ -1,6 +1,6 @@
 import { SWYVERS } from "../config/swyvers.mjs";
 
-const rollTemplate = "systems/swyvers/templates/dice/roll.hbs";
+const rollTemplate = "systems/swyvers/templates/chat/roll.hbs";
 
 export async function roll(item, under) {
   await under ? rollUnder(item) : rollAsHigh(item);
@@ -73,7 +73,7 @@ async function _rollDiceUnder(item, dice, content, target, targetInfo, additiona
     tooltip: await roll.getTooltip(),
     total: `${roll.total}`,
     totalClass: roll.total <= finalTarget ? "success" : "failure"
-  })
+  });
   roll.toMessage({
     speaker: ChatMessage.getSpeaker({ actor: item.actor }),
     content: chatContent

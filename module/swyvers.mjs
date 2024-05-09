@@ -10,6 +10,7 @@ import { SWYVERS } from './config/swyvers.mjs';
 // Import DataModel classes
 import * as models from './data/_module.mjs';
 import * as items_sheets from './sheets/_items.mjs';
+import SpellChat from './documents/spellChat.mjs';
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
@@ -54,7 +55,7 @@ Hooks.once('init', function () {
     weapon: models.SwyversWeapon,
     armour: models.SwyversArmour,
     skill: models.SwyversSkill
-  }
+  };
 
   // Active Effects are never copied to the Actor,
   // but will still apply to the Actor from within the Item
@@ -114,6 +115,11 @@ Handlebars.registerHelper({
 Hooks.once('ready', function () {
   // Wait to register hotbar drop hook on ready so that modules could register earlier if they want to
   Hooks.on('hotbarDrop', (bar, data, slot) => createItemMacro(data, slot));
+});
+
+
+Hooks.on('renderChatLog', (app, html, _data) => {
+  html.on('click', '.spell-chat-click', async (event) => await new SpellChat().processEvent(event));
 });
 
 /* -------------------------------------------- */

@@ -127,10 +127,18 @@
         "diamonds": "♦",
         "clubs": "♣"
       },
+      "Failure": "16 and Lower — Failure",
+      "FailureDefaultDescription": "The caster deliberately allows the magic to falter and die, resulting in failure to cast the spell. That spell cannot be attempted again today.",
       "Success": "17-20 - Success",
       "EmpoweredSuccess": "21 - Empowered Success",
+      "CricalFailure": "22+ — Critical Failure",
+      "CricalFailureDefaultDescription": "The flow overwhelms the caster, and they lose all control, resulting in a wild and chaotic release of energies — roll on the Critical Failures table.",
       "SuitEffect": " Effect",
-      "Available": "Available"
+      "Available": "Available",
+      "Hit": "Hit",
+      "Stand": "Stand",
+      "CurrentTotal": "Current Total: {total}",
+      "FinalTotal": "Final Total: {total}"
     },
     "Skills": "Skills",
     "Inventory": "Inventory",
@@ -138,7 +146,7 @@
       "Label": "Container",
       "containerOptions": "Carry options",
       "equipped": "Equipped / Worn",
-      "belt":"Belt",
+      "belt": "Belt",
       "backpack": "Backpack",
       "backpackExternal": "Backpack (External)",
       "sack": "Sack (Hand)",

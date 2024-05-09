@@ -1,0 +1,44 @@
+<div class="spell">
+  <p class="name">{{spell.name}}</p>
+  <h2>{{message}}</h2>
+
+  <div class="card-container">
+    {{#each cardImages as |card|}}
+    <img src="{{card}}" />
+    {{/each}}
+  </div>
+  {{#if failure}}
+  <div class="failure">
+    <p>{{localize "SWYVERS.Spell.Failure"}}</p>
+    <p>{{localize "SWYVERS.Spell.FailureDefaultDescription"}}</p>
+  </div>
+  {{/if}}
+
+  {{#if success}}
+  <div class="success">
+    <p>{{localize "SWYVERS.Spell.Success"}}</p>
+    {{{spell.system.success}}}
+  </div>
+  {{/if}}
+
+  {{#if criticalSuccess}}
+  <div class="empowered-success">
+    <p>{{localize "SWYVERS.Spell.EmpoweredSuccess"}}</p>
+    {{{spell.system.empoweredSuccess}}}
+  </div>
+  {{/if}}
+
+  {{#if criticalFailure}}
+  <div class="critical-failure">
+    <p>{{localize "SWYVERS.Spell.CricalFailure"}}</p>
+    <p>{{localize "SWYVERS.Spell.CricalFailureDefaultDescription"}}</p>
+  </div>
+  {{/if}}
+
+  {{#if continue}}
+  <div class="buttons">
+    <button class="spell-chat-click hit" data-action="hit"><i class="fa-solid fa-cards"></i>{{localize "SWYVERS.Spell.Hit"}}</button>
+    <button class="spell-chat-click stand" data-action="stand"><i class="fa-regular fa-cards-blank"></i>{{localize "SWYVERS.Spell.Stand"}}</button>
+  </div>
+  {{/if}}
+</div>

@@ -1,5 +1,6 @@
 import SwyversItemBase from "./item-base.mjs";
 import { SWYVERS } from "../config/swyvers.mjs";
+import SpellChat from "../documents/spellChat.mjs";
 
 export default class SwyversSpell extends SwyversItemBase {
 
@@ -26,5 +27,9 @@ export default class SwyversSpell extends SwyversItemBase {
     html.push(this.suitSuccess.replace("<p>", `<p>${game.i18n.localize(`SWYVERS.Spell.SuitSymbol.${i.system.suit}`)}: `));
 
     return await TextEditor.enrichHTML(html.join(""), { async: true });
+  }
+
+  async castSpell(){
+    await new SpellChat().startCasting(this.parent);
   }
 }

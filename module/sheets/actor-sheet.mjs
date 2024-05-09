@@ -299,7 +299,7 @@ export class SwyversActorSheet extends ActorSheet {
    * @param {Event} event   The originating click event
    * @private
    */
-  _onRoll(event) {
+  async _onRoll(event) {
     event.preventDefault();
     const element = event.currentTarget;
     const dataset = element.dataset;
@@ -317,6 +317,11 @@ export class SwyversActorSheet extends ActorSheet {
       }
       if (dataset.rollType == "attack") {
         return rollAttack(this.actor);
+      }
+      if (dataset.rollType == "spell") {
+        const itemId = element.closest('.item').dataset.itemId;
+        const item = this.actor.items.get(itemId);
+        return await item.system.castSpell();
       }
     }
 

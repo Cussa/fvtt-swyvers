@@ -1,3 +1,36 @@
-.chat-message{
+.chat-message {
   background: white;
+}
+
+.chat-message .spell {
+  .card-container {
+    display: flex;
+    margin-top: 30px;
+
+    img {
+      transition: 0.4s ease-out;
+      position: relative;
+      width: 100px;
+      left: 0px;
+
+      &:not(:first-child) {
+        margin-left: -70px;
+      }
+
+      &:hover {
+        transform: translateY(-20px);
+        transition: 0.4 ease-out;
+
+        &~img{
+          position: relative;
+          left: 50px;
+          transition: 0.4s ease-out;
+        }
+      }
+    }
+  }
+  .buttons{
+    margin-top: 10px;
+    display: flex;
+  }
 }
