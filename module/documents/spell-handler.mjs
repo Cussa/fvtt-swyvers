@@ -14,15 +14,19 @@ export default class SpellHandler {
     return await fromUuid("Cards.ETF01kryKUF8iIg1");
   }
 
+  async _buyCard(hand, numberOfCards) {
+    const deck = await this._getDeck();
+    await deck.deal([hand], Math.min(deck.availableCards.length, numberOfCards), { how: CONST.CARD_DRAW_MODES.RANDOM, chatNotification: false });
+    return deck.availableCards.length;
+  }
+
   async startCasting(spell) {
     const actor = spell.actor;
     let hand = await fromUuid(actor.system.handId);
 
-    const deck = await this._getDeck();
+    const availableCards = await this._buyCard(hand, 2);
 
-    await deck.deal([hand], 2, { how: CONST.CARD_DRAW_MODES.RANDOM, chatNotification: false });
-
-    const content = await this._processResult(spell, hand, false);
+    const content = await this._processResult(spell, hand, availableCards, false);
 
     const chatData = {
       speaker: ChatMessage.getSpeaker(),
@@ -56,25 +60,21 @@ export default class SpellHandler {
     else if (dataset.action == ACTION.stand)
       newContent = await this._stand(spell, hand);
 
-    console.log(newContent, newContent[0].outerHTML);
-
     await message.update({ content: newContent });
   }
 
   async _hit(spell, hand) {
-    const deck = await this._getDeck();
-    await deck.deal([hand], 1, { how: CONST.CARD_DRAW_MODES.RANDOM, chatNotification: false });
-
-    return this._processResult(spell, hand, false);
+    const availableCards = await this._buyCard(hand, 1);
+    return this._processResult(spell, hand, availableCards, false);
   }
 
   async _stand(spell, hand) {
-    const content = this._processResult(spell, hand, true);
-    await this._finishCasting(hand);
+    const deck = await this._getDeck();
+    const content = this._processResult(spell, hand, deck.availableCards.length, true);
     return content;
   }
 
-  async _processResult(spell, hand, stand = false) {
+  async _processResult(spell, hand, availableCards, stand = false) {
     let total = 0;
     let numberOfAces = 0;
     let cardImages = [];
@@ -94,13 +94,12 @@ export default class SpellHandler {
       numberOfAces--;
     }
 
-    if (total > 21) {
-      await this._finishCasting(hand);
-      stand = true;
-    }
+    stand = stand || total > 21 || availableCards == 0;
 
-    if (stand && total < 17) {
-      await spell.update({ "system.available": false });
+    if (stand) {
+      await this._finishCasting(hand);
+      if (total < 17)
+        await spell.update({ "system.available": false });
     }
 
     const message = game.i18n.format(!stand && total < 22 ? "SWYVERS.Spell.CurrentTotal" : "SWYVERS.Spell.FinalTotal", { total: total });
@@ -114,13 +113,16 @@ export default class SpellHandler {
       criticalSuccess: stand && total == 21,
       criticalFailure: stand && total > 21,
       continue: !stand,
+      magicDepleted: availableCards == 0,
       message
     });
   }
 
   async _finishCasting(hand) {
+    if (hand.availableCards.length == 0)
+      return;
     const pile = await this._getPile();
-    await hand.deal([pile], Array.from(hand.cards).length, { chatNotification: false });
+    await hand.deal([pile], hand.availableCards.length, { chatNotification: false });
   }
 
   async resetDay() {
@@ -129,7 +131,6 @@ export default class SpellHandler {
 
     for (const actor of game.actors) {
       for (const spell of actor.items.filter(it => it.type == "spell" && !it.system.available)) {
-        console.log(spell);
         await spell.update({ "system.available": true });
       }
     }

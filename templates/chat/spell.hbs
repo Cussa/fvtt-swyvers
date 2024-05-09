@@ -35,10 +35,18 @@
   </div>
   {{/if}}
 
+  {{#if magicDepleted}}
+  <p class="magic-depleted">
+    {{localize "SWYVERS.Spell.MagicDepleted"}}
+  </p>
+  {{/if}}
+
   {{#if continue}}
   <div class="buttons">
-    <button class="spell-chat-click hit" data-action="hit"><i class="fa-solid fa-cards"></i>{{localize "SWYVERS.Spell.Hit"}}</button>
-    <button class="spell-chat-click stand" data-action="stand"><i class="fa-regular fa-cards-blank"></i>{{localize "SWYVERS.Spell.Stand"}}</button>
+    <button class="spell-chat-click hit" data-action="hit"><i class="fa-solid fa-cards"></i>{{localize
+      "SWYVERS.Spell.Hit"}}</button>
+    <button class="spell-chat-click stand" data-action="stand"><i class="fa-regular fa-cards-blank"></i>{{localize
+      "SWYVERS.Spell.Stand"}}</button>
   </div>
   {{/if}}
 </div>

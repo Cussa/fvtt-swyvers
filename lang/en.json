@@ -139,7 +139,8 @@
       "Hit": "Hit",
       "Stand": "Stand",
       "CurrentTotal": "Current Total: {total}",
-      "FinalTotal": "Final Total: {total}"
+      "FinalTotal": "Final Total: {total}",
+      "MagicDepleted": "Magic resources totally depleted for the day."
     },
     "Skills": "Skills",
     "Inventory": "Inventory",
