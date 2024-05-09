@@ -10,7 +10,7 @@ import { SWYVERS } from './config/swyvers.mjs';
 // Import DataModel classes
 import * as models from './data/_module.mjs';
 import * as items_sheets from './sheets/_items.mjs';
-import SpellChat from './documents/spellChat.mjs';
+import SpellHandler from './documents/spell-handler.mjs';
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
@@ -23,6 +23,7 @@ Hooks.once('init', function () {
     SwyversActor,
     SwyversItem,
     rollItemMacro,
+    SpellHandler
   };
 
   // Add custom constants for configuration.
@@ -119,7 +120,7 @@ Hooks.once('ready', function () {
 
 
 Hooks.on('renderChatLog', (app, html, _data) => {
-  html.on('click', '.spell-chat-click', async (event) => await new SpellChat().processEvent(event));
+  html.on('click', '.spell-chat-click', async (event) => await new SpellHandler().processEvent(event));
 });
 
 /* -------------------------------------------- */

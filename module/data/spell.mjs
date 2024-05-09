@@ -1,6 +1,6 @@
 import SwyversItemBase from "./item-base.mjs";
 import { SWYVERS } from "../config/swyvers.mjs";
-import SpellChat from "../documents/spellChat.mjs";
+import SpellHandler from "../documents/spell-handler.mjs";
 
 export default class SwyversSpell extends SwyversItemBase {
 
@@ -30,6 +30,6 @@ export default class SwyversSpell extends SwyversItemBase {
   }
 
   async castSpell(){
-    await new SpellChat().startCasting(this.parent);
+    await new SpellHandler().startCasting(this.parent);
   }
 }

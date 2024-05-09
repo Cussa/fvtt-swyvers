@@ -155,7 +155,7 @@ export class SwyversActorSheet extends ActorSheet {
       // }
       // Append to spells.
       if (i.type === 'spell') {
-        i.suitSymbol = game.i18n.localize(`SWYVERS.Spell.SuitSymbol.${i.system.suit}`)
+        i.suitSymbol = game.i18n.localize(`SWYVERS.Spell.SuitSymbol.${i.system.suit}`);
         spells.push(i);
       }
       else if (i.type == "skill") {

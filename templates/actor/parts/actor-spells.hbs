@@ -21,9 +21,11 @@
       <h4>{{item.name}} {{item.suitSymbol}}</h4>
     </div>
     <div class='item-controls flewrow'>
-      <a class='item-control item-roll rollable' data-roll-type='spell' title='{{localize "DOCUMENT.Roll"}}'>
+      {{#if item.system.available}}
+      <a class='item-control item-roll rollable' data-roll-type='spell' title='{{localize "SWYVERS.Spell.Cast"}}'>
         <i class='fa-regular fa-hand-sparkles'></i>
       </a>
+      {{/if}}
       <a class='item-control item-edit' title='{{localize "DOCUMENT.Edit" type=' spell'}}'>
         <i class='fas fa-edit'></i>
       </a>

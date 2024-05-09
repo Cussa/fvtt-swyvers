@@ -3,7 +3,7 @@ const ACTION = {
   stand: "stand"
 };
 
-export default class SpellChat {
+export default class SpellHandler {
 
   static chatTemplate = "systems/swyvers/templates/chat/spell.hbs";
 
@@ -99,9 +99,13 @@ export default class SpellChat {
       stand = true;
     }
 
+    if (stand && total < 17) {
+      await spell.update({ "system.available": false });
+    }
+
     const message = game.i18n.format(!stand && total < 22 ? "SWYVERS.Spell.CurrentTotal" : "SWYVERS.Spell.FinalTotal", { total: total });
 
-    return await renderTemplate(SpellChat.chatTemplate, {
+    return await renderTemplate(SpellHandler.chatTemplate, {
       spell,
       total,
       cardImages,
@@ -116,7 +120,18 @@ export default class SpellChat {
 
   async _finishCasting(hand) {
     const pile = await this._getPile();
-    console.log(Array.from(hand.cards).length, pile);
     await hand.deal([pile], Array.from(hand.cards).length, { chatNotification: false });
+  }
+
+  async resetDay() {
+    const deck = await this._getDeck();
+    deck.recall({ chatNotification: false });
+
+    for (const actor of game.actors) {
+      for (const spell of actor.items.filter(it => it.type == "spell" && !it.system.available)) {
+        console.log(spell);
+        await spell.update({ "system.available": true });
+      }
+    }
   }
 }

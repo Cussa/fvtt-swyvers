@@ -127,6 +127,7 @@
         "diamonds": "♦",
         "clubs": "♣"
       },
+      "Cast": "Cast spell",
       "Failure": "16 and Lower — Failure",
       "FailureDefaultDescription": "The caster deliberately allows the magic to falter and die, resulting in failure to cast the spell. That spell cannot be attempted again today.",
       "Success": "17-20 - Success",
