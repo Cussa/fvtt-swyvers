@@ -234,6 +234,7 @@ export class SwyversActorSheet extends ActorSheet {
 
     // Add Inventory Item
     html.on('click', '.item-create', this._onItemCreate.bind(this));
+    html.on('click', '.litarated', this._onLiterateChange.bind(this));
 
     // Delete Inventory Item
     html.on('click', '.item-delete', (ev) => {
@@ -336,5 +337,12 @@ export class SwyversActorSheet extends ActorSheet {
       });
       return roll;
     }
+  }
+
+  async _onLiterateChange(event) {
+    event.preventDefault();
+    console.log("SWYVERS", this.actor);
+
+    await this.actor.update({ "system.attributes.literated": !this.actor.system.attributes.literated });
   }
 }
