@@ -41,7 +41,7 @@
               "SWYVERS.Character.Literate.false"}}</label>
           </div>
           <div class="resource-content flexrow flex-center flex-between">
-            <input type="text" name="system.attributes.literatedReason" value="{{system.attributes.literatedReason}}"
+            <input type="text" name="system.attributes.literatedReason" value="{{ifThen system.attributes.literated system.attributes.literatedReason ""}}"
               data-dtype="String" {{ifThen system.attributes.literated "" "disabled"}} />
           </div>
         </div>
