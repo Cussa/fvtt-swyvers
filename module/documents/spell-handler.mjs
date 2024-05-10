@@ -29,7 +29,9 @@ export default class SpellHandler {
     const content = await this._processResult(spell, hand, availableCards, false);
 
     const chatData = {
-      speaker: ChatMessage.getSpeaker(),
+      speaker: {
+        actor: spell.actor
+      },
       user: game.user.id,
       content: content,
       flags: {
