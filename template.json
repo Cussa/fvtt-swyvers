@@ -8,7 +8,6 @@
   "Item": {
     "types": [
       "item",
-      "feature",
       "spell",
       "weapon",
       "armour",
