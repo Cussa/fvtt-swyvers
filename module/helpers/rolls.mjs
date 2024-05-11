@@ -276,3 +276,23 @@ export async function rollAttack(actor) {
       default: "roll"
     }).render(true);
 }
+
+export async function rollUnderMorale(actor) {
+  let target = actor.system.attributes.morale;
+  let targetInfo = `${game.i18n.localize("SWYVERS.NPC.Morale")} (${target})`;
+  const content = `<p class="item-target">${game.i18n.localize("SWYVERS.Target")}: ${targetInfo}</p>`;
+
+  let roll = await new Roll(`2d6`).roll({ async: true });
+
+  const chatContent = await renderTemplate(rollTemplate, {
+    flavor: content,
+    formula: `2d6 <= ${target}`,
+    tooltip: await roll.getTooltip(),
+    total: `${roll.total}`,
+    totalClass: roll.total <= target ? "success" : "failure"
+  })
+  roll.toMessage({
+    speaker: ChatMessage.getSpeaker({ actor: actor }),
+    content: chatContent
+  });
+}

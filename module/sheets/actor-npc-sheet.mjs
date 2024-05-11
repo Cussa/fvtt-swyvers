@@ -4,7 +4,7 @@ import {
   prepareActiveEffectCategories,
 } from '../helpers/effects.mjs';
 import { getInlineDescriptor } from '../helpers/inlineDescription.mjs';
-import { rollAttack, rollUnderAttribute } from '../helpers/rolls.mjs';
+import { rollUnderMorale } from '../helpers/rolls.mjs';
 import { SwyversActorSheet } from './actor-sheet.mjs';
 
 /**
@@ -107,5 +107,14 @@ export default class SwyversActorNpcSheet extends SwyversActorSheet {
   }
 
   async _prepareCharacterData(context) {
+  }
+
+  async _onRoll(event) {
+    event.preventDefault();
+    const element = event.currentTarget;
+    const dataset = element.dataset;
+    if (dataset.rollType && dataset.rollType == "morale")
+      return rollUnderMorale(this.actor);
+    return super._onRoll(event);
   }
 }
