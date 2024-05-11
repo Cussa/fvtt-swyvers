@@ -23,7 +23,6 @@ export default class SwyversActorNpcSheet extends SwyversActorSheet {
 
     // Use a safe clone of the actor data for further operations.
     const actorData = context.data;
-    console.log(context);
 
     // Add the actor's data to context.data for easier access, as well as flags.
     context.system = actorData.system;
@@ -44,7 +43,7 @@ export default class SwyversActorNpcSheet extends SwyversActorSheet {
       this.actor.allApplicableEffects()
     );
 
-    console.log(context);
+    context.showNpcConfig = !this.actor.isToken;
     return context;
   }
 
