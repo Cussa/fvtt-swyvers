@@ -140,7 +140,9 @@
       "Stand": "Stand",
       "CurrentTotal": "Current Total: {total}",
       "FinalTotal": "Final Total: {total}",
-      "MagicDepleted": "Magic resources totally depleted for the day."
+      "MagicDepleted": "Magic resources totally depleted for the day.",
+      "MagicDeck": "Magic Deck",
+      "MagicPile": "Magic Discard Pile"
     },
     "Skills": "Skills",
     "Inventory": "Inventory",

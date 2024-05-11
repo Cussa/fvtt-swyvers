@@ -1,6 +1,8 @@
 // Import document classes.
 import { SwyversActor } from './documents/actor.mjs';
 import { SwyversItem } from './documents/item.mjs';
+import SwyversChatMessage from './documents/chat-message.mjs';
+import SwyversCards from './documents/cards.mjs';
 // Import sheet classes.
 import { SwyversActorSheet } from './sheets/actor-sheet.mjs';
 import { SwyversItemSheet } from './sheets/item-sheet.mjs';
@@ -10,8 +12,9 @@ import { SWYVERS } from './config/swyvers.mjs';
 // Import DataModel classes
 import * as models from './data/_module.mjs';
 import * as items_sheets from './sheets/_items.mjs';
-import SpellHandler from './documents/spell-handler.mjs';
-import SwyversChatMessage from './documents/chat-message.mjs';
+import SpellHandler from './helpers/spell-handler.mjs';
+import { registerSettings } from './helpers/settings.mjs';
+import { checkCardsSetup } from './helpers/cardDecks.mjs';
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
@@ -60,6 +63,7 @@ Hooks.once('init', function () {
   };
 
   CONFIG.ChatMessage.documentClass = SwyversChatMessage;
+  CONFIG.Cards.documentClass = SwyversCards;
 
   // Active Effects are never copied to the Actor,
   // but will still apply to the Actor from within the Item
@@ -100,6 +104,8 @@ Hooks.once('init', function () {
     label: 'SWYVERS.SheetLabels.Weapon',
   });
 
+  registerSettings();
+
   // Preload Handlebars templates.
   return preloadHandlebarsTemplates();
 });
@@ -116,9 +122,11 @@ Handlebars.registerHelper({
 /*  Ready Hook                                  */
 /* -------------------------------------------- */
 
-Hooks.once('ready', function () {
+Hooks.once('ready', async function () {
   // Wait to register hotbar drop hook on ready so that modules could register earlier if they want to
   Hooks.on('hotbarDrop', (bar, data, slot) => createItemMacro(data, slot));
+  if (game.user.isGM)
+    await checkCardsSetup();
 });
 
 /* -------------------------------------------- */

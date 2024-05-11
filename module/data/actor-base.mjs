@@ -15,7 +15,6 @@ export default class SwyversActorBase extends foundry.abstract.TypeDataModel {
       max: new fields.NumberField({ ...requiredInteger, initial: 5 })
     });
     schema.biography = new fields.StringField({ required: true, blank: true }); // equivalent to passing ({initial: ""}) for StringFields
-    schema.handId = new fields.StringField({ required: false, blank: true });
 
     return schema;
   }

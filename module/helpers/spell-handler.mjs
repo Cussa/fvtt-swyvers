@@ -4,14 +4,25 @@ const ACTION = {
 };
 
 export default class SpellHandler {
-
   static chatTemplate = "systems/swyvers/templates/chat/spell.hbs";
 
   async _getDeck() {
-    return await fromUuid("Cards.puTA3BOlSa44JiR2");
+    const magicDeckId = await game.settings.get("swyvers", "magicDeckId");
+    return await game.cards?.get(magicDeckId);
   }
   async _getPile() {
-    return await fromUuid("Cards.ETF01kryKUF8iIg1");
+    const magicPileId = await game.settings.get("swyvers", "magicPileId");
+    return await game.cards?.get(magicPileId);
+  }
+
+  async _createHandForSpell(spell) {
+    let data = {
+      name: `${spell.actor.name} - ${spell.name}`,
+      type: "hand"
+    };
+    const cardsCls = getDocumentClass('Cards');
+    const newDeck = await cardsCls.create(data);
+    return newDeck;
   }
 
   async _buyCard(hand, numberOfCards) {
@@ -21,8 +32,7 @@ export default class SpellHandler {
   }
 
   async startCasting(spell) {
-    const actor = spell.actor;
-    let hand = await fromUuid(actor.system.handId);
+    const hand = await this._createHandForSpell(spell);
 
     const availableCards = await this._buyCard(hand, 2);
 
@@ -37,7 +47,7 @@ export default class SpellHandler {
       flags: {
         swyvers: {
           spellId: spell.uuid,
-          handId: actor.system.handId
+          handId: hand.uuid
         }
       }
     };
@@ -125,6 +135,7 @@ export default class SpellHandler {
       return;
     const pile = await this._getPile();
     await hand.deal([pile], hand.availableCards.length, { chatNotification: false });
+    await hand.delete({ chatNotification: false });
   }
 
   async resetDay() {

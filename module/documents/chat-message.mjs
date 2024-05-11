@@ -1,4 +1,4 @@
-import SpellHandler from "./spell-handler.mjs";
+import SpellHandler from "../helpers/spell-handler.mjs";
 
 export default class SwyversChatMessage extends ChatMessage {
   async getHTML(...args) {

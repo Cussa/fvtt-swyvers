@@ -1,6 +1,6 @@
 import SwyversItemBase from "./item-base.mjs";
 import { SWYVERS } from "../config/swyvers.mjs";
-import SpellHandler from "../documents/spell-handler.mjs";
+import SpellHandler from "../helpers/spell-handler.mjs";
 
 export default class SwyversSpell extends SwyversItemBase {
 
