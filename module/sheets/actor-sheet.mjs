@@ -50,15 +50,8 @@ export class SwyversActorSheet extends ActorSheet {
     context.flags = actorData.flags;
 
     // Prepare character data and items.
-    if (actorData.type == 'character') {
-      await this._prepareItems(context);
-      await this._prepareCharacterData(context);
-    }
-
-    // Prepare NPC data and items.
-    if (actorData.type == 'npc') {
-      await this._prepareItems(context);
-    }
+    await this._prepareItems(context);
+    await this._prepareCharacterData(context);
 
     // Add roll data for TinyMCE editors.
     context.rollData = context.actor.getRollData();
@@ -69,8 +62,6 @@ export class SwyversActorSheet extends ActorSheet {
       // as well as any items
       this.actor.allApplicableEffects()
     );
-
-    console.log(context);
     return context;
   }
 
@@ -84,9 +75,6 @@ export class SwyversActorSheet extends ActorSheet {
   async _prepareCharacterData(context) {
     const dexModifier = Math.max(context.items.filter(it => it.system.container == "backpack").length - 10, 0);
     context.system.attributes.dex.mod = -dexModifier;
-
-    context.system.attributes.str.mod = 0;
-    context.system.attributes.con.mod = 0;
   }
 
   /**
@@ -328,7 +316,7 @@ export class SwyversActorSheet extends ActorSheet {
 
     // Handle rolls that supply the formula directly.
     if (dataset.roll) {
-      let label = dataset.label ? `[ability] ${dataset.label}` : '';
+      let label = dataset.label;
       let roll = new Roll(dataset.roll, this.actor.getRollData());
       roll.toMessage({
         speaker: ChatMessage.getSpeaker({ actor: this.actor }),

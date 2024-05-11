@@ -14,11 +14,12 @@ export default class SwyversNPC extends SwyversActorBase {
       movement: new fields.StringField({ required: true, blank: true }),
     });
 
-    console.log(schema);
+    schema.defenseBonus = new fields.NumberField({ ...SwyversActorBase.requiredInteger, initial: 0, min: -20, max: 20 });
+    schema.initiativeBonus = new fields.NumberField({ ...SwyversActorBase.requiredInteger, initial: 0, min: 0, max: 20 });
+
     return schema
   }
 
   prepareDerivedData() {
-
   }
 }

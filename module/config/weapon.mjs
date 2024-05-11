@@ -10,6 +10,10 @@ export const LENGTH = {
   long: {
     id: "long",
     label: "SWYVERS.Weapon.Length.Long"
+  },
+  special: {
+    id: "special",
+    label: "SWYVERS.Weapon.Length.Special"
   }
 }
 

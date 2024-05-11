@@ -60,7 +60,8 @@
         "Label": "Length",
         "Short": "Short",
         "Medium": "Medium",
-        "Long": "Long"
+        "Long": "Long",
+        "Special": "Special"
       },
       "Quality": {
         "Ropey": "Ropey",
@@ -171,7 +172,10 @@
       "Appearing": "Appearing",
       "Morale": "Morale",
       "InitiativeBonus": "Initiative Bonus",
-      "Movement": "Movement"
+      "Movement": "Movement",
+      "Characteristics": "Characteristics",
+      "DefenseBonus": "Defense Bonus",
+      "DamageBonus": "Damage Bonus"
     }
   },
   "TYPES": {

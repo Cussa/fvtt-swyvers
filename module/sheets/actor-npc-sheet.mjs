@@ -94,6 +94,8 @@ export default class SwyversActorNpcSheet extends SwyversActorSheet {
     context.spells = spells;
     context.inventory = inventory;
 
+    defense += context.system.defenseBonus;
+
     context.system.attributes.defense = defense;
   }
 
@@ -102,5 +104,8 @@ export default class SwyversActorNpcSheet extends SwyversActorSheet {
   /** @override */
   activateListeners(html) {
     super.activateListeners(html);
+  }
+
+  async _prepareCharacterData(context) {
   }
 }
