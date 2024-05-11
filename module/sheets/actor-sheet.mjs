@@ -259,11 +259,11 @@ export class SwyversActorSheet extends ActorSheet {
     let type = header.dataset.type;
     if (type == "generic") {
       type = await Dialog.wait({
-        title: "A custom dialog title",
-        content: "Some content for your dialog.",
+        title: game.i18n.localize("SWYVERS.Item.ItemType"),
+        content: game.i18n.localize("SWYVERS.Item.ChooseItemType"),
         buttons: {
-          foo: { label: "Weapon", callback: () => ('weapon') },
-          bar: { label: "Armour", callback: () => ('armour') },
+          weapon: { label: "Weapon", callback: () => ('weapon') },
+          armour: { label: "Armour", callback: () => ('armour') },
         },
         close: () => false
       });

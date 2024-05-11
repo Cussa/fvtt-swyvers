@@ -40,7 +40,9 @@
       },
       "Skill": {
         "AddSkill": "Add skill"
-      }
+      },
+      "ChooseItemType": "Choose the item type you want to create:",
+      "ItemType": "Item type selection"
     },
     "Effect": {
       "Source": "Source",
