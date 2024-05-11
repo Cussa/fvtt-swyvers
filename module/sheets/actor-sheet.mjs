@@ -319,11 +319,6 @@ export class SwyversActorSheet extends ActorSheet {
       if (dataset.rollType == "attack") {
         return rollAttack(this.actor);
       }
-      if (dataset.rollType == "spell") {
-        const itemId = element.closest('.item').dataset.itemId;
-        const item = this.actor.items.get(itemId);
-        return await item.system.castSpell();
-      }
     }
 
     // Handle rolls that supply the formula directly.

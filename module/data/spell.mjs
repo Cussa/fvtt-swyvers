@@ -29,7 +29,7 @@ export default class SwyversSpell extends SwyversItemBase {
     return await TextEditor.enrichHTML(html.join(""), { async: true });
   }
 
-  async castSpell(){
+  async roll(){
     await new SpellHandler().startCasting(this.parent);
   }
 }
