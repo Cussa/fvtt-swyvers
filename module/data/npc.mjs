@@ -17,6 +17,9 @@ export default class SwyversNPC extends SwyversActorBase {
     schema.defenseBonus = new fields.NumberField({ ...SwyversActorBase.requiredInteger, initial: 0, min: -20, max: 20 });
     schema.initiativeBonus = new fields.NumberField({ ...SwyversActorBase.requiredInteger, initial: 0, min: 0, max: 20 });
 
+    schema.attributes.fields.hp.fields.max.max = 100;
+    schema.attributes.fields.hp.fields.value.max = 100;
+
     return schema
   }
 

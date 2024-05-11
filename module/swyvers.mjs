@@ -3,6 +3,7 @@ import { SwyversActor } from './documents/actor.mjs';
 import { SwyversItem } from './documents/item.mjs';
 import SwyversChatMessage from './documents/chat-message.mjs';
 import SwyversCards from './documents/cards.mjs';
+import SwyversToken from './documents/token.mjs';
 // Import sheet classes.
 import { SwyversActorSheet } from './sheets/actor-sheet.mjs';
 import { SwyversItemSheet } from './sheets/item-sheet.mjs';
@@ -65,6 +66,7 @@ Hooks.once('init', function () {
 
   CONFIG.ChatMessage.documentClass = SwyversChatMessage;
   CONFIG.Cards.documentClass = SwyversCards;
+  CONFIG.Token.documentClass = SwyversToken;
 
   // Active Effects are never copied to the Actor,
   // but will still apply to the Actor from within the Item
