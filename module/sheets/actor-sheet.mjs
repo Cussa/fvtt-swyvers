@@ -185,7 +185,7 @@ export class SwyversActorSheet extends ActorSheet {
         type: CONST.CHAT_MESSAGE_TYPES.WHISPER,
         from: game.user._id,
         content: containerOverflow.join("<br>"),
-        whisper: ChatMessage.getWhisperRecipients("GM"),
+        whisper: game.users.filter(it=> it.isGM).map(it=>it._id),
         sound: CONFIG.sounds.notification
       };
       await ChatMessage.create(messageData);
