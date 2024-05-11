@@ -81,7 +81,7 @@ export default class SwyversActorNpcSheet extends SwyversActorSheet {
         i.system.equipped = true;
 
         if (i.type == "weapon")
-          defense = i.system.defense;
+          defense = Math.max(i.system.defense, defense);
         else if (i.type == "armour" && i.system.type == "shield" && i.system.equipped && !i.system.broken)
           defense += 2;
 
