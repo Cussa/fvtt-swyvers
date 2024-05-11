@@ -145,15 +145,6 @@ export class SwyversActorSheet extends ActorSheet {
     // Iterate through items, allocating to containers
     for (let i of context.items) {
       i.img = i.img || Item.DEFAULT_ICON;
-      // Append to gear.
-      // if (i.type === 'item') {
-      //   gear.push(i);
-      // }
-      // // Append to features.
-      // else if (i.type === 'feature') {
-      //   features.push(i);
-      // }
-      // Append to spells.
       if (i.type === 'spell') {
         i.suitSymbol = game.i18n.localize(`SWYVERS.Spell.SuitSymbol.${i.system.suit}`);
         spells.push(i);
@@ -190,13 +181,13 @@ export class SwyversActorSheet extends ActorSheet {
     context.inventory = inventory;
 
     let containerOverflow = [];
-    const containerToCheck = ["backpackExternal", "belt", "sack"];
+    const containerToCheck = Object.entries(inventory).filter(it => it[1].totalSlots).map(it => it[1]);
     containerToCheck.forEach(element => {
-      if (context.inventory[element].usedSlots > context.inventory[element].totalSlots) {
+      if (element.usedSlots > element.totalSlots) {
         containerOverflow.push(game.i18n.format("SWYVERS.Container.Overflow", {
           name: game.i18n.localize(SWYVERS.CONTAINER.CONFIGURATIONS[element].label),
-          usedSlots: context.inventory[element].usedSlots,
-          totalSlots: context.inventory[element].totalSlots,
+          usedSlots: element.usedSlots,
+          totalSlots: element.totalSlots,
         }));
       }
     });
@@ -237,10 +228,10 @@ export class SwyversActorSheet extends ActorSheet {
     html.on('click', '.litarated', this._onLiterateChange.bind(this));
 
     // Delete Inventory Item
-    html.on('click', '.item-delete', (ev) => {
+    html.on('click', '.item-delete', async (ev) => {
       const li = $(ev.currentTarget).parents('.item');
       const item = this.actor.items.get(li.data('itemId'));
-      item.delete();
+      await item.delete();
       li.slideUp(200, () => this.render(false));
     });
 
@@ -277,7 +268,21 @@ export class SwyversActorSheet extends ActorSheet {
     event.preventDefault();
     const header = event.currentTarget;
     // Get the type of item to create.
-    const type = header.dataset.type;
+    let type = header.dataset.type;
+    if (type == "generic") {
+      type = await Dialog.wait({
+        title: "A custom dialog title",
+        content: "Some content for your dialog.",
+        buttons: {
+          foo: { label: "Weapon", callback: () => ('weapon') },
+          bar: { label: "Armour", callback: () => ('armour') },
+        },
+        close: () => false
+      });
+
+      if (!type)
+        return;
+    }
     // Grab any data associated with this control.
     const data = duplicate(header.dataset);
     // Initialize a default name.

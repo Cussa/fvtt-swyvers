@@ -2,29 +2,18 @@ import SwyversActorBase from "./actor-base.mjs";
 
 export default class SwyversCharacter extends SwyversActorBase {
 
-  static requiredInteger = { required: true, nullable: false, integer: true };
-
-  static attributeProperty(fields) {
-    return {
-      value: new fields.NumberField({ ...SwyversCharacter.requiredInteger, initial: 10, min: 0, max: 18 }),
-      max: new fields.NumberField({ ...SwyversCharacter.requiredInteger, initial: 10, min: 0, max: 18 })
-    };
-  };
 
   static defineSchema() {
     const fields = foundry.data.fields;
-    const requiredInteger = { required: true, nullable: false, integer: true };
     const schema = super.defineSchema();
 
-    schema.attributes = new fields.SchemaField({
+    schema.attributes.fields = foundry.utils.mergeObject(schema.attributes.fields, {
       level: new fields.SchemaField({
-        value: new fields.NumberField({ ...requiredInteger, initial: 0 })
+        value: new fields.NumberField({ ...SwyversActorBase.requiredInteger, initial: 0 })
       }),
-      con: new fields.SchemaField({ ...SwyversCharacter.attributeProperty(fields) }),
-      dex: new fields.SchemaField({ ...SwyversCharacter.attributeProperty(fields) }),
-      str: new fields.SchemaField({ ...SwyversCharacter.attributeProperty(fields) }),
-      hp: new fields.SchemaField({ ...SwyversCharacter.attributeProperty(fields) }),
-      fighting: new fields.NumberField({ ...SwyversCharacter.requiredInteger, initial: 0, min: 0, max: 6 }),
+      con: new fields.SchemaField({ ...SwyversActorBase.attributeProperty(fields) }),
+      dex: new fields.SchemaField({ ...SwyversActorBase.attributeProperty(fields) }),
+      str: new fields.SchemaField({ ...SwyversActorBase.attributeProperty(fields) }),
       literated: new fields.BooleanField({ initial: false }),
       literatedReason: new fields.StringField({ required: false, blank: true }),
     });

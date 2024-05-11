@@ -1,20 +1,22 @@
 export default class SwyversActorBase extends foundry.abstract.TypeDataModel {
 
+  static requiredInteger = { required: true, nullable: false, integer: true };
+  static attributeProperty(fields) {
+    return {
+      value: new fields.NumberField({ ...SwyversActorBase.requiredInteger, initial: 10, min: 0, max: 18 }),
+      max: new fields.NumberField({ ...SwyversActorBase.requiredInteger, initial: 10, min: 0, max: 18 })
+    };
+  };
+
   static defineSchema() {
     const fields = foundry.data.fields;
-    const requiredInteger = { required: true, nullable: false, integer: true };
     const schema = {};
-
-    //TODO: remove
-    schema.health = new fields.SchemaField({
-      value: new fields.NumberField({ ...requiredInteger, initial: 10, min: 0 }),
-      max: new fields.NumberField({ ...requiredInteger, initial: 10 })
-    });
-    schema.power = new fields.SchemaField({
-      value: new fields.NumberField({ ...requiredInteger, initial: 5, min: 0 }),
-      max: new fields.NumberField({ ...requiredInteger, initial: 5 })
-    });
     schema.biography = new fields.StringField({ required: true, blank: true }); // equivalent to passing ({initial: ""}) for StringFields
+
+    schema.attributes = new fields.SchemaField({
+      hp: new fields.SchemaField({ ...SwyversActorBase.attributeProperty(fields) }),
+      fighting: new fields.NumberField({ ...SwyversActorBase.requiredInteger, initial: 0, min: 0, max: 6 }),
+    });
 
     return schema;
   }

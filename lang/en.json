@@ -165,7 +165,14 @@
     "Attack": "Fight",
     "Deffense": "Def",
     "Fighting": "Fighting Skill",
-    "Bonus": "Bonus"
+    "Bonus": "Bonus",
+    "NPC": {
+      "HD": "HD",
+      "Appearing": "Appearing",
+      "Morale": "Morale",
+      "InitiativeBonus": "Initiative Bonus",
+      "Movement": "Movement"
+    }
   },
   "TYPES": {
     "Actor": {

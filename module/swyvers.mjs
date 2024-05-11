@@ -15,6 +15,7 @@ import * as items_sheets from './sheets/_items.mjs';
 import SpellHandler from './helpers/spell-handler.mjs';
 import { registerSettings } from './helpers/settings.mjs';
 import { checkCardsSetup } from './helpers/cardDecks.mjs';
+import SwyversActorNpcSheet from './sheets/actor-npc-sheet.mjs';
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
@@ -73,6 +74,12 @@ Hooks.once('init', function () {
   // Register sheet application classes
   Actors.unregisterSheet('core', ActorSheet);
   Actors.registerSheet('swyvers', SwyversActorSheet, {
+    types:["character"],
+    makeDefault: true,
+    label: 'SWYVERS.SheetLabels.Actor',
+  });
+  Actors.registerSheet('swyvers', SwyversActorNpcSheet, {
+    types:["npc"],
     makeDefault: true,
     label: 'SWYVERS.SheetLabels.Actor',
   });
