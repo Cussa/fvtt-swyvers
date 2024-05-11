@@ -285,7 +285,9 @@ export class SwyversActorSheet extends ActorSheet {
     delete itemData.system['type'];
 
     // Finally, create the item!
-    return await Item.create(itemData, { parent: this.actor });
+    const finalItem = await Item.create(itemData, { parent: this.actor });
+    finalItem.sheet.render(true);
+    return finalItem;
   }
 
   /**
