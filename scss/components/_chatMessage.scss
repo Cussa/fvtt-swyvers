@@ -33,4 +33,12 @@
     margin-top: 10px;
     display: flex;
   }
+
+  .name{
+    @extend %item-name;
+    text-align: center;
+  }
+  h3{
+    text-align: center;
+  }
 }
