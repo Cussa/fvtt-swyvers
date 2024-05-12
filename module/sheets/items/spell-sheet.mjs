@@ -16,5 +16,7 @@ export default class SwyversSpellSheet extends SwyversItemSheet {
     context.enriched.success = await TextEditor.enrichHTML(context.system.success, { async: true });
     context.enriched.empoweredSuccess = await TextEditor.enrichHTML(context.system.empoweredSuccess, { async: true });
     context.enriched.suitSuccess = await TextEditor.enrichHTML(context.system.suitSuccess, { async: true });
+
+    context.isGM = game.user.isGM;
   }
 }

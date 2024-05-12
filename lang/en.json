@@ -130,6 +130,25 @@
         "diamonds": "♦",
         "clubs": "♣"
       },
+      "MagicKnowledge": {
+        "Label": "Magic Knowledge: ",
+        "NoKnowledge": {
+          "Label": "No Knowledge",
+          "Description": ""
+        },
+        "Level1": {
+          "Label": "Level 1",
+          "Description": "Level 1 of Knowledge"
+        },
+        "Level2": {
+          "Label": "Level 2",
+          "Description": "Level 2 of Knowledge"
+        },
+        "Level3": {
+          "Label": "Level 3",
+          "Description": "Level 3 of Knowledge"
+        }
+      },
       "Cast": "Cast spell",
       "Failure": "16 and Lower — Failure",
       "FailureDefaultDescription": "The caster deliberately allows the magic to falter and die, resulting in failure to cast the spell. That spell cannot be attempted again today.",

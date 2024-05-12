@@ -1,3 +1,10 @@
+{{#if isGM}}
+<div class="resource">
+  <label class="resource-label aside">{{localize "SWYVERS.Spell.MagicKnowledge.Label"}} </label>
+  <select name="system.magicKnowledge" style="width: auto">
+    {{selectOptions spellMagicKnowledge selected=system.magicKnowledge localize=true}}</select>
+</div>
+{{/if}}
 <ol class='items-list'>
 
   <li class='item flexrow items-header'>
@@ -18,7 +25,7 @@
         <a class='rollable' data-roll-type='item'><img src='{{item.img}}' title='{{item.name}}' width='24'
             height='24' /></a>
       </div>
-      <h4>{{item.name}} {{item.suitSymbol}}</h4>
+      <h4>{{item.name}} {{ifThen (or (gte ../system.magicKnowledge 1) ../isGM) item.suitSymbol ""}}</h4>
     </div>
     <div class='item-controls flewrow'>
       {{#if item.system.available}}

@@ -12,9 +12,12 @@ export default class SwyversChatMessage extends ChatMessage {
       html.find(".spell-chat-click").each((_, bt) => {
         bt.addEventListener("click", async (event) => await new SpellHandler().processEvent(event));
       });
+      if (!game.user.isGM && actor?.system.magicKnowledge == 0)
+        html.find(".suit-success").hide();
       return html;
     }
 
+    html.find(".suit-success").hide();
     html.find(".spell .buttons").hide();
     return html;
   }

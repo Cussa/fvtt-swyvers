@@ -1,6 +1,6 @@
 <div class="spell">
   <p class="name">{{spell.name}}</p>
-  <div class="description">{{{enrichedDescription}}}</div>
+  <div class="description">{{{enriched.description}}}</div>
   <h3>{{message}}</h3>
 
   <div class="card-container">
@@ -18,14 +18,21 @@
   {{#if success}}
   <div class="success">
     <p>{{localize "SWYVERS.Spell.Success"}}</p>
-    {{{spell.system.success}}}
+    {{{enriched.success}}}
   </div>
   {{/if}}
 
   {{#if criticalSuccess}}
   <div class="empowered-success">
     <p>{{localize "SWYVERS.Spell.EmpoweredSuccess"}}</p>
-    {{{spell.system.empoweredSuccess}}}
+    {{{enriched.empoweredSuccess}}}
+  </div>
+  {{/if}}
+
+  {{#if suitSuccess}}
+  <div class="suit-success">
+    <p>{{spell.suitSymbol}} {{localize "SWYVERS.Spell.SuitEffect"}}</p>
+    {{{enriched.suitSuccess}}}
   </div>
   {{/if}}
 

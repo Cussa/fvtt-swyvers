@@ -5,6 +5,7 @@ import {
 } from '../helpers/effects.mjs';
 import { getInlineDescriptor } from '../helpers/inlineDescription.mjs';
 import { rollAttack, rollUnderAttribute } from '../helpers/rolls.mjs';
+import { selectOptions } from '../helpers/templates.mjs';
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
@@ -62,6 +63,10 @@ export class SwyversActorSheet extends ActorSheet {
       // as well as any items
       this.actor.allApplicableEffects()
     );
+
+    context.isGM = game.user.isGM;
+
+    context.spellMagicKnowledge = selectOptions(SWYVERS.SPELL.MAGIC_KNOWLEDGE);
     return context;
   }
 

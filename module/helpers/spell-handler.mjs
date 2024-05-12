@@ -89,7 +89,7 @@ export default class SpellHandler {
   async _processResult(spell, hand, availableCards, stand = false) {
     let total = 0;
     let numberOfAces = 0;
-    let cardImages = [];
+    let allCards = []
 
     for (const card of hand.cards) {
       let value = Math.min(card.value, 10);
@@ -98,7 +98,10 @@ export default class SpellHandler {
         value = 11;
       }
       total += value;
-      cardImages.push(card.faces[0].img);
+      allCards.push({
+        card,
+        value
+      })
     }
 
     while (total > 21 && numberOfAces > 0) {
@@ -107,15 +110,26 @@ export default class SpellHandler {
     }
 
     stand = stand || total > 21 || availableCards == 0;
+    let suitSuccess = false;
+
+    const cardImages = allCards.map(it => it.card.faces[0].img);
 
     if (stand) {
+      suitSuccess = this._getSuitSuccess(allCards, spell, numberOfAces);
       await this._finishCasting(hand);
       if (total < 17)
         await spell.update({ "system.available": false });
     }
 
     const message = game.i18n.format(!stand && total < 22 ? "SWYVERS.Spell.CurrentTotal" : "SWYVERS.Spell.FinalTotal", { total: total });
-    const enrichedDescription = await TextEditor.enrichHTML(spell.system.description, { async: true })
+    const enriched = {
+      description: await TextEditor.enrichHTML(spell.system.description, { async: true }),
+      success: await TextEditor.enrichHTML(spell.system.success, { async: true }),
+      empoweredSuccess: await TextEditor.enrichHTML(spell.system.empoweredSuccess, { async: true }),
+      suitSuccess: await TextEditor.enrichHTML(spell.system.suitSuccess, { async: true }),
+    };
+
+    spell.suitSymbol = game.i18n.localize(`SWYVERS.Spell.SuitSymbol.${spell.system.suit}`);
 
     return await renderTemplate(SpellHandler.chatTemplate, {
       spell,
@@ -124,10 +138,11 @@ export default class SpellHandler {
       failure: stand && total < 17,
       success: stand && total >= 17 && total < 21,
       criticalSuccess: stand && total == 21,
+      suitSuccess,
       criticalFailure: stand && total > 21,
       continue: !stand,
       magicDepleted: availableCards == 0,
-      enrichedDescription,
+      enriched,
       message
     });
   }
@@ -149,5 +164,19 @@ export default class SpellHandler {
         await spell.update({ "system.available": true });
       }
     }
+  }
+
+  _getSuitSuccess(cards, spell, numberOfAces) {
+    if (spell.actor.system.magicKnowledge == 0)
+      return false;
+
+    const sortedValues = new Set(cards.sort((a, b) => b.value - a.value).map(it => it.value));
+    let [highest] = sortedValues;
+    if (highest == 11 && numberOfAces == 0)
+      sortedValues.delete(11);
+
+    [highest] = sortedValues;
+    const highestSuit = cards.filter(it => it.value == highest).map(it => it.card.suit);
+    return highestSuit.indexOf(spell.system.suit) > -1;
   }
 }

@@ -63,3 +63,11 @@ export function selectOptionsWithDisabled(choices, options) {
   }
   return new Handlebars.SafeString(html);
 }
+
+export function selectOptions(categories) {
+  const returnObject = Object.keys(categories).reduce((result, key) => {
+    result[key] = categories[key].label;
+    return result;
+  }, {});
+  return returnObject;
+}

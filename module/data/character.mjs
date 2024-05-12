@@ -18,6 +18,8 @@ export default class SwyversCharacter extends SwyversActorBase {
       literatedReason: new fields.StringField({ required: false, blank: true }),
     });
 
+    schema.magicKnowledge = new fields.NumberField({ ...SwyversActorBase.requiredInteger, initial: 0 });
+
     schema.special = new fields.StringField({ required: false, blank: true });
 
     return schema;
