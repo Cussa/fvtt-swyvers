@@ -11,11 +11,13 @@
           <select name="system.attribute">
             {{selectOptions skillAttribute selected=system.attribute localize=true}}</select>
         </div>
-
+        {{log game.user.isGM}}
+        {{#if item.isEmbedded}}
         <div class="grid-span-1">
           <label class="resource-label">{{localize "SWYVERS.Value"}}</label>
           {{numberInput system.value name="system.value" step=1 min=0}}
         </div>
+        {{/if}}
       </div>
     </div>
   </header>

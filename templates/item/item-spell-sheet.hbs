@@ -11,11 +11,12 @@
           <select name="system.suit">
             {{selectOptions spellSuit selected=system.suit localize=true}}</select>
         </div>
-
+        {{#if item.isEmbedded}}
         <div class="grid-span-1">
           <input type="checkbox" name="system.available" {{checked system.available}}>
           <label class="resource-label">{{localize "SWYVERS.Spell.Available"}}</label>
         </div>
+        {{/if}}
       </div>
     </div>
   </header>

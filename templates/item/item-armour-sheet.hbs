@@ -35,7 +35,9 @@
 
   {{!-- Sheet Tab Navigation --}}
   <nav class="sheet-tabs tabs" data-group="primary">
+    {{#if (and item.isEmbedded item.actor.hasPlayerOwner)}}
     <a class="item" data-tab="attributes">Attributes</a>
+    {{/if}}
     <a class="item" data-tab="description">Description</a>
   </nav>
 
@@ -48,50 +50,6 @@
       {{!-- As you add new fields, add them in here! --}}
       <div class="resource">
         <div class="grid grid-3col">
-          {{!-- <div class="grid-span-1">
-            <label class="resource-label aside">{{localize "SWYVERS.Weapon.Length.Label"}} </label>
-            <select name="system.length">
-              {{selectOptions weaponLength selected=system.length localize=true}}</select>
-          </div>
-          <div class="grid-span-1">
-            {{radioBoxes hands.groupName hands.choices checked=hands.selected localize=true}}
-          </div>
-          <div class="grid-span-1">
-            <label class="resource-label">{{localize "SWYVERS.Weapon.AmmoType.Label"}}</label>
-            <select name="system.ammoType">
-              {{selectOptions weaponAmmoType selected=system.ammoType localize=true}}</select>
-          </div>
-          <div class="grid-span-1">
-            <input type="checkbox" name="system.belt" {{checked system.belt}}>
-            <label class="resource-label">{{localize "SWYVERS.Weapon.Belt"}}</label>
-          </div>
-          <div class="grid-span-1">
-            <input type="checkbox" name="system.canStack" {{checked system.canStack}}>
-            <label class="resource-label">{{localize "SWYVERS.Items.CanStack"}}</label>
-          </div>
-
-
-          <div class="grid-span-1">
-            <input type="checkbox" name="system.set" {{checked system.set}}>
-            <label class="resource-label">{{localize "SWYVERS.Weapon.Set"}}</label>
-          </div>
-          <div class="grid-span-1">
-            <input type="checkbox" name="system.reach" {{checked system.reach}}>
-            <label class="resource-label">{{localize "SWYVERS.Weapon.Reach"}}</label>
-          </div>
-          <div class="grid-span-1">
-            <input type="checkbox" name="system.halfswording" {{checked system.halfswording}}>
-            <label class="resource-label">{{localize "SWYVERS.Weapon.Halfswording"}}</label>
-          </div>
-          <div class="grid-span-1">
-            <input type="checkbox" name="system.armourPiercing" {{checked system.armourPiercing}}>
-            <label class="resource-label">{{localize "SWYVERS.Weapon.ArmourPiercing"}}</label>
-          </div>
-          <div class="grid-span-1">
-            <input type="checkbox" name="system.thrust" {{checked system.thrust}}>
-            <label class="resource-label">{{localize "SWYVERS.Weapon.Thrust"}}</label>
-          </div>
-          --}}
           {{#if containerChoices}}
           <div class="grid-span-1">
             <input type="checkbox" name="system.equipped" {{checked system.equipped}}>
