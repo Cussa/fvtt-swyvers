@@ -115,6 +115,7 @@ export default class SpellHandler {
     }
 
     const message = game.i18n.format(!stand && total < 22 ? "SWYVERS.Spell.CurrentTotal" : "SWYVERS.Spell.FinalTotal", { total: total });
+    const enrichedDescription = await TextEditor.enrichHTML(spell.system.description, { async: true })
 
     return await renderTemplate(SpellHandler.chatTemplate, {
       spell,
@@ -126,6 +127,7 @@ export default class SpellHandler {
       criticalFailure: stand && total > 21,
       continue: !stand,
       magicDepleted: availableCards == 0,
+      enrichedDescription,
       message
     });
   }
