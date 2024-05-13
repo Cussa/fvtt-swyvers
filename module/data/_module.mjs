@@ -8,6 +8,7 @@ export {default as SwyversItemBase} from "./item-base.mjs";
 export {default as SwyversItem} from "./item.mjs";
 export {default as SwyversFeature} from "./feature.mjs";
 export {default as SwyversSpell} from "./spell.mjs";
+export {default as SwyversSpellComponent} from "./spell-component.mjs";
 export {default as SwyversWeapon} from "./weapon.mjs";
 export {default as SwyversArmour} from "./armour.mjs";
 export {default as SwyversSkill} from "./skill.mjs";

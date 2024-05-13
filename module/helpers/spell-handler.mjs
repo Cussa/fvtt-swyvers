@@ -6,7 +6,7 @@ const ACTION = {
 export default class SpellHandler {
   static chatTemplate = "systems/swyvers/templates/chat/spell.hbs";
 
-  async _getDeck() {
+  static async getDeck() {
     const magicDeckId = await game.settings.get("swyvers", "magicDeckId");
     return await game.cards?.get(magicDeckId);
   }
@@ -26,15 +26,85 @@ export default class SpellHandler {
   }
 
   async _buyCard(hand, numberOfCards) {
-    const deck = await this._getDeck();
+    const deck = await SpellHandler.getDeck();
     await deck.deal([hand], Math.min(deck.availableCards.length, numberOfCards), { how: CONST.CARD_DRAW_MODES.RANDOM, chatNotification: false });
     return deck.availableCards.length;
   }
 
+  async _getExtraCards(actor) {
+    if (actor.system.magicKnowledge < 2)
+      return [null, null];
+
+    const deck = await SpellHandler.getDeck();
+
+    const allCards = deck.cards.map(it => ({ id: it._id, info: `${it.value}-${it.suit}`, label: `${it.name}` }));
+    const components = actor.items.filter(sc => sc.type == "spellComponent" && sc.system.showInfo);
+    const spellComponents = components.map(it => {
+      let currentCard = allCards.filter(c => c.info == it.system.cardInfo)[0];
+      return {
+        id: currentCard.id,
+        label: `${it.name} - ${currentCard.label}`,
+        itemId: it._id
+      }
+    });
+
+    if (spellComponents.length == 0)
+      return [null, null];
+
+    console.log(spellComponents);
+
+    const content = await renderTemplate("systems/swyvers/templates/dialog/spell-extra-cards.hbs", {
+      spellComponents
+    });
+
+    let extraCards = await Dialog.wait({
+      title: game.i18n.localize("SWYVERS.Spell.ExtraCards"),
+      content: content,
+      buttons: {
+        select: {
+          label: "Select", callback: async (html) => {
+
+            const spellComponentSelect = html.find("#spellComponent")[0];
+            let spellComponentSelected = spellComponentSelect.value ? deck.cards.get(spellComponentSelect.value) : null;
+            if (spellComponentSelected) {
+              const backImg = spellComponentSelected.back.img;
+              spellComponentSelected = spellComponentSelected.toObject();
+              spellComponentSelected.back.img = backImg;
+
+
+              const selectedValueFromDrop = spellComponents.filter(it => it.id == spellComponentSelect.value)[0]
+              const spellComponentItem = actor.items.get(selectedValueFromDrop.itemId);
+
+              spellComponentSelected.itemName = selectedValueFromDrop.label;
+              await spellComponentItem.delete();
+            }
+
+            return [spellComponentSelected, null];
+          }
+        },
+      },
+      close: () => [null, null]
+    });
+
+    return extraCards;
+  }
+
   async startCasting(spell) {
     const hand = await this._createHandForSpell(spell);
+    let cardsToBuy = 2;
+    const extraCards = await this._getExtraCards(spell.actor);
 
-    const availableCards = await this._buyCard(hand, 2);
+    for (const card of extraCards) {
+      if (card == null)
+        continue;
+
+      console.log(card);
+      const newCard = await Card.create(card, { parent: hand });
+      await newCard.setFlag("swyvers", "itemName", card.itemName);
+      cardsToBuy--;
+    }
+
+    const availableCards = await this._buyCard(hand, cardsToBuy);
 
     const content = await this._processResult(spell, hand, availableCards, false);
 
@@ -81,7 +151,7 @@ export default class SpellHandler {
   }
 
   async _stand(spell, hand) {
-    const deck = await this._getDeck();
+    const deck = await SpellHandler.getDeck();
     const content = this._processResult(spell, hand, deck.availableCards.length, true);
     return content;
   }
@@ -113,6 +183,7 @@ export default class SpellHandler {
     let suitSuccess = false;
 
     const cardImages = allCards.map(it => it.card.faces[0].img);
+    const extraCards = hand.cards.filter(it => it.flags.swyvers?.itemName).map(it => it.flags.swyvers?.itemName);
 
     if (stand) {
       suitSuccess = this._getSuitSuccess(allCards, spell, numberOfAces);
@@ -129,6 +200,7 @@ export default class SpellHandler {
       suitSuccess: await TextEditor.enrichHTML(spell.system.suitSuccess, { async: true }),
     };
 
+
     spell.suitSymbol = game.i18n.localize(`SWYVERS.Spell.SuitSymbol.${spell.system.suit}`);
 
     return await renderTemplate(SpellHandler.chatTemplate, {
@@ -143,6 +215,7 @@ export default class SpellHandler {
       continue: !stand,
       magicDepleted: availableCards == 0,
       enriched,
+      extraCards,
       message
     });
   }
@@ -150,13 +223,19 @@ export default class SpellHandler {
   async _finishCasting(hand) {
     if (hand.availableCards.length == 0)
       return;
+
+    const extraCards = hand.cards.filter(it => it.origin == null);
+    for (const card of extraCards) {
+      await card.delete();
+    }
+
     const pile = await this._getPile();
     await hand.deal([pile], hand.availableCards.length, { chatNotification: false });
     await hand.delete({ chatNotification: false });
   }
 
   async resetDay() {
-    const deck = await this._getDeck();
+    const deck = await SpellHandler.getDeck();
     deck.recall({ chatNotification: false });
 
     for (const actor of game.actors) {

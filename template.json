@@ -9,6 +9,7 @@
     "types": [
       "item",
       "spell",
+      "spellComponent",
       "weapon",
       "armour",
       "skill"

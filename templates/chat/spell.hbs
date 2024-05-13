@@ -8,6 +8,18 @@
     <img src="{{card}}" />
     {{/each}}
   </div>
+
+  {{#if extraCards}}
+  <div class="extra-cards">
+    <p>{{localize "SWYVERS.Spell.ExtraCards"}}</p>
+    <ul>
+      {{#each extraCards}}
+      <li>{{this}}</li>
+      {{/each}}
+    </ul>
+  </div>
+  {{/if}}
+
   {{#if failure}}
   <div class="failure">
     <p>{{localize "SWYVERS.Spell.Failure"}}</p>

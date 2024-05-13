@@ -14,11 +14,14 @@ export default class SwyversChatMessage extends ChatMessage {
       });
       if (!game.user.isGM && actor?.system.magicKnowledge == 0)
         html.find(".suit-success").hide();
+      if (!game.user.isGM && actor?.system.magicKnowledge == 1)
+        html.find(".extra-cards").hide();
       return html;
     }
 
     html.find(".suit-success").hide();
     html.find(".spell .buttons").hide();
+    html.find(".extra-cards").hide();
     return html;
   }
 }

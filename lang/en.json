@@ -164,7 +164,11 @@
       "FinalTotal": "Final Total: {total}",
       "MagicDepleted": "Magic resources totally depleted for the day.",
       "MagicDeck": "Magic Deck",
-      "MagicPile": "Magic Discard Pile"
+      "MagicPile": "Magic Discard Pile",
+      "StrangeItem": "\"Strange\" Item",
+      "ShowCardInfo": "Show Card Info",
+      "Card": "Card",
+      "ExtraCards": "Spell: Extra Cards"
     },
     "Skills": "Skills",
     "Inventory": "Inventory",
@@ -208,6 +212,7 @@
       "item": "Item",
       "feature": "Feature",
       "spell": "Spell",
+      "spellComponent": "Spell Component",
       "weapon": "Weapon",
       "armour": "Armour",
       "skill": "Skill"
