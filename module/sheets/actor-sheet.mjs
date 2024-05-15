@@ -5,6 +5,7 @@ import {
 } from '../helpers/effects.mjs';
 import { getInlineDescriptor } from '../helpers/inlineDescription.mjs';
 import { rollAttack, rollUnderAttribute } from '../helpers/rolls.mjs';
+import SpellHandler from '../helpers/spell-handler.mjs';
 import { selectOptions } from '../helpers/templates.mjs';
 
 /**
@@ -49,6 +50,7 @@ export class SwyversActorSheet extends ActorSheet {
     // Add the actor's data to context.data for easier access, as well as flags.
     context.system = actorData.system;
     context.flags = actorData.flags;
+    context.isGM = game.user.isGM;
 
     // Prepare character data and items.
     await this._prepareItems(context);
@@ -63,8 +65,6 @@ export class SwyversActorSheet extends ActorSheet {
       // as well as any items
       this.actor.allApplicableEffects()
     );
-
-    context.isGM = game.user.isGM;
 
     context.spellMagicKnowledge = selectOptions(SWYVERS.SPELL.MAGIC_KNOWLEDGE);
     return context;
@@ -134,6 +134,7 @@ export class SwyversActorSheet extends ActorSheet {
     const features = [];
     const spells = [];
     const skills = [];
+    let despot = undefined;
 
     // Iterate through items, allocating to containers
     for (let i of context.items) {
@@ -144,6 +145,15 @@ export class SwyversActorSheet extends ActorSheet {
       }
       else if (i.type == "skill") {
         skills.push(i);
+      }
+      else if (i.type == "despot") {
+        if (context.isGM || this.actor.system.magicKnowledge == 3) {
+          const deck = await SpellHandler.getDeck();
+          const allCards = deck.cards.filter(it => it.value > 10).map(it => ({ id: it._id, info: `${it.value}-${it.suit}`, label: `${it.name}` }));
+          let currentCard = allCards.filter(c => c.info == i.system.cardInfo)[0];
+          i.card = currentCard.label;
+          despot = i;
+        }
       }
       else {
         i.inlineDescriptor = getInlineDescriptor(i);
@@ -172,6 +182,7 @@ export class SwyversActorSheet extends ActorSheet {
     context.spells = spells;
     context.skills = skills;
     context.inventory = inventory;
+    context.despot = despot;
 
     let containerOverflow = [];
     const containerToCheck = Object.entries(inventory).filter(it => it[1].totalSlots).map(it => it[1]);
@@ -190,7 +201,7 @@ export class SwyversActorSheet extends ActorSheet {
         type: CONST.CHAT_MESSAGE_TYPES.WHISPER,
         from: game.user._id,
         content: containerOverflow.join("<br>"),
-        whisper: game.users.filter(it=> it.isGM).map(it=>it._id),
+        whisper: game.users.filter(it => it.isGM).map(it => it._id),
         sound: CONFIG.sounds.notification
       };
       await ChatMessage.create(messageData);
@@ -339,5 +350,18 @@ export class SwyversActorSheet extends ActorSheet {
     console.log("SWYVERS", this.actor);
 
     await this.actor.update({ "system.attributes.literated": !this.actor.system.attributes.literated });
+  }
+
+  async _onDropItemCreate(itemData) {
+    if (itemData.type != "despot")
+      return super._onDropItemCreate(itemData);
+
+    var despotItems = this.actor.items.filter(it => it.type == "despot");
+    if (despotItems.length > 0) {
+      ui.notifications.error('SWYVERS.Spell.ActorHasDespot', { localize: true });
+      return;
+    }
+
+    return super._onDropItemCreate(itemData);
   }
 }

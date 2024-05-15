@@ -60,6 +60,7 @@ Hooks.once('init', function () {
     feature: models.SwyversFeature,
     spell: models.SwyversSpell,
     spellComponent: models.SwyversSpellComponent,
+    despot: models.SwyversDespot,
     weapon: models.SwyversWeapon,
     armour: models.SwyversArmour,
     skill: models.SwyversSkill
@@ -117,6 +118,11 @@ Hooks.once('init', function () {
     types: ["spellComponent"],
     makeDefault: true,
     label: 'SWYVERS.SheetLabels.SpellComponent',
+  });
+  Items.registerSheet('swyvers', items_sheets.SwyversDespotSheet, {
+    types: ["despot"],
+    makeDefault: true,
+    label: 'SWYVERS.SheetLabels.Despot',
   });
 
   registerSettings();

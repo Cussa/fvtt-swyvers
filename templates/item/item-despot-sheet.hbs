@@ -1,0 +1,35 @@
+<form class="{{cssClass}}" autocomplete="off">
+  <header class="sheet-header">
+    <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" />
+    <div class="header-fields">
+      <label class="resource-label">{{localize "TYPES.Item.despot"}}</label>
+      <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Name" /></h1>
+      <div class="grid grid-4col">
+        <div class="grid-span-2">
+          <label class="resource-label">{{localize "SWYVERS.Spell.Card"}}</label>
+          <select name="system.cardInfo" {{ifThen isGM "" "disabled" }}>
+            {{selectOptions suitChoice selected=system.cardInfo localize=true nameAttr="id" labelAttr="label"}}</select>
+        </div>
+        <div class="grid-span-1">
+          <img class="card-img" src="{{img}}" title="{{item.name}}" />
+        </div>
+      </div>
+    </div>
+  </header>
+
+  {{!-- Sheet Tab Navigation --}}
+  <nav class="sheet-tabs tabs" data-group="primary">
+    <a class="item" data-tab="description">Description</a>
+  </nav>
+
+  {{!-- Sheet Body --}}
+  <section class="sheet-body">
+
+    {{!-- Description Tab --}}
+    <div class="tab" data-group="primary" data-tab="description">
+      {{editor system.description target="system.description" button=true owner=owner editable=editable}}
+    </div>
+  </section>
+
+</form>
+{{log this}}

@@ -41,5 +41,4 @@ export class SwyversActor extends Actor {
   getRollData() {
     return { ...super.getRollData(), ...this.system.getRollData?.() ?? null };
   }
-
 }

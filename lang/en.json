@@ -31,6 +31,8 @@
       "Weapon": "Swyvers Weapon Sheet",
       "Armour": "Swyvers Armour Sheet",
       "Spell": "Swyvers Spell Sheet",
+      "SpellComponent": "Swyvers Spell Component Sheet",
+      "Despot": "Swyvers Despot Sheet",
       "Skill": "Swyvers Skill Sheet"
     },
     "Item": {
@@ -168,7 +170,10 @@
       "StrangeItem": "\"Strange\" Item",
       "ShowCardInfo": "Show Card Info",
       "Card": "Card",
-      "ExtraCards": "Spell: Extra Cards"
+      "ExtraCards": "Spell: Extra Cards",
+      "Despot": "Despot",
+      "ActorHasDespot": "The current actor already has a despot. Please, delete the current before assigning a new despot.",
+      "UseDespotCard": "Use Despot card?"
     },
     "Skills": "Skills",
     "Inventory": "Inventory",
@@ -213,6 +218,7 @@
       "feature": "Feature",
       "spell": "Spell",
       "spellComponent": "Spell Component",
+      "despot": "Despot",
       "weapon": "Weapon",
       "armour": "Armour",
       "skill": "Skill"

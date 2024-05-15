@@ -48,13 +48,22 @@ export default class SpellHandler {
       }
     });
 
-    if (spellComponents.length == 0)
+    let actorItems = actor.items.filter(it => it.type == "despot");
+    let actorDespot = actorItems.length > 0 ? actorItems[0] : null;
+    let deckDespotCard = null;
+    if (actor.system.magicKnowledge == 3 && actorDespot) {
+      deckDespotCard = allCards.filter(c => c.info == actorDespot.system.cardInfo)[0];
+      deckDespotCard.itemName = `${deckDespotCard.label} <em>${actorDespot.name}</em>`;
+    }
+
+    if (spellComponents.length == 0 && deckDespotCard == null)
       return [null, null];
 
-    console.log(spellComponents);
-
+    const showSeparator = spellComponents.length > 0 && deckDespotCard;
     const content = await renderTemplate("systems/swyvers/templates/dialog/spell-extra-cards.hbs", {
-      spellComponents
+      spellComponents,
+      deckDespotCard,
+      showSeparator
     });
 
     let extraCards = await Dialog.wait({
@@ -64,22 +73,39 @@ export default class SpellHandler {
         select: {
           label: "Select", callback: async (html) => {
 
-            const spellComponentSelect = html.find("#spellComponent")[0];
-            let spellComponentSelected = spellComponentSelect.value ? deck.cards.get(spellComponentSelect.value) : null;
-            if (spellComponentSelected) {
-              const backImg = spellComponentSelected.back.img;
-              spellComponentSelected = spellComponentSelected.toObject();
-              spellComponentSelected.back.img = backImg;
+            let spellComponentSelected = null;
+
+            let spellComponentSelect = html.find("#spellComponent");
+            if (spellComponentSelect.length) {
+              spellComponentSelect = spellComponentSelect[0];
+
+              spellComponentSelected = spellComponentSelect.value ? deck.cards.get(spellComponentSelect.value) : null;
+              if (spellComponentSelected) {
+                const backImg = spellComponentSelected.back.img;
+                spellComponentSelected = spellComponentSelected.toObject();
+                spellComponentSelected.back.img = backImg;
 
 
-              const selectedValueFromDrop = spellComponents.filter(it => it.id == spellComponentSelect.value)[0]
-              const spellComponentItem = actor.items.get(selectedValueFromDrop.itemId);
+                const selectedValueFromDrop = spellComponents.filter(it => it.id == spellComponentSelect.value)[0]
+                const spellComponentItem = actor.items.get(selectedValueFromDrop.itemId);
 
-              spellComponentSelected.itemName = selectedValueFromDrop.label;
-              await spellComponentItem.delete();
+                spellComponentSelected.itemName = selectedValueFromDrop.label;
+                await spellComponentItem.delete();
+              }
             }
 
-            return [spellComponentSelected, null];
+            const deckDespotItemName = deckDespotCard?.itemName;
+            const checkboxDespot = html.find("#despot")?.is(":checked");
+            deckDespotCard = checkboxDespot ? deck.cards.get(deckDespotCard.id) : null;
+            if (deckDespotCard) {
+              const backImg = deckDespotCard.back.img;
+              deckDespotCard = deckDespotCard.toObject();
+              deckDespotCard.back.img = backImg;
+
+              deckDespotCard.itemName = deckDespotItemName;
+            }
+
+            return [deckDespotCard, spellComponentSelected];
           }
         },
       },
@@ -186,7 +212,7 @@ export default class SpellHandler {
     const extraCards = hand.cards.filter(it => it.flags.swyvers?.itemName).map(it => it.flags.swyvers?.itemName);
 
     if (stand) {
-      suitSuccess = this._getSuitSuccess(allCards, spell, numberOfAces);
+      suitSuccess = this._getSuitSuccess(allCards, spell, numberOfAces, total);
       await this._finishCasting(hand);
       if (total < 17)
         await spell.update({ "system.available": false });
@@ -245,8 +271,8 @@ export default class SpellHandler {
     }
   }
 
-  _getSuitSuccess(cards, spell, numberOfAces) {
-    if (spell.actor.system.magicKnowledge == 0)
+  _getSuitSuccess(cards, spell, numberOfAces, total) {
+    if (spell.actor.system.magicKnowledge == 0 || total >= 22)
       return false;
 
     const sortedValues = new Set(cards.sort((a, b) => b.value - a.value).map(it => it.value));

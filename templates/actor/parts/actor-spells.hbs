@@ -5,6 +5,18 @@
     {{selectOptions spellMagicKnowledge selected=system.magicKnowledge localize=true}}</select>
 </div>
 {{/if}}
+{{#if despot}}
+<div class="resource item" data-item-id='{{despot._id}}'>
+  <label class="resource-label aside">{{localize "SWYVERS.Spell.Despot"}}: </label>
+  <label>{{despot.card}} <em>{{despot.name}}</em></label>
+  {{#if isGM}}
+  <a class='item-control item-delete' title='{{localize "DOCUMENT.Delete" type=' spell'}}'>
+    <i class='fas fa-trash'></i>
+  </a>
+  {{/if}}
+</div>
+{{/if}}
+
 <ol class='items-list'>
 
   <li class='item flexrow items-header'>

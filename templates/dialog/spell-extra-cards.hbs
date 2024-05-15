@@ -1,7 +1,19 @@
-<div class="swyvers">
-    <div class="grid-span-1">
-      <label class="resource-label">{{localize "TYPES.Item.spellComponent"}}</label>
-      <select id="spellComponent">
-        {{selectOptions spellComponents blank="" localize=true nameAttr="id" labelAttr="label"}}</select>
-    </div>
+<div class="swyvers" style="padding: 5px;">
+  {{#if spellComponents}}
+  <div class="grid-span-1">
+    <label class="resource-label">{{localize "TYPES.Item.spellComponent"}}</label>
+    <select id="spellComponent">
+      {{selectOptions spellComponents blank="" localize=true nameAttr="id" labelAttr="label"}}</select>
+  </div>
+  {{/if}}
+  {{{ifThen showSeparator "<hr>" ""}}}
+  {{#if deckDespotCard}}
+  <div class="grid-span-1">
+    <input type="checkbox" id="despot" checked>
+    <label class="resource-label">{{localize "SWYVERS.Spell.UseDespotCard"}}</label>
+    <br>
+    <label class="resource-label aside">{{localize "SWYVERS.Spell.Despot"}}: </label>
+    <label>{{{deckDespotCard.itemName}}}</label>
+  </div>
+  {{/if}}
 </div>
