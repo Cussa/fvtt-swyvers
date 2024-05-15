@@ -25,11 +25,14 @@ jobs:
         download: https://github.com/${{github.repository}}/releases/download/${{github.event.release.tag_name}}/system.zip
         flags: "{}"
 
+    - name: Create destination directory for compiled CSS
+      run: mkdir -vp ./css
+
     - name: Compile CSS from SCSS files
       uses: gha-utilities/sass-build@v0.6.0
       with:
-        source: scss/${{ env.package_id }}.scss
-        destination: css/${{ env.package_id }}.css
+        source: ./scss/${{ env.package_id }}.scss
+        destination: ./css/${{ env.package_id }}.css
 
     # Create a zip file with all files required by the system to add to the release
     - run: zip -r ${{ env.package_type }}.zip system.json template.json assets/ css/ lang/ lib/ module/ packs/ templates/
