@@ -7,6 +7,7 @@ import { SwyversItemSheet } from "../item-sheet.mjs";
 export default class SwyversWeaponSheet extends SwyversItemSheet {
   /** @override **/
   _prepareData(context) {
+    super._prepareData(context);
     context.weaponLength = this._labelOptions(CONFIG.SWYVERS.WEAPON.LENGTH);
     context.weaponAmmoType = this._labelOptions(CONFIG.SWYVERS.WEAPON.AMMO_TYPES);
     context.weaponQuality = this._labelOptions(CONFIG.SWYVERS.WEAPON.QUALITY);
