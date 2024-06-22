@@ -132,7 +132,7 @@ export default class SpellHandler {
 
     const availableCards = await this._buyCard(hand, cardsToBuy);
 
-    const content = await this._processResult(spell, hand, availableCards, false);
+    const [content, description] = await this._processResult(spell, hand, availableCards, false);
 
     const chatData = {
       speaker: {
@@ -143,7 +143,8 @@ export default class SpellHandler {
       flags: {
         swyvers: {
           spellId: spell.uuid,
-          handId: hand.uuid
+          handId: hand.uuid,
+          description: description
         }
       }
     };
@@ -161,28 +162,29 @@ export default class SpellHandler {
     const hand = await fromUuid(data.handId);
 
     let newContent = $(message.content);
+    let discard = undefined;
 
     const dataset = element.dataset;
     if (dataset.action == ACTION.hit)
-      newContent = await this._hit(spell, hand);
+      [newContent, discard] = await this._hit(spell, hand, data.description);
     else if (dataset.action == ACTION.stand)
-      newContent = await this._stand(spell, hand);
+      [newContent, discard] = await this._stand(spell, hand, data.description);
 
     await message.update({ content: newContent });
   }
 
-  async _hit(spell, hand) {
+  async _hit(spell, hand, description) {
     const availableCards = await this._buyCard(hand, 1);
-    return this._processResult(spell, hand, availableCards, false);
+    return this._processResult(spell, hand, availableCards, false, description);
   }
 
-  async _stand(spell, hand) {
+  async _stand(spell, hand, description) {
     const deck = await SpellHandler.getDeck();
-    const content = this._processResult(spell, hand, deck.availableCards.length, true);
+    const content = this._processResult(spell, hand, deck.availableCards.length, true, description);
     return content;
   }
 
-  async _processResult(spell, hand, availableCards, stand = false) {
+  async _processResult(spell, hand, availableCards, stand = false, description = undefined) {
     let total = 0;
     let numberOfAces = 0;
     let allCards = []
@@ -220,7 +222,7 @@ export default class SpellHandler {
 
     const message = game.i18n.format(!stand && total < 22 ? "SWYVERS.Spell.CurrentTotal" : "SWYVERS.Spell.FinalTotal", { total: total });
     const enriched = {
-      description: await TextEditor.enrichHTML(spell.system.description, { async: true }),
+      description: description || await TextEditor.enrichHTML(spell.system.description, { async: true }),
       success: await TextEditor.enrichHTML(spell.system.success, { async: true }),
       empoweredSuccess: await TextEditor.enrichHTML(spell.system.empoweredSuccess, { async: true })
     };
@@ -234,7 +236,7 @@ export default class SpellHandler {
       suitSuccessList.push(suitInfo);
     }
 
-    return await renderTemplate(SpellHandler.chatTemplate, {
+    return [await renderTemplate(SpellHandler.chatTemplate, {
       spell,
       total,
       cardImages,
@@ -248,7 +250,7 @@ export default class SpellHandler {
       enriched,
       extraCards,
       message
-    });
+    }), enriched.description];
   }
 
   async _finishCasting(hand) {
