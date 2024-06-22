@@ -41,10 +41,12 @@
   </div>
   {{/if}}
 
-  {{#if suitSuccess}}
+  {{#if suitSuccessList}}
   <div class="suit-success">
-    <p>{{spell.suitSymbol}} {{localize "SWYVERS.Spell.SuitEffect"}}</p>
-    {{{enriched.suitSuccess}}}
+    {{#each suitSuccessList as |suitSuccess|}}
+    <p>{{suitSuccess.symbol}} {{localize "SWYVERS.Spell.SuitEffect"}}</p>
+    {{{suitSuccess.effect}}}
+    {{/each}}
   </div>
   {{/if}}
 

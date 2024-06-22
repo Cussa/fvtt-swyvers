@@ -6,13 +6,6 @@
       <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Name" /></h1>
       <div class="grid grid-2col">
 
-        {{#if (and item.isEmbedded (or (gte item.actor.system.magicKnowledge 1) isGM))}}
-        <div class="grid-span-1">
-          <label class="resource-label">{{localize "SWYVERS.Spell.Suit.Label"}}</label>
-          <select name="system.suit">
-            {{selectOptions spellSuit selected=system.suit localize=true}}</select>
-        </div>
-        {{/if}}
         {{#if item.isEmbedded}}
         <div class="grid-span-1">
           <input type="checkbox" name="system.available" {{checked system.available}}>
@@ -66,14 +59,40 @@
           </div>
         </div>
       </div>
-      {{#if (and item.isEmbedded (or (gte item.actor.system.magicKnowledge 1) isGM))}}
+      {{#if (or (and item.isEmbedded (gte item.actor.system.magicKnowledge 1)) isGM)}}
       <div class="collapsible-accordion">
         <div class="collapsible-item">
-          <input type="checkbox" id="suitSuccess">
-          <label class="collapsible-item-label" for="suitSuccess">{{selectedSuit}} {{localize
-            "SWYVERS.Spell.SuitEffect"}}</label>
+          <input type="checkbox" id="hearts">
+          <label class="collapsible-item-label" for="hearts">♥ {{localize "SWYVERS.Spell.SuitEffect"}}</label>
           <div class="collapsible-item-content">
-            {{editor enriched.suitSuccess target="system.suitSuccess" button=true owner=owner editable=editable}}
+            {{editor enriched.hearts target="system.hearts" button=true owner=owner editable=editable}}
+          </div>
+        </div>
+      </div>
+      <div class="collapsible-accordion">
+        <div class="collapsible-item">
+          <input type="checkbox" id="spades">
+          <label class="collapsible-item-label" for="spades">♠ {{localize "SWYVERS.Spell.SuitEffect"}}</label>
+          <div class="collapsible-item-content">
+            {{editor enriched.spades target="system.spades" button=true owner=owner editable=editable}}
+          </div>
+        </div>
+      </div>
+      <div class="collapsible-accordion">
+        <div class="collapsible-item">
+          <input type="checkbox" id="diamonds">
+          <label class="collapsible-item-label" for="diamonds">♦ {{localize "SWYVERS.Spell.SuitEffect"}}</label>
+          <div class="collapsible-item-content">
+            {{editor enriched.diamonds target="system.diamonds" button=true owner=owner editable=editable}}
+          </div>
+        </div>
+      </div>
+      <div class="collapsible-accordion">
+        <div class="collapsible-item">
+          <input type="checkbox" id="clubs">
+          <label class="collapsible-item-label" for="clubs">♣ {{localize "SWYVERS.Spell.SuitEffect"}}</label>
+          <div class="collapsible-item-content">
+            {{editor enriched.clubs target="system.clubs" button=true owner=owner editable=editable}}
           </div>
         </div>
       </div>

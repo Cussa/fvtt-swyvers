@@ -206,7 +206,7 @@ export default class SpellHandler {
     }
 
     stand = stand || total > 21 || availableCards == 0;
-    let suitSuccess = false;
+    let suitSuccess = [];
 
     const cardImages = allCards.map(it => it.card.faces[0].img);
     const extraCards = hand.cards.filter(it => it.flags.swyvers?.itemName).map(it => it.flags.swyvers?.itemName);
@@ -222,12 +222,17 @@ export default class SpellHandler {
     const enriched = {
       description: await TextEditor.enrichHTML(spell.system.description, { async: true }),
       success: await TextEditor.enrichHTML(spell.system.success, { async: true }),
-      empoweredSuccess: await TextEditor.enrichHTML(spell.system.empoweredSuccess, { async: true }),
-      suitSuccess: await TextEditor.enrichHTML(spell.system.suitSuccess, { async: true }),
+      empoweredSuccess: await TextEditor.enrichHTML(spell.system.empoweredSuccess, { async: true })
     };
 
-
-    spell.suitSymbol = game.i18n.localize(`SWYVERS.Spell.SuitSymbol.${spell.system.suit}`);
+    let suitSuccessList = [];
+    for (const suit of suitSuccess) {
+      const suitInfo = {
+        symbol: game.i18n.localize(`SWYVERS.Spell.SuitSymbol.${suit}`),
+        effect: await TextEditor.enrichHTML(spell.system[suit], { async: true }),
+      }
+      suitSuccessList.push(suitInfo);
+    }
 
     return await renderTemplate(SpellHandler.chatTemplate, {
       spell,
@@ -236,7 +241,7 @@ export default class SpellHandler {
       failure: stand && total < 17,
       success: stand && total >= 17 && total < 21,
       criticalSuccess: stand && total == 21,
-      suitSuccess,
+      suitSuccessList,
       criticalFailure: stand && total > 21,
       continue: !stand,
       magicDepleted: availableCards == 0,
@@ -273,7 +278,7 @@ export default class SpellHandler {
 
   _getSuitSuccess(cards, spell, numberOfAces, total) {
     if (spell.actor.system.magicKnowledge == 0 || total >= 22)
-      return false;
+      return [];
 
     const sortedValues = new Set(cards.sort((a, b) => b.value - a.value).map(it => it.value));
     let [highest] = sortedValues;
@@ -282,6 +287,19 @@ export default class SpellHandler {
 
     [highest] = sortedValues;
     const highestSuit = cards.filter(it => it.value == highest).map(it => it.card.suit);
-    return highestSuit.indexOf(spell.system.suit) > -1;
+
+    let availableSuits = [];
+    if (spell.system.hearts)
+      availableSuits.push("hearts");
+    if (spell.system.spades)
+      availableSuits.push("spades");
+    if (spell.system.diamonds)
+      availableSuits.push("diamonds");
+    if (spell.system.clubs)
+      availableSuits.push("clubs");
+
+    const intersection = highestSuit.filter(value => availableSuits.includes(value));
+    console.log(intersection);
+    return intersection;
   }
 }

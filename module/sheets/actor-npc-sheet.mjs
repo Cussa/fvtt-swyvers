@@ -71,7 +71,17 @@ export default class SwyversActorNpcSheet extends SwyversActorSheet {
     for (let i of context.items) {
       i.img = i.img || Item.DEFAULT_ICON;
       if (i.type === 'spell') {
-        i.suitSymbol = game.i18n.localize(`SWYVERS.Spell.SuitSymbol.${i.system.suit}`);
+        i.suitSymbol = "";
+        if (i.system.hearts)
+          i.suitSymbol += "♥ ";
+        if (i.system.spades)
+          i.suitSymbol += "♠ ";
+        if (i.system.diamonds)
+          i.suitSymbol += "♦ ";
+        if (i.system.clubs)
+          i.suitSymbol += "♣ ";
+
+        i.suitSymbol.trim();
         spells.push(i);
       }
       else {
