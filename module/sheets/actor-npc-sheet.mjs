@@ -106,6 +106,8 @@ export default class SwyversActorNpcSheet extends SwyversActorSheet {
     defense += context.system.defenseBonus;
 
     context.system.attributes.defense = defense;
+    context.enriched = {}
+    context.enriched.biography = await TextEditor.enrichHTML(context.system.biography, { async: true });
   }
 
   /* -------------------------------------------- */
