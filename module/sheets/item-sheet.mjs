@@ -95,8 +95,8 @@ export class SwyversItemSheet extends ItemSheet {
         disabled["sack"] = full;
       context.containerChoices = this._labelOptions(inventory);
       context.containerDisabled = disabled;
-      context.isGM = game.user.isGM;
     }
+    context.isGM = game.user.isGM;
 
     await this._prepareData(context);
 

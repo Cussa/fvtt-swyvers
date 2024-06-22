@@ -35,7 +35,7 @@
 
   {{!-- Sheet Tab Navigation --}}
   <nav class="sheet-tabs tabs" data-group="primary">
-    {{#if (and item.isEmbedded item.actor.hasPlayerOwner)}}
+    {{#if (or (not item.isEmbedded) (eq item.actor.type "character"))}}
     <a class="item" data-tab="attributes">Attributes</a>
     {{/if}}
     <a class="item" data-tab="description">Description</a>
@@ -65,7 +65,9 @@
 
       </div>
 
+      {{#if (or (not item.isEmbedded) (eq item.actor.type "character"))}}
       {{> "systems/swyvers/templates/item/parts/item-carry-options.hbs"}}
+      {{/if}}
     </div>
 
 

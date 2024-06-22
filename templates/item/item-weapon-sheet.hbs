@@ -74,7 +74,7 @@
             <input type="checkbox" name="system.armourPiercing" {{checked system.armourPiercing}}>
             <label class="resource-label">{{localize "SWYVERS.Weapon.ArmourPiercing"}}</label>
           </div>
-          {{#if (and containerChoices item.isEmbedded item.actor.hasPlayerOwner)}}
+          {{#if (and containerChoices item.isEmbedded (eq item.actor.type "character"))}}
           <div class="grid-span-1">
             <input type="checkbox" name="system.equipped" {{checked system.equipped}}>
             <label class="resource-label">{{localize "SWYVERS.Equipped"}}</label>
@@ -88,7 +88,7 @@
         </div>
 
       </div>
-      {{#if (or (not item.isEmbedded) item.actor.hasPlayerOwner)}}
+      {{#if (or (not item.isEmbedded) (eq item.actor.type "character"))}}
       {{> "systems/swyvers/templates/item/parts/item-carry-options.hbs"}}
       {{/if}}
     </div>

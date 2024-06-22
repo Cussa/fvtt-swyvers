@@ -65,6 +65,7 @@
         "Short": "Short",
         "Medium": "Medium",
         "Long": "Long",
+        "Ranged": "Ranged",
         "Special": "Special"
       },
       "Quality": {
@@ -76,7 +77,8 @@
         "Label": "Ammo Type",
         "None": "None",
         "Arrow": "Arrow",
-        "Bullet": "Bullet"
+        "Bullet": "Bullet",
+        "Quarrel": "Quarrel"
       },
       "ArmourPiercing": "Armour-piercing",
       "Halfswording": "Halfswording",

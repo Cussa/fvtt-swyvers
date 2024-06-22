@@ -11,6 +11,10 @@ export const LENGTH = {
     id: "long",
     label: "SWYVERS.Weapon.Length.Long"
   },
+  ranged: {
+    id: "ranged",
+    label: "SWYVERS.Weapon.Length.Ranged"
+  },
   special: {
     id: "special",
     label: "SWYVERS.Weapon.Length.Special"
@@ -32,6 +36,11 @@ export const AMMO_TYPES = {
     id: "bullet",
     label: "SWYVERS.Weapon.AmmoType.Bullet",
     quantityPerSlot: 5
+  },
+  quarrel: {
+    id: "quarrel",
+    label: "SWYVERS.Weapon.AmmoType.Quarrel",
+    quantityPerSlot: 20
   }
 }
 
