@@ -115,10 +115,11 @@
     "Uncertain": "Uncertain Skill",
     "Value": "Value",
     "Currency": {
-      "Pound": "Pound",
-      "Shilling": "Shilling",
-      "Pence": "Pence",
-      "Price": "Price"
+      "Pound": "Pound (L)",
+      "Shilling": "Shilling (s)",
+      "Pence": "Pence (d)",
+      "Price": "Price",
+      "Insufficient": "Insufficient money in pouch"
     },
     "Spell": {
       "Suit": {
@@ -208,7 +209,10 @@
       "Characteristics": "Characteristics",
       "DefenseBonus": "Defense Bonus",
       "DamageBonus": "Damage Bonus"
-    }
+    },
+    "Info": "Information",
+    "ItemPurchased": "Item \"{item}\" purchased by \"{actor}\" and stored on the inventory.",
+    "NoActorError": "No valid actor selected to do the operation"
   },
   "TYPES": {
     "Actor": {

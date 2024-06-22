@@ -1,3 +1,4 @@
+import CurrencyCalculator from '../helpers/currencyCalculator.mjs';
 import {
   onManageActiveEffect,
   prepareActiveEffectCategories,
@@ -119,6 +120,7 @@ export class SwyversItemSheet extends ItemSheet {
     if (!this.isEditable) return;
 
     // Roll handlers, click handlers, etc. would go here.
+    html.on('click', '.item-purchase', this._onItemPurchase.bind(this));
 
     // Active Effect management
     html.on('click', '.effect-control', (ev) =>
@@ -167,5 +169,23 @@ export class SwyversItemSheet extends ItemSheet {
       .reduce((accumulator, currentValue) => {
         return accumulator + currentValue
       }, 0);
+  }
+
+  async _onItemPurchase(event) {
+    event.preventDefault();
+
+    const actor = game.user.character || canvas.tokens.controlled[0]?.actor;
+
+    if (!actor) {
+      ui.notifications.error('SWYVERS.NoActorError', { localize: true });
+      return;
+    }
+
+    const item = this.item;
+    const success = await CurrencyCalculator.spendCurrency(actor, item.system.price);
+    if (success) {
+      actor.createEmbeddedDocuments("Item", [item.toObject()]);
+      ui.notifications.info(game.i18n.format("SWYVERS.ItemPurchased", { item: item.name, actor: actor.name }));
+    }
   }
 }

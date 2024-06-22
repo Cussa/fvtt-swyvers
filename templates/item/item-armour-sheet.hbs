@@ -21,7 +21,10 @@
         </div>
         <div class="grid-span-1">
           <label class="resource-label">{{localize "SWYVERS.Currency.Price"}}</label>
-          <input type="text" name="priceInfo" value="{{priceInfo}}" data-dtype="String" />
+          <input type="text" name="priceInfo" value="{{priceInfo}}" data-dtype="String" style="width: 80%" />
+          <a class='item-control item-purchase' title='{{localize "DOCUMENT.Delete" type=' spell'}}'>
+            <i class='fas fa-coins'></i>
+          </a>
         </div>
         <div class="grid-span-1">
           <input type="checkbox" name="system.broken" {{checked system.broken}}>

@@ -121,6 +121,7 @@
     <a class="item" data-tab="skills">{{localize "SWYVERS.Skills"}}</a>
     <a class="item" data-tab="spells">{{localize "SWYVERS.Item.Spell.KnownSpells"}}</a>
     <a class="item" data-tab="description">{{localize "SWYVERS.Description"}}</a>
+    <a class="item" data-tab="info">{{localize "SWYVERS.Info"}}</a>
     {{!-- <a class="item" data-tab="effects">Effects</a> --}}
   </nav>
 
@@ -190,6 +191,11 @@
     {{!-- Active Effects Tab --}}
     <div class="tab effects flexcol" data-group="primary" data-tab="effects">
       {{> "systems/swyvers/templates/actor/parts/actor-effects.hbs"}}
+    </div>
+
+    {{!-- Active Effects Tab --}}
+    <div class="tab info flexcol" data-group="primary" data-tab="info">
+      {{> "systems/swyvers/templates/actor/parts/actor-info.hbs"}}
     </div>
 
   </section>

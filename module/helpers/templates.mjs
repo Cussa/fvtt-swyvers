@@ -12,6 +12,7 @@ export const preloadHandlebarsTemplates = async function () {
     'systems/swyvers/templates/actor/parts/actor-skills.hbs',
     'systems/swyvers/templates/actor/parts/actor-spells.hbs',
     'systems/swyvers/templates/actor/parts/actor-effects.hbs',
+    'systems/swyvers/templates/actor/parts/actor-info.hbs',
     // Item partials
     'systems/swyvers/templates/item/parts/item-effects.hbs',
     'systems/swyvers/templates/item/parts/item-carry-options.hbs',

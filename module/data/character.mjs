@@ -1,3 +1,4 @@
+import { SWYVERS } from "../config/swyvers.mjs";
 import SwyversActorBase from "./actor-base.mjs";
 
 export default class SwyversCharacter extends SwyversActorBase {
@@ -21,6 +22,12 @@ export default class SwyversCharacter extends SwyversActorBase {
     schema.magicKnowledge = new fields.NumberField({ ...SwyversActorBase.requiredInteger, initial: 0 });
 
     schema.special = new fields.StringField({ required: false, blank: true });
+
+    schema.pouch = new fields.SchemaField({
+      pound: new fields.NumberField({ ...SWYVERS.CURRENCY.COIN_INFO }),
+      shilling: new fields.NumberField({ ...SWYVERS.CURRENCY.COIN_INFO }),
+      pence: new fields.NumberField({ ...SWYVERS.CURRENCY.COIN_INFO }),
+    });
 
     return schema;
   }
