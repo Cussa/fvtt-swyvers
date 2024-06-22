@@ -279,20 +279,50 @@ export async function rollAttack(actor) {
 
 export async function rollUnderMorale(actor) {
   let target = actor.system.attributes.morale;
-  let targetInfo = `${game.i18n.localize("SWYVERS.NPC.Morale")} (${target})`;
-  const content = `<p class="item-target">${game.i18n.localize("SWYVERS.Target")}: ${targetInfo}</p>`;
+  let content = `<p class="item-name">${game.i18n.localize("SWYVERS.NPC.Morale")} (${target})</p>`;
+  content += `<p class="item-target">${game.i18n.localize("SWYVERS.Bonus")}: {{info}}</p>`;
 
-  let roll = await new Roll(`2d6`).roll({ async: true });
+  const bonusInput = `<input type="number" id="target" value="0" step="1" data-dtype="Number">`;
 
-  const chatContent = await renderTemplate(rollTemplate, {
-    flavor: content,
-    formula: `2d6 <= ${target}`,
-    tooltip: await roll.getTooltip(),
-    total: `${roll.total}`,
-    totalClass: roll.total <= target ? "success" : "failure"
-  })
-  roll.toMessage({
-    speaker: ChatMessage.getSpeaker({ actor: actor }),
-    content: chatContent
-  });
+  const testName = game.i18n.format("SWYVERS.TestTitle", { title: game.i18n.localize("SWYVERS.NPC.Morale") });
+  new Dialog(
+    {
+      title: testName,
+      content: content.replace("{{info}}", bonusInput),
+      buttons: {
+        roll: {
+          icon: '<i class="fas fa-dice"></i>',
+          label: `Roll`,
+          callback: async (html) => {
+            let bonusInfo = parseInt(html.find("#target")[0].value);
+            let mod = "";
+
+            if (bonusInfo) {
+              if (bonusInfo > 0)
+                mod = ` + ${bonusInfo}`;
+              else
+                mod = ` - ${-bonusInfo}`;
+            }
+
+            let roll = await new Roll(`2d6`).roll({ async: true });
+
+            const chatContent = await renderTemplate(rollTemplate, {
+              flavor: content.replace(" {{info}}", mod),
+              formula: `2d6 <= ${target + mod}`,
+              tooltip: await roll.getTooltip(),
+              total: `${roll.total}`,
+              totalClass: roll.total <= (target + bonusInfo) ? "success" : "failure"
+            })
+            console.log(roll.total, roll.total <= (target + bonusInfo), target, bonusInfo);
+            roll.toMessage({
+              speaker: ChatMessage.getSpeaker({ actor: actor }),
+              content: chatContent
+            });
+          }
+        }
+      },
+      default: "roll"
+    }).render(true);
+
+
 }
