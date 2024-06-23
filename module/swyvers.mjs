@@ -17,6 +17,7 @@ import SpellHandler from './helpers/spell-handler.mjs';
 import { registerSettings } from './helpers/settings.mjs';
 import { checkCardsSetup } from './helpers/cardDecks.mjs';
 import SwyversActorNpcSheet from './sheets/actor-npc-sheet.mjs';
+import { CurrencyCalculatorTests } from './tests/currencyCalculatorTests.mjs';
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
@@ -29,7 +30,8 @@ Hooks.once('init', function () {
     SwyversActor,
     SwyversItem,
     rollItemMacro,
-    SpellHandler
+    SpellHandler,
+    CurrencyCalculatorTests
   };
 
   // Add custom constants for configuration.
