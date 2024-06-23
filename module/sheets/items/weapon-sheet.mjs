@@ -18,5 +18,6 @@ export default class SwyversWeaponSheet extends SwyversItemSheet {
       selected: String(context.system.twoHands)
     };
     context.initiative = this._labelOptions(SWYVERS.COMBAT.INITIATIVE);
+    context.canBeEquipped = context.system.containerOptions.equipped;
   }
 }

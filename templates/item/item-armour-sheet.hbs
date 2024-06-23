@@ -55,14 +55,16 @@
         <div class="grid grid-3col">
           {{#if containerChoices}}
           <div class="grid-span-1">
-            <input type="checkbox" name="system.equipped" {{checked system.equipped}}>
-            <label class="resource-label">{{localize "SWYVERS.Equipped"}}</label>
-          </div>
-          <div class="grid-span-1">
             <label class="resource-label">{{localize "SWYVERS.Container.Label"}}</label>
             <select name="system.container">
               {{selectOptions containerChoices selected=system.container localize=true}}</select>
           </div>
+          {{#if canBeEquipped}}
+          <div class="grid-span-1">
+            <input type="checkbox" name="system.equipped" {{checked system.equipped}}>
+            <label class="resource-label">{{localize "SWYVERS.Equipped"}}</label>
+          </div>
+          {{/if}}
           {{/if}}
         </div>
 

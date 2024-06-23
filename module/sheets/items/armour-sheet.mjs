@@ -9,5 +9,6 @@ export default class SwyversArmourSheet extends SwyversItemSheet {
   _prepareData(context) {
     context.armourType = this._labelOptions(CONFIG.SWYVERS.ARMOUR.TYPE);
     context.armourQuality = this._labelOptions(CONFIG.SWYVERS.ARMOUR.QUALITY);
+    context.canBeEquipped = context.system.containerOptions.equipped;
   }
 }

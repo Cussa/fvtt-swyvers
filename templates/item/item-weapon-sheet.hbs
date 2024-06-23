@@ -69,10 +69,12 @@
               {{selectOptionsWithDisabled containerChoices selected=system.container localize=true
               disabled=containerDisabled}}</select>
           </div>
+          {{#if canBeEquipped}}
           <div class="grid-span-1">
             <input type="checkbox" name="system.equipped" {{checked system.equipped}}>
             <label class="resource-label">{{localize "SWYVERS.Equipped"}}</label>
           </div>
+          {{/if}}
           {{/if}}
         </div>
         <div class="grid grid-3col">
