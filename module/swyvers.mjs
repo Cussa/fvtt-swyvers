@@ -18,6 +18,8 @@ import { registerSettings } from './helpers/settings.mjs';
 import { checkCardsSetup } from './helpers/cardDecks.mjs';
 import SwyversActorNpcSheet from './sheets/actor-npc-sheet.mjs';
 import { CurrencyCalculatorTests } from './tests/currencyCalculatorTests.mjs';
+import SwyversCombat from './combat/swyvers-combat.mjs';
+import { SwyversCombatTracker } from './combat/combat-tracker.mjs';
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
@@ -48,6 +50,9 @@ Hooks.once('init', function () {
 
   // Define custom Document and DataModel classes
   CONFIG.Actor.documentClass = SwyversActor;
+
+  CONFIG.Combat.documentClass = SwyversCombat;
+  CONFIG.ui.combat = SwyversCombatTracker;
 
   // Note that you don't need to declare a DataModel
   // for the base actor/item classes - they are included

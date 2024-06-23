@@ -1,0 +1,8 @@
+<h2>Casters</h2>
+<p>Select the casters that will cast a spell this turn.</p>
+{{#each casters as |caster|}}
+<p>
+  <input type="checkbox" name="willCast" value="{{caster.id}}">
+  <label class="resource-label">{{caster.actor.name}}</label>
+</p>
+{{/each}}

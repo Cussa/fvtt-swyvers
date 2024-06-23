@@ -212,7 +212,25 @@
     },
     "Info": "Information",
     "ItemPurchased": "Item \"{item}\" purchased by \"{actor}\" and stored on the inventory.",
-    "NoActorError": "No valid actor selected to do the operation"
+    "NoActorError": "No valid actor selected to do the operation",
+    "Initiative": {
+      "Label": "Initiative",
+      "FirstInRound": "First in Round",
+      "Casting": "Casting",
+      "Shooting": "Shooting",
+      "Unarmed": "Unarmed",
+      "ShortWeapon": "Short Weapon",
+      "MediumWeapon": "Medium Weapon",
+      "ShortWeaponShield": "Short Weapon + Shield",
+      "LongWeapon": "Long Weapon",
+      "MediumWeaponShield": "Medium Weapon + Shield",
+      "LongWeaponShield": "Long Weapon + Shield",
+      "LastInRound": "Last in Round",
+      "Casters": {
+        "Title": "Casters",
+        "Text": "Select the casters that will cast a spell this turn."
+      }
+    }
   },
   "TYPES": {
     "Actor": {

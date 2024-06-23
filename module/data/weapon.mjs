@@ -22,6 +22,7 @@ export default class SwyversWeapon extends SwyversItemBase {
     schema.armourPiercing = new fields.BooleanField({ initial: false });
     schema.thrust = new fields.BooleanField({ initial: false });
     schema.defense = new fields.NumberField({ required: true, nullable: false, integer: true, initial: 1, min: 1 });
+    schema.initiative = new fields.StringField({ required: true, choices: SWYVERS.COMBAT.INITIATIVE, initial: SWYVERS.COMBAT.INITIATIVE.shortWeapon.id });
 
     schema.belt = new fields.BooleanField({ initial: false });
 

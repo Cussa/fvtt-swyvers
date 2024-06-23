@@ -43,20 +43,39 @@
     <div class="tab attributes" data-group="primary" data-tab="attributes">
       {{!-- As you add new fields, add them in here! --}}
       <div class="resource">
-        <div class="grid grid-3col">
+        <div class="grid grid-2col">
           <div class="grid-span-1">
             <label class="resource-label aside">{{localize "SWYVERS.Weapon.Length.Label"}} </label>
             <select name="system.length">
               {{selectOptions weaponLength selected=system.length localize=true}}</select>
           </div>
           <div class="grid-span-1">
-            {{radioBoxes hands.groupName hands.choices checked=hands.selected localize=true}}
+            <label class="resource-label">{{localize "SWYVERS.Initiative.Label"}}</label>
+            <select name="system.initiative">
+              {{selectOptions initiative selected=system.initiative localize=true}}</select>
           </div>
           <div class="grid-span-1">
             <label class="resource-label">{{localize "SWYVERS.Weapon.AmmoType.Label"}}</label>
             <select name="system.ammoType">
               {{selectOptions weaponAmmoType selected=system.ammoType localize=true}}</select>
           </div>
+          <div class="grid-span-1">
+            {{radioBoxes hands.groupName hands.choices checked=hands.selected localize=true}}
+          </div>
+          {{#if (and containerChoices item.isEmbedded (eq item.actor.type "character"))}}
+          <div class="grid-span-1">
+            <label class="resource-label">{{localize "SWYVERS.Container.Label"}}</label>
+            <select name="system.container">
+              {{selectOptionsWithDisabled containerChoices selected=system.container localize=true
+              disabled=containerDisabled}}</select>
+          </div>
+          <div class="grid-span-1">
+            <input type="checkbox" name="system.equipped" {{checked system.equipped}}>
+            <label class="resource-label">{{localize "SWYVERS.Equipped"}}</label>
+          </div>
+          {{/if}}
+        </div>
+        <div class="grid grid-3col">
           <div class="grid-span-1">
             <input type="checkbox" name="system.set" {{checked system.set}}>
             <label class="resource-label">{{localize "SWYVERS.Weapon.Set"}}</label>
@@ -77,17 +96,6 @@
             <input type="checkbox" name="system.armourPiercing" {{checked system.armourPiercing}}>
             <label class="resource-label">{{localize "SWYVERS.Weapon.ArmourPiercing"}}</label>
           </div>
-          {{#if (and containerChoices item.isEmbedded (eq item.actor.type "character"))}}
-          <div class="grid-span-1">
-            <input type="checkbox" name="system.equipped" {{checked system.equipped}}>
-            <label class="resource-label">{{localize "SWYVERS.Equipped"}}</label>
-          </div>
-          <div class="grid-span-1">
-            <label class="resource-label">{{localize "SWYVERS.Container.Label"}}</label>
-            <select name="system.container">
-              {{selectOptionsWithDisabled containerChoices selected=system.container localize=true disabled=containerDisabled}}</select>
-          </div>
-          {{/if}}
         </div>
 
       </div>
