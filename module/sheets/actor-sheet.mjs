@@ -1,4 +1,5 @@
 import { SWYVERS } from '../config/swyvers.mjs';
+import CurrencyCalculator from '../helpers/currencyCalculator.mjs';
 import {
   onManageActiveEffect,
   prepareActiveEffectCategories,
@@ -240,6 +241,7 @@ export class SwyversActorSheet extends ActorSheet {
     // Add Inventory Item
     html.on('click', '.item-create', this._onItemCreate.bind(this));
     html.on('click', '.litarated', this._onLiterateChange.bind(this));
+    html.on('click', '.calculator', this._onCalculator.bind(this));
 
     // Delete Inventory Item
     html.on('click', '.item-delete', async (ev) => {
@@ -373,5 +375,49 @@ export class SwyversActorSheet extends ActorSheet {
     }
 
     return super._onDropItemCreate(itemData);
+  }
+
+  async _onCalculator(event) {
+    event.preventDefault();
+
+    let dialogResult = await Dialog.wait({
+      title: game.i18n.localize("SWYVERS.Currency.Pouch"),
+      content: await renderTemplate("systems/swyvers/templates/dialog/calculator.hbs"),
+      buttons: {
+        pay: {
+          label: game.i18n.localize("SWYVERS.Currency.Pay"),
+          icon: '<i class="fa-solid fa-hand-holding-dollar"></i>',
+          callback: async (html) => {
+            return [-1, html];
+          }
+        },
+        gain: {
+          label: game.i18n.localize("SWYVERS.Currency.Gain"),
+          icon: '<i class="fa-solid fa-sack-dollar"></i>',
+          callback: async (html) => {
+            return [1, html];
+          }
+        }
+      },
+      close: () => { return [0, undefined] },
+      default: "pay"
+    });
+    if (!dialogResult)
+      return;
+    await this._calculatorResult(dialogResult[0], dialogResult[1]);
+  }
+
+  async _calculatorResult(action, html) {
+    if (action == 0)
+      return;
+    const price = {
+      pound: html.find("[name=pound]")[0].value,
+      shilling: html.find("[name=shilling]")[0].value,
+      pence: html.find("[name=pence]")[0].value,
+    }
+    if (action == -1)
+      CurrencyCalculator.spendCurrency(this.actor, price);
+    else
+      CurrencyCalculator.addCurrency(this.actor, price);
   }
 }
