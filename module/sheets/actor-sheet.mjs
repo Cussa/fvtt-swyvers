@@ -411,10 +411,11 @@ export class SwyversActorSheet extends ActorSheet {
     if (action == 0)
       return;
     const price = {
-      pound: html.find("[name=pound]")[0].value,
-      shilling: html.find("[name=shilling]")[0].value,
-      pence: html.find("[name=pence]")[0].value,
+      pound: Math.max(0, parseInt(html.find("[name=pound]")[0].value)),
+      shilling: Math.max(0, parseInt(html.find("[name=shilling]")[0].value)),
+      pence: Math.max(0, parseInt(html.find("[name=pence]")[0].value))
     }
+    console.log(price);
     if (action == -1)
       CurrencyCalculator.spendCurrency(this.actor, price);
     else
