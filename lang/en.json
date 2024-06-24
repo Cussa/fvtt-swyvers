@@ -54,10 +54,11 @@
       "Inactive": "Inactive Effects"
     },
     "Items": {
-      "CanStack": "Can Stack?",
+      "MaxStack": "Max Stack",
       "Quality": "Quality",
       "Quantity": "Quantity",
-      "Slots": "Slots"
+      "Slots": "Slots",
+      "Category": "Category"
     },
     "Weapon": {
       "Length": {

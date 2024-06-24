@@ -181,7 +181,7 @@ export class SwyversActorSheet extends ActorSheet {
 
         let currentContainer = i.system.container ?? "notCarried";
         currentContainer = inventory[currentContainer] && i.system.containerOptions[currentContainer] ? currentContainer : "notCarried";
-        inventory[currentContainer].usedSlots += i.system.slots;
+        inventory[currentContainer].usedSlots += Math.ceil(i.system.quantity * i.system.slots / i.system.maxStack);
         inventory[currentContainer].items.push(i);
       }
     }

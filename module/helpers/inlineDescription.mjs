@@ -7,7 +7,7 @@ export function getInlineDescriptor(item) {
     case "armour":
       return _getInlineDescriptorArmour(item);
     default:
-      return "";
+      return _getInlineDescriptorItem(item);
   }
 }
 
@@ -37,5 +37,17 @@ function _getInlineDescriptorArmour(armour) {
   if (armour.system.damageSoak)
     info.push(armour.system.damageSoak);
   info.push(`${game.i18n.localize("SWYVERS.Items.Slots")}: ${armour.system.slots}`);
+  return `${info.join(", ")}`;
+}
+
+
+function _getInlineDescriptorItem(item) {
+  let info = [];
+  info.push(`${game.i18n.localize("SWYVERS.Items.Category")}: ${item.system.category}`);
+  if (item.system.category == "Container")
+    return `${info.join(", ")}`;
+
+  info.push(`${game.i18n.localize("SWYVERS.Items.Quantity")}: ${item.system.quantity}`);
+  info.push(`${game.i18n.localize("SWYVERS.Items.Slots")}: ${Math.ceil(item.system.slots * item.system.quantity / item.system.maxStack)}`);
   return `${info.join(", ")}`;
 }

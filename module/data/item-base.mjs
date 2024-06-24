@@ -28,8 +28,11 @@ export default class SwyversItemBase extends foundry.abstract.TypeDataModel {
       backpackExternal: new fields.BooleanField({ initial: false }),
       sack: new fields.BooleanField({ initial: false }),
     });
+    schema.equipped = new fields.BooleanField({ initial: false });
 
     schema.container = new fields.StringField({ required: true, blank: false, choices: SWYVERS.CONTAINER.CONFIGURATIONS, initial: SWYVERS.CONTAINER.CONFIGURATIONS.notCarried.id });
+
+    schema.category = new fields.StringField({ required: false, blank: true });
 
     return schema;
   }

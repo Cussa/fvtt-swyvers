@@ -6,12 +6,19 @@
       <div class="grid grid-2col">
         <div class="resource">
           <label class="resource-label">Quantity</label>
-          <input type="text" name="system.quantity" value="{{system.quantity}}" data-dtype="Number" />
+          <input type="number" name="system.quantity" value="{{system.quantity}}" data-dtype="Number" />
         </div>
         {{!-- <div class="resource">
           <label class="resource-label">Weight</label>
           <input type="text" name="system.weight" value="{{system.weight}}" data-dtype="Number" />
         </div> --}}
+        <div class="resource">
+          <label class="resource-label">{{localize "SWYVERS.Currency.Price"}}</label>
+          <input type="text" name="priceInfo" value="{{priceInfo}}" data-dtype="String" style="width: 80%" />
+          <a class='item-control item-purchase' title='{{localize "DOCUMENT.Delete" type=' spell'}}'>
+            <i class='fas fa-coins'></i>
+          </a>
+        </div>
       </div>
     </div>
   </header>
@@ -55,6 +62,37 @@
         </div>
 
       </div> --}}
+      <div class="grid grid-4col">
+        <div class="grid-span-1">
+          <label class="resource-label">{{localize "SWYVERS.Items.MaxStack"}}</label>
+          <input type="number" name="system.maxStack" value="{{system.maxStack}}" data-dtype="Number" />
+        </div>
+        <div class="grid-span-1">
+          <label class="resource-label">{{localize "SWYVERS.Items.Slots"}}</label>
+          <input type="number" name="system.slots" value="{{system.slots}}" data-dtype="Number" />
+        </div>
+        <div class="grid-span-2">
+          <label class="resource-label">{{localize "SWYVERS.Items.Category"}}</label>
+          <input type="text" name="system.category" value="{{system.category}}" data-dtype="String" />
+        </div>
+        {{#if (and containerChoices item.isEmbedded (eq item.actor.type "character"))}}
+        <div class="grid-span-2">
+          <label class="resource-label">{{localize "SWYVERS.Container.Label"}}</label>
+          <select name="system.container">
+            {{selectOptionsWithDisabled containerChoices selected=system.container localize=true
+            disabled=containerDisabled}}</select>
+        </div>
+        {{#if canBeEquipped}}
+        <div class="grid-span-2">
+          <input type="checkbox" name="system.equipped" {{checked system.equipped}}>
+          <label class="resource-label">{{localize "SWYVERS.Equipped"}}</label>
+        </div>
+        {{/if}}
+        {{/if}}
+      </div>
+      {{#if (or (not item.isEmbedded) (eq item.actor.type "character"))}}
+      {{> "systems/swyvers/templates/item/parts/item-carry-options.hbs"}}
+      {{/if}}
     </div>
   </section>
 </form>

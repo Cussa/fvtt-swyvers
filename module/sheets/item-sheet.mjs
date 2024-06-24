@@ -96,6 +96,7 @@ export class SwyversItemSheet extends ItemSheet {
         disabled["sack"] = full;
       context.containerChoices = this._labelOptions(inventory);
       context.containerDisabled = disabled;
+      context.canBeEquipped = context.system.containerOptions.equipped;
     }
     context.isGM = game.user.isGM;
 
@@ -184,7 +185,16 @@ export class SwyversItemSheet extends ItemSheet {
     const item = this.item;
     const success = await CurrencyCalculator.spendCurrency(actor, item.system.price);
     if (success) {
-      actor.createEmbeddedDocuments("Item", [item.toObject()]);
+      const newItem = item.toObject();
+      const itemInActor = actor.items.filter(it =>
+        it.name == newItem.name &&
+        it.system.category == newItem.system.category &&
+        it.system.slots == newItem.system.slots &&
+        it.system.maxStack == newItem.system.maxStack);
+      if (itemInActor)
+        itemInActor[0].update({ "system.quantity": itemInActor[0].system.quantity + 1 });
+      else
+        actor.createEmbeddedDocuments("Item", [item.toObject()]);
       ui.notifications.info(game.i18n.format("SWYVERS.ItemPurchased", { item: item.name, actor: actor.name }));
     }
   }
