@@ -15,7 +15,8 @@ export const SWYVERS = {
   CURRENCY,
   SKILL,
   SPELL,
-  WEAPON
+  WEAPON,
+  STARTERS: {}
 }
 
 /**

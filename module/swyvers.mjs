@@ -21,6 +21,7 @@ import { CurrencyCalculatorTests } from './tests/currencyCalculatorTests.mjs';
 import SwyversCombat from './combat/swyvers-combat.mjs';
 import { SwyversCombatTracker } from './combat/combat-tracker.mjs';
 import CurrencyCalculator from './helpers/currencyCalculator.mjs';
+import { chooseCharacterOptions } from './helpers/chooseCharacterOption.mjs';
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
@@ -35,7 +36,8 @@ Hooks.once('init', function () {
     rollItemMacro,
     SpellHandler,
     CurrencyCalculator,
-    CurrencyCalculatorTests
+    CurrencyCalculatorTests,
+    chooseCharacterOptions
   };
 
   // Add custom constants for configuration.
