@@ -160,6 +160,14 @@ export class SwyversItemSheet extends ItemSheet {
       else
         console.warn("Wrong price info", priceData);
     });
+
+    let realPrice = data["system.price.pound"] * 240 + data["system.price.shilling"] * 12 + data["system.price.pence"];
+    data["system.price.pound"] = Math.floor(realPrice / 240);
+    realPrice -= data["system.price.pound"] * 240;
+    data["system.price.shilling"] = Math.floor(realPrice / 12);
+    realPrice -= data["system.price.shilling"] * 12;
+    data["system.price.pence"] = realPrice;
+
     return data;
   }
 

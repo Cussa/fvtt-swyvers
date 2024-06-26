@@ -2,36 +2,6 @@ import { SWYVERS } from "../config/swyvers.mjs";
 
 export default class CurrencyCalculator {
 
-  static async spendCurrency_not_working(actor, price) {
-    const actorPouch = actor.system.pouch;
-
-    let realPrice = 0;
-    let actorRealPouch = 0;
-
-    let updates = {};
-
-    for (const [id, element] of Object.entries(SWYVERS.CURRENCY.CONFIGURATION)) {
-      actorRealPouch += actorPouch[id] * element.value;
-      realPrice += price[id] * element.value;
-    }
-
-    if (actorRealPouch < realPrice) {
-      ui.notifications.error('SWYVERS.Currency.Insufficient', { localize: true });
-      return false;
-    }
-
-    actorRealPouch -= realPrice;
-
-    for (const [id, element] of Object.entries(SWYVERS.CURRENCY.CONFIGURATION)) {
-      updates[`system.pouch.${id}`] = Math.floor(Math.min(actorPouch[id], actorRealPouch / element.value));
-      actorRealPouch -= updates[`system.pouch.${id}`] * element.value;
-      console.log(id, updates[`system.pouch.${id}`], actorPouch[id]);
-    }
-
-    await actor.update(updates);
-    return true;
-  }
-
   static async spendCurrency(actor, price) {
     const actorPouch = actor.system.pouch;
 

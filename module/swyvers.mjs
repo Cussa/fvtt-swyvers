@@ -20,6 +20,7 @@ import SwyversActorNpcSheet from './sheets/actor-npc-sheet.mjs';
 import { CurrencyCalculatorTests } from './tests/currencyCalculatorTests.mjs';
 import SwyversCombat from './combat/swyvers-combat.mjs';
 import { SwyversCombatTracker } from './combat/combat-tracker.mjs';
+import CurrencyCalculator from './helpers/currencyCalculator.mjs';
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
@@ -33,6 +34,7 @@ Hooks.once('init', function () {
     SwyversItem,
     rollItemMacro,
     SpellHandler,
+    CurrencyCalculator,
     CurrencyCalculatorTests
   };
 
