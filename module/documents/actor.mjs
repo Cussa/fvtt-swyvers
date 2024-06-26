@@ -41,4 +41,13 @@ export class SwyversActor extends Actor {
   getRollData() {
     return { ...super.getRollData(), ...this.system.getRollData?.() ?? null };
   }
+
+  async _onCreate(data, options, userId) {
+    if (data.type == "character")
+      this.updateSource({
+        "prototypeToken.actorLink": true,
+      });
+
+    super._onCreate(data, options, userId);
+  }
 }
