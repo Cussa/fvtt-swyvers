@@ -17,8 +17,8 @@
   "media": [
     {
       "type": "setup",
-      "url": "systems/swyvers/assets/anvil-impact.png",
-      "thumbnail": "systems/swyvers/assets/anvil-impact.png"
+      "url": "systems/swyvers/assets/29-fyte-lyke-a-swyver.webp",
+      "thumbnail": "systems/swyvers/assets/29-fyte-lyke-a-swyver.webp"
     }
   ],
   "version": "0.0.2",
@@ -40,7 +40,7 @@
   "socket": false,
   "manifest": "https://github.com/cussa/fvtt-swyvers/releases/download/latest/module.json",
   "download": "https://github.com/cussa/fvtt-swyvers/releases/download/latest/module.zip",
-  "background": "systems/swyvers/assets/anvil-impact.png",
+  "background": "systems/swyvers/assets/29-fyte-lyke-a-swyver.webp",
   "gridDistance": 5,
   "gridUnits": "ft",
   "primaryTokenAttribute": "attributes.hp",
