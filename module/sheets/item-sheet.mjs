@@ -117,11 +117,12 @@ export class SwyversItemSheet extends ItemSheet {
   activateListeners(html) {
     super.activateListeners(html);
 
-    // Everything below here is only needed if the sheet is editable
-    if (!this.isEditable) return;
 
     // Roll handlers, click handlers, etc. would go here.
     html.on('click', '.item-purchase', this._onItemPurchase.bind(this));
+
+    // Everything below here is only needed if the sheet is editable
+    if (!this.isEditable) return;
 
     // Active Effect management
     html.on('click', '.effect-control', (ev) =>
@@ -198,7 +199,7 @@ export class SwyversItemSheet extends ItemSheet {
         it.name == newItem.name &&
         it.system.category == newItem.system.category &&
         it.system.slots == newItem.system.slots &&
-        it.system.maxStack == newItem.system.maxStack);
+        it.system.maxStack == newItem.system.maxStack)[0];
       if (itemInActor)
         itemInActor[0].update({ "system.quantity": itemInActor[0].system.quantity + 1 });
       else
