@@ -39,62 +39,43 @@
         <input type="text" name="system.spellLevel" value="{{system.spellLevel}}" data-dtype="Number" />
       </div> --}}
 
-      <div class="collapsible-accordion">
-        <div class="collapsible-item">
-          <input type="checkbox" id="success">
-          <label class="collapsible-item-label" for="success">{{localize "SWYVERS.Spell.Success"}}</label>
-          <div class="collapsible-item-content">
+      <div class="accordion">
+          <label class="button" for="success">{{localize "SWYVERS.Spell.Success"}}</label>
+          <div class="panel">
             {{editor system.success target="system.success" button=true owner=owner editable=editable}}
           </div>
-        </div>
       </div>
-      <div class="collapsible-accordion">
-        <div class="collapsible-item">
-          <input type="checkbox" id="empoweredSuccess">
-          <label class="collapsible-item-label" for="empoweredSuccess">{{localize
-            "SWYVERS.Spell.EmpoweredSuccess"}}</label>
-          <div class="collapsible-item-content">
-            {{editor system.empoweredSuccess target="system.empoweredSuccess" button=true owner=owner
-            editable=editable}}
+
+      <div class="accordion">
+          <label class="button" for="empoweredSuccess">{{localize "SWYVERS.Spell.EmpoweredSuccess"}}</label>
+          <div class="panel">
+            {{editor system.empoweredSuccess target="system.empoweredSuccess" button=true owner=owner editable=editable}}
           </div>
-        </div>
       </div>
       {{#if (or (and item.isEmbedded (gte item.actor.system.magicKnowledge 1)) isGM)}}
-      <div class="collapsible-accordion">
-        <div class="collapsible-item">
-          <input type="checkbox" id="hearts">
-          <label class="collapsible-item-label" for="hearts">♥ {{localize "SWYVERS.Spell.SuitEffect"}}</label>
-          <div class="collapsible-item-content">
+      <div class="accordion">
+          <label class="button" for="hearts">♥ {{localize "SWYVERS.Spell.SuitEffect"}}</label>
+          <div class="panel">
             {{editor system.hearts target="system.hearts" button=true owner=owner editable=editable}}
           </div>
-        </div>
       </div>
-      <div class="collapsible-accordion">
-        <div class="collapsible-item">
-          <input type="checkbox" id="spades">
-          <label class="collapsible-item-label" for="spades">♠ {{localize "SWYVERS.Spell.SuitEffect"}}</label>
-          <div class="collapsible-item-content">
+      <div class="accordion">
+          <label class="button" for="spades">♠ {{localize "SWYVERS.Spell.SuitEffect"}}</label>
+          <div class="panel">
             {{editor system.spades target="system.spades" button=true owner=owner editable=editable}}
           </div>
-        </div>
       </div>
-      <div class="collapsible-accordion">
-        <div class="collapsible-item">
-          <input type="checkbox" id="diamonds">
-          <label class="collapsible-item-label" for="diamonds">♦ {{localize "SWYVERS.Spell.SuitEffect"}}</label>
-          <div class="collapsible-item-content">
+      <div class="accordion">
+          <label class="button" for="diamonds">♦ {{localize "SWYVERS.Spell.SuitEffect"}}</label>
+          <div class="panel">
             {{editor system.diamonds target="system.diamonds" button=true owner=owner editable=editable}}
           </div>
-        </div>
       </div>
-      <div class="collapsible-accordion">
-        <div class="collapsible-item">
-          <input type="checkbox" id="clubs">
-          <label class="collapsible-item-label" for="clubs">♣ {{localize "SWYVERS.Spell.SuitEffect"}}</label>
-          <div class="collapsible-item-content">
+      <div class="accordion">
+          <label class="button" for="clubs">♣ {{localize "SWYVERS.Spell.SuitEffect"}}</label>
+          <div class="panel">
             {{editor system.clubs target="system.clubs" button=true owner=owner editable=editable}}
           </div>
-        </div>
       </div>
       {{/if}}
     </div>

@@ -121,6 +121,8 @@ export class SwyversItemSheet extends ItemSheet {
     // Roll handlers, click handlers, etc. would go here.
     html.on('click', '.item-purchase', this._onItemPurchase.bind(this));
 
+    html.on('click', '.accordion', this._onAccordionClick.bind(this));
+
     // Everything below here is only needed if the sheet is editable
     if (!this.isEditable) return;
 
@@ -206,5 +208,18 @@ export class SwyversItemSheet extends ItemSheet {
         actor.createEmbeddedDocuments("Item", [item.toObject()]);
       ui.notifications.info(game.i18n.format("SWYVERS.ItemPurchased", { item: item.name, actor: actor.name }));
     }
+  }
+
+
+  async _onAccordionClick(event) {
+    event.preventDefault();
+    const accordion = event.target;
+    accordion.classList.toggle("active");
+    const panel = accordion.nextElementSibling;
+    panel.classList.toggle("active");
+    if (panel.style.maxHeight)
+      panel.style.maxHeight = null;
+    else
+      panel.style.maxHeight = panel.scrollHeight + "px";
   }
 }
