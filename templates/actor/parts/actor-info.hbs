@@ -69,3 +69,27 @@
 
   </div>
 </fieldset>
+
+<div class="resources grid grid-2col">
+  <div class="resource flex-group-center">
+    <label for="system.special" class="resource-label">{{localize "SWYVERS.Character.Special"}}</label>
+    <div class="resource-content flexrow flex-center flex-between">
+      <input type="text" name="system.special" value="{{system.special}}" data-dtype="String" />
+    </div>
+  </div>
+  <div class="resource flex-group-center">
+    <div>
+      <label for="system.attributes.literated" class="resource-label litarated"
+        style="text-decoration: {{ifThen system.attributes.literated " underline" "line-through" }}">{{localize
+        "SWYVERS.Character.Literate.true"}}</label> /
+      <label for="system.attributes.literated" class="resource-label litarated"
+        style="text-decoration: {{ifThen system.attributes.literated " line-through" "underline" }}">{{localize
+        "SWYVERS.Character.Literate.false"}}</label>
+    </div>
+    <div class="resource-content flexrow flex-center flex-between">
+      <input type="text" name="system.attributes.literatedReason"
+        value="{{ifThen system.attributes.literated system.attributes.literatedReason ""}}" data-dtype="String" {{ifThen
+        system.attributes.literated "" "disabled" }} />
+    </div>
+  </div>
+</div>
