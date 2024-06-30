@@ -13,8 +13,11 @@ export default class SwyversActorBase extends foundry.abstract.TypeDataModel {
     const schema = {};
     schema.biography = new fields.StringField({ required: true, blank: true }); // equivalent to passing ({initial: ""}) for StringFields
 
+    let hp = new fields.SchemaField({ ...SwyversActorBase.attributeProperty(fields) });
+    hp.fields.value.max = 20;
+    hp.fields.max.max = 20;
     schema.attributes = new fields.SchemaField({
-      hp: new fields.SchemaField({ ...SwyversActorBase.attributeProperty(fields) }),
+      hp: hp,
       fighting: new fields.NumberField({ ...SwyversActorBase.requiredInteger, initial: 0, min: 0, max: 6 }),
     });
 
