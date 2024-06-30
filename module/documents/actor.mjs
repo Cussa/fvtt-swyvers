@@ -46,6 +46,7 @@ export class SwyversActor extends Actor {
     if (data.type == "character")
       this.updateSource({
         "prototypeToken.actorLink": true,
+        "prototypeToken.disposition": 1,
       });
 
     super._onCreate(data, options, userId);
