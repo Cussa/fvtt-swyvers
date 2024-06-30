@@ -2,6 +2,7 @@ export async function checkCardsSetup() {
   await checkMagicDeckSetup();
   await checkMagicPileSetup();
   await adjustPermissions();
+  await checkMacroResetDay();
 }
 
 async function checkMagicDeckSetup() {
@@ -38,10 +39,22 @@ async function checkMagicPileSetup() {
   await newDeck?.shuffle({ chatNotification: false });
 }
 
-async function adjustPermissions(){
+async function adjustPermissions() {
   let permissions = await game.settings.get("core", "permissions");
 
-  permissions.CARDS_CREATE = [1,2,3,4];
+  permissions.CARDS_CREATE = [1, 2, 3, 4];
 
   await game.settings.set("core", "permissions", permissions);
+}
+
+async function checkMacroResetDay() {
+  let existingMacro = await game.macros.getName("Reset Day");
+  if (existingMacro)
+    return;
+
+  await Macro.create({
+    name: "Reset Day",
+    type: 'script',
+    command: "await game.swyvers.SpellHandler.resetDay();",
+  });
 }

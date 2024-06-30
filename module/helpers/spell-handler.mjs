@@ -267,7 +267,7 @@ export default class SpellHandler {
     await hand.delete({ chatNotification: false });
   }
 
-  async resetDay() {
+  static async resetDay() {
     const deck = await SpellHandler.getDeck();
     deck.recall({ chatNotification: false });
 
