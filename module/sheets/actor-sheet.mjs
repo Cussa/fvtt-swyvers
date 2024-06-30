@@ -81,6 +81,13 @@ export class SwyversActorSheet extends ActorSheet {
   async _prepareCharacterData(context) {
     const dexModifier = Math.max(context.items.filter(it => it.system.container == "backpack").length - 10, 0);
     context.system.attributes.dex.mod = -dexModifier;
+
+    let nextLevel = 300;
+    if (context.system.attributes.level.value > 0) {
+      nextLevel = nextLevel * Math.pow(2, context.system.attributes.level.value);
+    }
+
+    context.system.attributes.level.nextLevel = nextLevel
   }
 
   /**

@@ -69,6 +69,74 @@
 
   </div>
 </fieldset>
+<br>
+<fieldset>
+  <legend>{{localize "SWYVERS.Character.Level.Title"}}</legend>
+  <div class="resources grid grid-3col">
+
+
+    {{!-- <div class="resource flex-group-center">
+      <label for="system.attributes.dex.value" class="resource-label small-caps rollable" data-roll-type="attribute"
+        data-attribute="dex">{{localize "SWYVERS.Character.Dex.abbr"}}</label>
+      <div class="resource-content flexrow flex-center flex-between">
+        <input type="text" name="system.attributes.dex.value" value="{{system.attributes.dex.value}}"
+          data-dtype="Number" />
+        <span> / </span>
+        <input type="text" name="system.attributes.dex.max" value="{{system.attributes.dex.max}}" data-dtype="Number" />
+      </div>
+    </div>
+
+    <div class="resource flex-group-center">
+      <label for="system.attributes.str.value" class="resource-label small-caps rollable" data-roll-type="attribute"
+        data-attribute="str">{{localize "SWYVERS.Character.Str.abbr"}}</label>
+      <div class="resource-content flexrow flex-center flex-between">
+        <input type="text" name="system.attributes.str.value" value="{{system.attributes.str.value}}"
+          data-dtype="Number" />
+        <span> / </span>
+        <input type="text" name="system.attributes.str.max" value="{{system.attributes.str.max}}" data-dtype="Number" />
+      </div>
+    </div>
+
+    <div class="resource flex-group-center">
+      <label for="system.attributes.hp.value" class="resource-label small-caps">{{localize
+        "SWYVERS.Character.Hp.abbr"}}</label>
+      <div class="resource-content flexrow flex-center flex-between">
+        <input type="text" name="system.attributes.hp.value" value="{{system.attributes.hp.value}}"
+          data-dtype="Number" />
+        <span> / </span>
+        <input type="text" name="system.attributes.hp.max" value="{{system.attributes.hp.max}}" data-dtype="Number" />
+      </div>
+    </div> --}}
+
+    <div class="resource flex-group-center">
+      <label for="system.attributes.level.value" class="resource-label">{{localize
+        "SWYVERS.Character.Level.Label"}}</label>
+      <div class="resource-content flexrow flex-center flex-between">
+        <input type="number" name="system.attributes.level.value" value="{{system.attributes.level.value}}"
+          data-dtype="Number" />
+      </div>
+    </div>
+    <div class="resource flex-group-center">
+      <label for="system.attributes.level.currentXp" class="resource-label">{{localize
+        "SWYVERS.Character.Level.CurrentXp"}}
+        {{#if (gte system.attributes.level.currentXp system.attributes.level.nextLevel)}}
+        <i class="fa-solid fa-turn-up"></i>
+        {{/if}}
+        </label>
+      <div class="resource-content flexrow flex-center flex-between">
+        <input type="number" name="system.attributes.level.currentXp" value="{{system.attributes.level.currentXp}}"
+          data-dtype="Number" />
+      </div>
+    </div>
+    <div class="resource flex-group-center">
+      <label for="system.attributes.level.value" class="resource-label">{{localize
+        "SWYVERS.Character.Level.NextLevel"}}</label>
+      <div class="resource-content flexrow flex-center flex-between">
+        <input type="number" value="{{system.attributes.level.nextLevel}}" disabled />
+      </div>
+    </div>
+  </div>
+</fieldset>
 
 <div class="resources grid grid-2col">
   <div class="resource flex-group-center">

@@ -23,7 +23,13 @@
         "false": "Illiterate",
         "how": "If literate, explain how:"
       },
-      "Special": "Special"
+      "Special": "Special",
+      "Level": {
+        "Title": "Level & Experience",
+        "Label": "Level",
+        "CurrentXp": "Current XP",
+        "NextLevel": "Next Level"
+      }
     },
     "SheetLabels": {
       "Actor": "Swyvers Actor Sheet",

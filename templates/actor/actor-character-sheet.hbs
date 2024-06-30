@@ -21,11 +21,11 @@
           <label for="system.attributes.con.value" class="resource-label small-caps rollable" data-roll-type="attribute"
             data-attribute="con">{{localize "SWYVERS.Character.Con.abbr"}}</label>
           <div class="resource-content flexrow flex-center flex-between">
-            <input type="text" name="system.attributes.con.value" value="{{system.attributes.con.value}}"
-              data-dtype="Number" />
+            <input type="number" name="system.attributes.con.value" value="{{system.attributes.con.value}}"
+              data-dtype="Number" max="18" min="0" />
             <span> / </span>
-            <input type="text" name="system.attributes.con.max" value="{{system.attributes.con.max}}"
-              data-dtype="Number" />
+            <input type="number" name="system.attributes.con.max" value="{{system.attributes.con.max}}"
+              data-dtype="Number" max="18" min="0" />
           </div>
         </div>
 
@@ -33,11 +33,11 @@
           <label for="system.attributes.dex.value" class="resource-label small-caps rollable" data-roll-type="attribute"
             data-attribute="dex">{{localize "SWYVERS.Character.Dex.abbr"}}</label>
           <div class="resource-content flexrow flex-center flex-between">
-            <input type="text" name="system.attributes.dex.value" value="{{system.attributes.dex.value}}"
-              data-dtype="Number" />
+            <input type="number" name="system.attributes.dex.value" value="{{system.attributes.dex.value}}"
+              data-dtype="Number" max="18" min="0" />
             <span> / </span>
-            <input type="text" name="system.attributes.dex.max" value="{{system.attributes.dex.max}}"
-              data-dtype="Number" />
+            <input type="number" name="system.attributes.dex.max" value="{{system.attributes.dex.max}}"
+              data-dtype="Number" max="18" min="0" />
           </div>
         </div>
 
@@ -45,11 +45,11 @@
           <label for="system.attributes.str.value" class="resource-label small-caps rollable" data-roll-type="attribute"
             data-attribute="str">{{localize "SWYVERS.Character.Str.abbr"}}</label>
           <div class="resource-content flexrow flex-center flex-between">
-            <input type="text" name="system.attributes.str.value" value="{{system.attributes.str.value}}"
-              data-dtype="Number" />
+            <input type="number" name="system.attributes.str.value" value="{{system.attributes.str.value}}"
+              data-dtype="Number" max="18" min="0" />
             <span> / </span>
-            <input type="text" name="system.attributes.str.max" value="{{system.attributes.str.max}}"
-              data-dtype="Number" />
+            <input type="number" name="system.attributes.str.max" value="{{system.attributes.str.max}}"
+              data-dtype="Number" max="18" min="0" />
           </div>
         </div>
 
@@ -58,11 +58,11 @@
           <label for="system.attributes.hp.value" class="resource-label small-caps">{{localize
             "SWYVERS.Character.Hp.abbr"}}</label>
           <div class="resource-content flexrow flex-center flex-between">
-            <input type="text" name="system.attributes.hp.value" value="{{system.attributes.hp.value}}"
-              data-dtype="Number" />
+            <input type="number" name="system.attributes.hp.value" value="{{system.attributes.hp.value}}"
+              data-dtype="Number" max="20" min="0" />
             <span> / </span>
-            <input type="text" name="system.attributes.hp.max" value="{{system.attributes.hp.max}}"
-              data-dtype="Number" />
+            <input type="number" name="system.attributes.hp.max" value="{{system.attributes.hp.max}}"
+              data-dtype="Number" max="20" min="0" />
           </div>
         </div>
 
@@ -72,8 +72,8 @@
         <label for="system.attributes.con.value" class="resource-label small-caps">{{localize
           "SWYVERS.Deffense"}}</label>
         <div class="resource-content flexrow flex-center flex-between">
-          <input type="text" name="system.attributes.fighting" value="{{system.attributes.fighting}}"
-            data-dtype="Number" />
+          <input type="number" name="system.attributes.fighting" value="{{system.attributes.fighting}}"
+            data-dtype="Number" max="6" min="0" />
           <span> / </span>
           <input type="text" name="system.attributes.defense" value="{{system.attributes.defense}}"
             data-dtype="Number" disabled />

@@ -10,7 +10,8 @@ export default class SwyversCharacter extends SwyversActorBase {
 
     schema.attributes.fields = foundry.utils.mergeObject(schema.attributes.fields, {
       level: new fields.SchemaField({
-        value: new fields.NumberField({ ...SwyversActorBase.requiredInteger, initial: 0 })
+        value: new fields.NumberField({ ...SwyversActorBase.requiredInteger, initial: 0 }),
+        currentXp: new fields.NumberField({ ...SwyversActorBase.requiredInteger, initial: 0 })
       }),
       con: new fields.SchemaField({ ...SwyversActorBase.attributeProperty(fields) }),
       dex: new fields.SchemaField({ ...SwyversActorBase.attributeProperty(fields) }),
