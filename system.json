@@ -41,6 +41,8 @@
   "manifest": "https://github.com/cussa/fvtt-swyvers/releases/download/latest/module.json",
   "download": "https://github.com/cussa/fvtt-swyvers/releases/download/latest/module.zip",
   "background": "systems/swyvers/assets/29-fyte-lyke-a-swyver.webp",
+  "gridDistance": 5,
+  "gridUnits": "ft",
   "grid": {
     "distance": 5,
     "units": "ft"
