@@ -203,11 +203,13 @@ export class SwyversActorSheet extends ActorSheet {
     context.despot = despot;
 
     let containerOverflow = [];
-    const containerToCheck = Object.entries(inventory).filter(it => it[1].totalSlots).map(it => it[1]);
-    containerToCheck.forEach(element => {
+    const containerToCheck = Object.entries(inventory).filter(it => it[1].totalSlots);
+    containerToCheck.forEach(bundle => {
+      const containerName = bundle[0];
+      const element = bundle[1];
       if (element.usedSlots > element.totalSlots) {
         containerOverflow.push(game.i18n.format("SWYVERS.Container.Overflow", {
-          name: game.i18n.localize(SWYVERS.CONTAINER.CONFIGURATIONS[element].label),
+          name: game.i18n.localize(SWYVERS.CONTAINER.CONFIGURATIONS[containerName].label),
           usedSlots: element.usedSlots,
           totalSlots: element.totalSlots,
         }));
